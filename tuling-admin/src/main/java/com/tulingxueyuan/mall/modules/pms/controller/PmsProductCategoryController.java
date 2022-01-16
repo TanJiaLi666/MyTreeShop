@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProductCategory;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductCateDTO;
 import com.tulingxueyuan.mall.modules.pms.service.PmsProductCategoryService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,8 @@ public class PmsProductCategoryController {
 
     @ApiOperation("添加商品分类")
     @PostMapping("/create")
-    public CommonResult<Boolean> creatCategory(@RequestBody PmsProductCategory productCategory){
-        Boolean is_success = pmsProductCategoryService.creatCategory(productCategory);
+    public CommonResult<Boolean> creatCategory(@RequestBody PmsProductCateDTO productCateDTO){
+        Boolean is_success = pmsProductCategoryService.creatCategory(productCateDTO);
         if(is_success){
             return CommonResult.success(is_success,"保存成功！");
         }
@@ -61,8 +62,8 @@ public class PmsProductCategoryController {
 
     @ApiOperation("编辑商品分类")
     @PostMapping("/update/{id}")
-    public CommonResult<Boolean> updateCategory(@RequestBody PmsProductCategory productCategory){
-        Boolean is_success = pmsProductCategoryService.updateCategory(productCategory);
+    public CommonResult<Boolean> updateCategory(@RequestBody PmsProductCateDTO productCateDTO){
+        Boolean is_success = pmsProductCategoryService.updateCategory(productCateDTO);
         if(is_success){
             return CommonResult.success(is_success,"保存成功！");
         }

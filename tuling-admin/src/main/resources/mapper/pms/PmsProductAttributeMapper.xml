@@ -18,4 +18,19 @@
         <result column="type" property="type" />
     </resultMap>
 
+    <resultMap id="ProductAttrInfo" type="com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductCateAttrRelatinDTO">
+        <result column="product_attribute_id" property="attributeId"></result>
+        <result column="product_attribute_category_id" property="attributeCategoryId"></result>
+    </resultMap>
+<!--根据商品分类id获取商品属性-->
+    <select id="getProductAttrInfo" resultMap="ProductAttrInfo">
+        SELECT
+        pcar.product_attribute_id,
+        pa.`product_attribute_category_id`
+        FROM `pms_product_category_attribute_relation` pcar
+        LEFT JOIN `pms_product_attribute` pa
+        ON pcar.product_attribute_id = pa.`id`
+        WHERE pcar.product_category_id = #{ccid}
+    </select>
+
 </mapper>

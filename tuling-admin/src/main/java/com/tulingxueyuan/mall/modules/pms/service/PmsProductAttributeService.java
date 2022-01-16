@@ -3,6 +3,7 @@ package com.tulingxueyuan.mall.modules.pms.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProductAttribute;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductCateAttrRelatinDTO;
 
 import java.util.List;
 
@@ -53,4 +54,11 @@ public interface PmsProductAttributeService extends IService<PmsProductAttribute
      * @return
      */
     Boolean deleteProductAttr(List<Long> ids);
+
+    /**
+     * 商品分类编辑时属性初始化
+     * @param productCategoryId
+     * @return
+     */
+    List<PmsProductCateAttrRelatinDTO> getProductAttrInfo(Long productCategoryId);
 }

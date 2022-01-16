@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
- *
+ *商品属性与类型关系
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

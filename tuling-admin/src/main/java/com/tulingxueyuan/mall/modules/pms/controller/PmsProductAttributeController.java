@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProductAttribute;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductCateAttrRelatinDTO;
 import com.tulingxueyuan.mall.modules.pms.service.PmsProductAttributeService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,17 @@ public class PmsProductAttributeController {
             return CommonResult.success(is_success,"删除成功");
         }
         return CommonResult.failed("删除失败");
+    }
+
+
+    @ApiOperation("获取商品属性信息")
+    @GetMapping("/attrInfo/{productCategoryId}")
+    public CommonResult<List<PmsProductCateAttrRelatinDTO>> getProductAttrInfo(@PathVariable("productCategoryId") Long productCategoryId){
+        List<PmsProductCateAttrRelatinDTO> productAttr = productAttributeService.getProductAttrInfo(productCategoryId);
+        if(productAttr != null){
+            return CommonResult.success(productAttr,"成功");
+        }
+        return CommonResult.failed("失败");
     }
 
 }

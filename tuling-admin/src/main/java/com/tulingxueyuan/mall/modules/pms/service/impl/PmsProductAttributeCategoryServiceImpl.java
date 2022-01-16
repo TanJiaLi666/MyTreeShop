@@ -51,6 +51,6 @@ public class PmsProductAttributeCategoryServiceImpl extends ServiceImpl<PmsProdu
     @Override
     public List<PmsProductAttributeCateDTO> fetchListWithAttr() {
         List<PmsProductAttributeCateDTO> dtoList = AttributeCategoryMapper.fetchListWithAttr();
-        return null;
+        return dtoList;
     }
 }

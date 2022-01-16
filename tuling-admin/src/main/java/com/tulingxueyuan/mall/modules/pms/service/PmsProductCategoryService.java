@@ -3,6 +3,7 @@ package com.tulingxueyuan.mall.modules.pms.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProductCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductCateDTO;
 
 import java.util.List;
 
@@ -51,10 +52,10 @@ public interface PmsProductCategoryService extends IService<PmsProductCategory> 
 
     /**
      * 添加商品分类
-     * @param productCategory
+     * @param productCateDTO
      * @return
      */
-    Boolean creatCategory(PmsProductCategory productCategory);
+    Boolean creatCategory(PmsProductCateDTO productCateDTO);
 
     /**
      * id获取商品分类
@@ -65,8 +66,8 @@ public interface PmsProductCategoryService extends IService<PmsProductCategory> 
 
     /**
      * 编辑商品分类
-     * @param productCategory
+     * @param productCateDTO
      * @return
      */
-    Boolean updateCategory(PmsProductCategory productCategory);
+    Boolean updateCategory(PmsProductCateDTO productCateDTO);
 }

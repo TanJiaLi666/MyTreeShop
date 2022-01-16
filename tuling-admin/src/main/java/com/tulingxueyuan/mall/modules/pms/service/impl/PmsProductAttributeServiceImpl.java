@@ -7,6 +7,7 @@ import com.tulingxueyuan.mall.modules.pms.mapper.PmsProductAttributeCategoryMapp
 import com.tulingxueyuan.mall.modules.pms.model.PmsProductAttribute;
 import com.tulingxueyuan.mall.modules.pms.mapper.PmsProductAttributeMapper;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProductAttributeCategory;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductCateAttrRelatinDTO;
 import com.tulingxueyuan.mall.modules.pms.service.PmsProductAttributeCategoryService;
 import com.tulingxueyuan.mall.modules.pms.service.PmsProductAttributeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -113,5 +114,11 @@ public class PmsProductAttributeServiceImpl extends ServiceImpl<PmsProductAttrib
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<PmsProductCateAttrRelatinDTO> getProductAttrInfo(Long productCategoryId) {
+        List<PmsProductCateAttrRelatinDTO> list = productAttributeMapper.getProductAttrInfo(productCategoryId);
+        return list;
     }
 }
