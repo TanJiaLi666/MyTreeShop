@@ -17,4 +17,22 @@
         <result column="keywords" property="keywords" />
         <result column="description" property="description" />
     </resultMap>
+
+    <resultMap id="ListWithChild" type="com.tulingxueyuan.mall.modules.pms.model.dto.PmsProCateRelationDTO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection property="children" resultMap="BaseResultMap" columnPrefix="b"></collection>
+    </resultMap>
+
+    <select id="fetchListWithChildren" resultMap="ListWithChild">
+        SELECT
+        pc_a.`id`,
+        pc_a.`name`,
+        pc_b.`name` bname,
+        pc_b.`id` bid
+        FROM`pms_product_category` pc_a
+        LEFT JOIN (SELECT `id` ,`parent_id`,`name` FROM `pms_product_category`WHERE `level`=1) pc_b
+        ON pc_a.id=pc_b.parent_id
+        WHERE `level` = 0
+    </select>
 </mapper>

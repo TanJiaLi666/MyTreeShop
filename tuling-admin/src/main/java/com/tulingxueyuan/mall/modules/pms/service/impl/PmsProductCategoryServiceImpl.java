@@ -136,6 +136,16 @@ public class PmsProductCategoryServiceImpl extends ServiceImpl<PmsProductCategor
     }
 
     /**
+     * 获取商品分类名称，一级分类/二级分类
+     * @return
+     */
+    @Override
+    public List<PmsProductCateDTO> fetchListWithChildren() {
+        List<PmsProductCateDTO> productCateDTOList = this.getBaseMapper().fetchListWithChildren();
+        return productCateDTOList;
+    }
+
+    /**
      * 商品分类信息处理保存
      * @param productCategory
      * @return

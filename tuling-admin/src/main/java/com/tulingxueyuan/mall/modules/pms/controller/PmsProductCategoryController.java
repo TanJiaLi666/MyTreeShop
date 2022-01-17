@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.modules.pms.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
@@ -37,6 +38,14 @@ public class PmsProductCategoryController {
         return CommonResult.success(CommonPage.restPage(page)) ;
     }
 
+    @ApiOperation("初始化商品添加页面，商品分类加载")
+    @GetMapping("/list/withChildren")
+    public CommonResult<List<PmsProductCateDTO>> fetchListWithChildren() {
+
+        List<PmsProductCateDTO> pmsProductCategories = pmsProductCategoryService.fetchListWithChildren();
+
+        return CommonResult.success(pmsProductCategories) ;
+    }
     @ApiOperation("通过id获取商品分类对象")
     @GetMapping("/{id}")
     public CommonResult<PmsProductCategory> getCategory(@PathVariable("id") Long id) {

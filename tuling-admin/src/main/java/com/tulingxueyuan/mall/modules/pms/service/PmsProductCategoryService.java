@@ -70,4 +70,10 @@ public interface PmsProductCategoryService extends IService<PmsProductCategory> 
      * @return
      */
     Boolean updateCategory(PmsProductCateDTO productCateDTO);
+
+    /**
+     * 获取商品分类名称，一级分类/二级分类
+     * @return
+     */
+    List<PmsProductCateDTO> fetchListWithChildren();
 }
