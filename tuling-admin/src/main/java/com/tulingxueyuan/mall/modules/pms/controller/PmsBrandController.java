@@ -29,9 +29,10 @@ public class PmsBrandController {
 
     @ApiOperation("加载品牌列表")
     @GetMapping("/list")
-    public CommonResult<CommonPage<PmsProductCategory>> fetchList(@RequestParam(value = "pageNum", defaultValue="1") Integer pageNum,
+    public CommonResult<CommonPage<PmsProductCategory>> fetchList(@RequestParam(value = "keyword", defaultValue="") String keyword,
+                                                                  @RequestParam(value = "pageNum", defaultValue="1") Integer pageNum,
                                                                   @RequestParam(value = "pageSize", defaultValue="10") Integer pageSize) {
-        Page page = brandService.fetchList(pageNum,pageSize);
+        Page page = brandService.fetchList(pageNum,pageSize,keyword);
         return CommonResult.success(CommonPage.restPage(page)) ;
     }
 

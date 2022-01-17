@@ -21,7 +21,7 @@ public interface PmsBrandService extends IService<PmsBrand> {
      * @param pageSize
      * @return
      */
-    Page fetchList(Integer pageNum, Integer pageSize);
+    Page fetchList(Integer pageNum, Integer pageSize,String keyword);
 
     /**
      * 添加品牌信息

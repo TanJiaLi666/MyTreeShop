@@ -21,9 +21,18 @@ import org.springframework.stereotype.Service;
 public class PmsBrandServiceImpl extends ServiceImpl<PmsBrandMapper, PmsBrand> implements PmsBrandService {
 
     @Override
-    public Page fetchList(Integer pageNum, Integer pageSize) {
+    public Page fetchList(Integer pageNum, Integer pageSize,String keyword) {
         Page<PmsBrand> mypage = new Page<>(pageNum,pageSize);
-        return this.page(mypage);
+        QueryWrapper<PmsBrand> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().orderByAsc(PmsBrand::getSort);
+        if (keyword.isEmpty()){
+            return this.page(mypage);
+        }else{
+            queryWrapper.lambda().like(PmsBrand::getName,keyword);
+            return this.page(mypage,queryWrapper);
+        }
+
+
     }
 
     @Override
