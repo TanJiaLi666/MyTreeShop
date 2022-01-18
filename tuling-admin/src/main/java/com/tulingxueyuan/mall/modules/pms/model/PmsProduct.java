@@ -1,6 +1,8 @@
 package com.tulingxueyuan.mall.modules.pms.model;
 
 import java.math.BigDecimal;
+
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
@@ -46,6 +48,7 @@ public class PmsProduct implements Serializable {
     private String productSn;
 
     @ApiModelProperty(value = "删除状态：0->未删除；1->已删除")
+    @TableLogic(value = "0",delval = "1")
     private Integer deleteStatus;
 
     @ApiModelProperty(value = "上架状态：0->下架；1->上架")

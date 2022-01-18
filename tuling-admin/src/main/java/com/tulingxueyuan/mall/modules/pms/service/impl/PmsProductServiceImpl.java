@@ -1,5 +1,7 @@
 package com.tulingxueyuan.mall.modules.pms.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.modules.pms.model.PmsBrand;
@@ -28,33 +30,38 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
 
     @Override
     public Page fetchList(PmsProductQueryDTO productQueryDTO) {
-        Page<PmsProduct> mypage = new Page<>(productQueryDTO.getPageNum(),productQueryDTO.getPageSize());
+        Page<PmsProduct> mypage = new Page<>(productQueryDTO.getPageNum(), productQueryDTO.getPageSize());
         QueryWrapper<PmsProduct> queryWrapper = new QueryWrapper<>();
-        List<PmsProduct> dept = new ArrayList<>();
-        queryWrapper.lambda().eq(PmsProduct::getBrandId,productQueryDTO.getBrandId())
-                .eq(PmsProduct::getName,productQueryDTO.getName())
-                .eq(PmsProduct::getPublishStatus,productQueryDTO.getPublishStatus())
-                .eq(PmsProduct::getVerifyStatus,productQueryDTO.getVerifyStatus())
-                .eq(PmsProduct::getProductSn,productQueryDTO.getProductSn())
-                .eq(PmsProduct::getProductCategoryId,productQueryDTO.getProductCategoryId());
-        return this.page(mypage,queryWrapper);
+        LambdaQueryWrapper<PmsProduct> lambda = queryWrapper.lambda();
+        //关键字
+        if (!StrUtil.isBlank(productQueryDTO.getKeyword())) {
+            lambda.like(PmsProduct::getName, productQueryDTO.getKeyword());
+        }
+        //商品编号
+        if (productQueryDTO.getProductSn() != null) {
+            lambda.eq(PmsProduct::getProductSn, productQueryDTO.getProductSn());
+        }
+        //商品分类id
+        if (productQueryDTO.getProductCategoryId() != null && productQueryDTO.getProductCategoryId() >= 0) {
+            lambda.eq(PmsProduct::getProductCategoryId, productQueryDTO.getProductCategoryId());
+        }
+        //上架状态
+        if (productQueryDTO.getPublishStatus() != null && productQueryDTO.getPublishStatus() >= 0) {
+            lambda.eq(PmsProduct::getPublishStatus, productQueryDTO.getPublishStatus());
+        }
+        //品牌id
+        if (productQueryDTO.getBrandId() != null && productQueryDTO.getBrandId() >= 0) {
+            lambda.eq(PmsProduct::getBrandId, productQueryDTO.getBrandId());
+        }
+        //审核状态
+        if (productQueryDTO.getVerifyStatus() != null && productQueryDTO.getVerifyStatus() >= 0) {
+            lambda.eq(PmsProduct::getVerifyStatus, productQueryDTO.getVerifyStatus());
+        }
+        return this.page(mypage, queryWrapper);
     }
 
-    /**
-     * 判空工具
-     * @param list
-     * @return
-     */
-    public Boolean is_exit(List<Object> list){
-        while (true){
-            for (Object object : list ){
-                if(object !=null && object != ""){
-                    break;
-                }else {
-                    return false;
-                }
-            }
-            return true;
-        }
+    @Override
+    public Boolean updateDeleteStatus(List<Long> ids) {
+        return this.removeByIds(ids);
     }
 }

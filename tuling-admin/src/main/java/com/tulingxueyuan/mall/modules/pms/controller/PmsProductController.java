@@ -10,11 +10,9 @@ import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductQueryDTO;
 import com.tulingxueyuan.mall.modules.pms.service.PmsProductService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 /**
  * <p>
@@ -35,6 +33,16 @@ public class PmsProductController {
     public CommonResult<CommonPage<PmsProduct>> fetchList(PmsProductQueryDTO productQueryDTO) {
         Page page = productService.fetchList(productQueryDTO);
         return CommonResult.success(CommonPage.restPage(page)) ;
+    }
+
+    @ApiOperation("商品的删除")
+    @PostMapping("/update/deleteStatus")
+    public CommonResult<Boolean> updateDeleteStatus(@RequestParam("ids") List<Long> ids){
+        Boolean is_success = productService.updateDeleteStatus(ids);
+        if (is_success){
+            return CommonResult.success(is_success,"成功删除");
+        }
+        return CommonResult.failed();
     }
 }
 
