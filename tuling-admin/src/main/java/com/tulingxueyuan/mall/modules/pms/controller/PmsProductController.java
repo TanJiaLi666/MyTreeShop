@@ -6,6 +6,7 @@ import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProduct;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProductCategory;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductQueryDTO;
 import com.tulingxueyuan.mall.modules.pms.service.PmsProductService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,10 @@ public class PmsProductController {
     @Autowired
     PmsProductService productService;
 
-    @ApiOperation("加载商品列表")
+    @ApiOperation("加载商品列表.包括查询")
     @GetMapping("/list")
-    public CommonResult<CommonPage<PmsProduct>> fetchList(@RequestParam(value = "pageNum", defaultValue="1") Integer pageNum,
-                                                          @RequestParam(value = "pageSize", defaultValue="10") Integer pageSize) {
-        Page page = productService.fetchList(pageNum,pageSize);
+    public CommonResult<CommonPage<PmsProduct>> fetchList(PmsProductQueryDTO productQueryDTO) {
+        Page page = productService.fetchList(productQueryDTO);
         return CommonResult.success(CommonPage.restPage(page)) ;
     }
 }

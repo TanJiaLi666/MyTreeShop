@@ -3,6 +3,7 @@ package com.tulingxueyuan.mall.modules.pms.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductQueryDTO;
 
 /**
  * <p>
@@ -14,5 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface PmsProductService extends IService<PmsProduct> {
 
-    Page fetchList(Integer pageNum, Integer pageSize);
+    Page fetchList(PmsProductQueryDTO productQueryDTO);
 }
