@@ -47,7 +47,8 @@ public class PmsProductCategoryServiceImpl extends ServiceImpl<PmsProductCategor
         Page<PmsProductCategory> mypage = new Page<>(pageNum,pageSize);
         QueryWrapper<PmsProductCategory> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()
-                .eq(PmsProductCategory::getParentId,parentId);
+                .eq(PmsProductCategory::getParentId,parentId)
+                .orderByAsc(PmsProductCategory::getSort);
         return this.page(mypage,queryWrapper);
     }
 

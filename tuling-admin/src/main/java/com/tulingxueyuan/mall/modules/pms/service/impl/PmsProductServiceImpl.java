@@ -1,20 +1,22 @@
 package com.tulingxueyuan.mall.modules.pms.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tulingxueyuan.mall.modules.pms.model.PmsBrand;
-import com.tulingxueyuan.mall.modules.pms.model.PmsProduct;
+import com.tulingxueyuan.mall.modules.pms.model.*;
 import com.tulingxueyuan.mall.modules.pms.mapper.PmsProductMapper;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductInfoDTO;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductQueryDTO;
-import com.tulingxueyuan.mall.modules.pms.service.PmsProductService;
+import com.tulingxueyuan.mall.modules.pms.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import jdk.nashorn.internal.objects.annotations.Where;
-import org.apache.http.util.TextUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +29,21 @@ import java.util.List;
  */
 @Service
 public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProduct> implements PmsProductService {
+
+    @Autowired
+    PmsMemberPriceService memberPriceService;
+
+    @Autowired
+    PmsProductLadderService productLadderService;
+
+    @Autowired
+    PmsProductFullReductionService productFullReductionService;
+
+    @Autowired
+    PmsSkuStockService skuStockService;
+
+    @Autowired
+    PmsProductAttributeValueService productAttributeValueService;
 
     @Override
     public Page fetchList(PmsProductQueryDTO productQueryDTO) {
@@ -57,11 +74,51 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         if (productQueryDTO.getVerifyStatus() != null && productQueryDTO.getVerifyStatus() >= 0) {
             lambda.eq(PmsProduct::getVerifyStatus, productQueryDTO.getVerifyStatus());
         }
+        lambda.orderByAsc(PmsProduct::getSort);
         return this.page(mypage, queryWrapper);
     }
 
     @Override
     public Boolean updateDeleteStatus(List<Long> ids) {
         return this.removeByIds(ids);
+    }
+
+    @Override
+    public Boolean updateStatus(List<Long> ids, Integer updateStatus, SFunction<PmsProduct,?> getStatus) {
+        UpdateWrapper<PmsProduct> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.lambda()
+                .set(getStatus,updateStatus)
+                .in(PmsProduct::getId,ids);
+        return this.update(updateWrapper);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean createProduct(PmsProductInfoDTO productInfoDTO) {
+        //保存商品基本信息
+        PmsProduct product = new PmsProduct();
+        BeanUtil.copyProperties(productInfoDTO,product);
+        this.save(product);
+        //保存会员价格表信息
+        PmsMemberPrice memberPriceList = productInfoDTO.getMemberPriceList();
+        memberPriceList.setProductId(product.getId());
+        memberPriceService.save(memberPriceList);
+        //保存阶梯价格信息表
+        PmsProductLadder productLadderList = productInfoDTO.getProductLadderList();
+        productLadderList.setProductId(product.getId());
+        productLadderService.save(productLadderList);
+        //保存满减价格表信息
+        PmsProductFullReduction productFullReductionList = productInfoDTO.getProductFullReductionList();
+        productFullReductionList.setProductId(product.getId());
+        productFullReductionService.save(productFullReductionList);
+        //保存sku表
+        PmsSkuStock skuStockList = productInfoDTO.getSkuStockList();
+        skuStockList.setProductId(product.getId());
+        skuStockService.save(skuStockList);
+        //保存商品属性值
+        PmsProductAttributeValue productAttributeValueList = productInfoDTO.getProductAttributeValueList();
+        productAttributeValueList.setProductId(product.getId());
+        productAttributeValueService.save(productAttributeValueList);
+        return true;
     }
 }

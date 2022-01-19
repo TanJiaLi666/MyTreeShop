@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.modules.pms.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProductAttribute;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProductAttributeCategory;

@@ -10,7 +10,7 @@ import java.util.List;
  * 会员等级表 服务类
  * </p>
  *
- * @author XuShu
+ * @author tanjiali
  * @since 2021-03-09
  */
 public interface UmsMemberLevelService extends IService<UmsMemberLevel> {
