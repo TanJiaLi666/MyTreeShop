@@ -100,25 +100,35 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         BeanUtil.copyProperties(productInfoDTO,product);
         this.save(product);
         //保存会员价格表信息
-        PmsMemberPrice memberPriceList = productInfoDTO.getMemberPriceList();
-        memberPriceList.setProductId(product.getId());
-        memberPriceService.save(memberPriceList);
+        List<PmsMemberPrice> memberPriceList = productInfoDTO.getMemberPriceList();
+        for (PmsMemberPrice i: memberPriceList) {
+            i.setProductId(product.getId());
+        }
+        memberPriceService.saveBatch(memberPriceList);
         //保存阶梯价格信息表
-        PmsProductLadder productLadderList = productInfoDTO.getProductLadderList();
-        productLadderList.setProductId(product.getId());
-        productLadderService.save(productLadderList);
+        List<PmsProductLadder> productLadderList = productInfoDTO.getProductLadderList();
+        for (PmsProductLadder i: productLadderList) {
+            i.setProductId(product.getId());
+        }
+        productLadderService.saveBatch(productLadderList);
         //保存满减价格表信息
-        PmsProductFullReduction productFullReductionList = productInfoDTO.getProductFullReductionList();
-        productFullReductionList.setProductId(product.getId());
-        productFullReductionService.save(productFullReductionList);
+        List<PmsProductFullReduction> productFullReductionList = productInfoDTO.getProductFullReductionList();
+        for (PmsProductFullReduction i: productFullReductionList) {
+            i.setProductId(product.getId());
+        }
+        productFullReductionService.saveBatch(productFullReductionList);
         //保存sku表
-        PmsSkuStock skuStockList = productInfoDTO.getSkuStockList();
-        skuStockList.setProductId(product.getId());
-        skuStockService.save(skuStockList);
+        List<PmsSkuStock> skuStockList = productInfoDTO.getSkuStockList();
+        for (PmsSkuStock i: skuStockList) {
+            i.setProductId(product.getId());
+        }
+        skuStockService.saveBatch(skuStockList);
         //保存商品属性值
-        PmsProductAttributeValue productAttributeValueList = productInfoDTO.getProductAttributeValueList();
-        productAttributeValueList.setProductId(product.getId());
-        productAttributeValueService.save(productAttributeValueList);
+        List<PmsProductAttributeValue> productAttributeValueList = productInfoDTO.getProductAttributeValueList();
+        for (PmsProductAttributeValue i: productAttributeValueList) {
+            i.setProductId(product.getId());
+        }
+        productAttributeValueService.saveBatch(productAttributeValueList);
         return true;
     }
 }

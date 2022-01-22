@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -12,17 +14,17 @@ import lombok.EqualsAndHashCode;
 public class PmsProductInfoDTO extends PmsProduct {
 
     //会员价格表
-    PmsMemberPrice memberPriceList;
+    List<PmsMemberPrice> memberPriceList;
 
     //商品属性值表
-    PmsProductAttributeValue productAttributeValueList;
+    List<PmsProductAttributeValue> productAttributeValueList;
 
     //商品满减表
-    PmsProductFullReduction productFullReductionList;
+    List<PmsProductFullReduction> productFullReductionList;
 
     //阶梯价格表
-   PmsProductLadder productLadderList;
+    List<PmsProductLadder> productLadderList;
 
     //属性值的详细信息，sku表
-    PmsSkuStock skuStockList;
+    List<PmsSkuStock> skuStockList;
 }

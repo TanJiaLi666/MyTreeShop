@@ -80,17 +80,10 @@ public class PmsProductController {
         return CommonResult.failed("失败");
     }
 
-/*    export function createProduct(data) {
-        return request({
-                url:'/product/create',
-                method:'post',
-                data:data
-  })
-    }*/
     @ApiOperation("添加商品详细信息")
     @PostMapping("/create")
-    public CommonResult<Boolean> createProduct(@RequestParam PmsProductInfoDTO productInfoDTO){
-        Boolean is_success = productService.createProduct(productInfoDTO);
+    public CommonResult<Boolean> createProduct(@RequestBody PmsProductInfoDTO productParam){
+        Boolean is_success = productService.createProduct(productParam);
         if(is_success){
             return CommonResult.success(true,"保存成功！");
         }
