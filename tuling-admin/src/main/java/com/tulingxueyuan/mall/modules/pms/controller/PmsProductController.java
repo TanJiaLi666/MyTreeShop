@@ -90,5 +90,11 @@ public class PmsProductController {
         return CommonResult.failed("保存失败！");
 
     }
+/*    @ApiOperation("加载商品详细信息")
+    @GetMapping("/updateInfo/{id}")
+    public CommonResult<List<PmsProductInfoDTO>> getProduct(@PathVariable("id") Long id) {
+        List<PmsProductInfoDTO> pmsProductCategories = productService.getProduct(id);
+        return CommonResult.success(pmsProductCategories) ;
+    }*/
 }
 

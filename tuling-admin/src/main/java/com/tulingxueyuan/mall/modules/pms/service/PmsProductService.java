@@ -48,4 +48,13 @@ public interface PmsProductService extends IService<PmsProduct> {
      * @return
      */
     Boolean createProduct(PmsProductInfoDTO productInfoDTO);
+
+    /**
+     * 加载商品信息
+     * @param parentId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+
 }

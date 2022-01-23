@@ -7,16 +7,24 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.tulingxueyuan.mall.common.api.CommonPage;
+import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.modules.pms.model.*;
 import com.tulingxueyuan.mall.modules.pms.mapper.PmsProductMapper;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductInfoDTO;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductQueryDTO;
 import com.tulingxueyuan.mall.modules.pms.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -98,37 +106,53 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         //保存商品基本信息
         PmsProduct product = new PmsProduct();
         BeanUtil.copyProperties(productInfoDTO,product);
-        this.save(product);
-        //保存会员价格表信息
-        List<PmsMemberPrice> memberPriceList = productInfoDTO.getMemberPriceList();
-        for (PmsMemberPrice i: memberPriceList) {
-            i.setProductId(product.getId());
+        boolean save = this.save(product);
+        Long productId = product.getId();
+        //保存成功才做后续相关联的表操作
+        if (save) {
+            //判断促销类型
+            switch (productInfoDTO.getPromotionType()) {
+                case 2:
+                    //保存会员价格表信息
+                    List<PmsMemberPrice> memberPriceList = productInfoDTO.getMemberPriceList();
+                    saveManyList(memberPriceList,productId,memberPriceService);
+                    break;
+                case 3:
+                    //保存阶梯价格信息表
+                    List<PmsProductLadder> productLadderList = productInfoDTO.getProductLadderList();
+                    saveManyList(productLadderList,productId,productLadderService);
+                    break;
+                case 4:
+                    //保存满减价格表信息
+                    List<PmsProductFullReduction> productFullReductionList = productInfoDTO.getProductFullReductionList();
+                    saveManyList(productFullReductionList,productId,productFullReductionService);
+                    break;
+            }
+            //保存sku表
+            List<PmsSkuStock> skuStockList = productInfoDTO.getSkuStockList();
+            saveManyList(skuStockList,productId,skuStockService);
+            //保存商品属性值
+            List<PmsProductAttributeValue> productAttributeValueList = productInfoDTO.getProductAttributeValueList();
+            saveManyList(productAttributeValueList,productId,productAttributeValueService);
         }
-        memberPriceService.saveBatch(memberPriceList);
-        //保存阶梯价格信息表
-        List<PmsProductLadder> productLadderList = productInfoDTO.getProductLadderList();
-        for (PmsProductLadder i: productLadderList) {
-            i.setProductId(product.getId());
-        }
-        productLadderService.saveBatch(productLadderList);
-        //保存满减价格表信息
-        List<PmsProductFullReduction> productFullReductionList = productInfoDTO.getProductFullReductionList();
-        for (PmsProductFullReduction i: productFullReductionList) {
-            i.setProductId(product.getId());
-        }
-        productFullReductionService.saveBatch(productFullReductionList);
-        //保存sku表
-        List<PmsSkuStock> skuStockList = productInfoDTO.getSkuStockList();
-        for (PmsSkuStock i: skuStockList) {
-            i.setProductId(product.getId());
-        }
-        skuStockService.saveBatch(skuStockList);
-        //保存商品属性值
-        List<PmsProductAttributeValue> productAttributeValueList = productInfoDTO.getProductAttributeValueList();
-        for (PmsProductAttributeValue i: productAttributeValueList) {
-            i.setProductId(product.getId());
-        }
-        productAttributeValueService.saveBatch(productAttributeValueList);
         return true;
+    }
+    /**
+     * 商品信息预处理
+     * @param list
+     * @param productId
+     * @param service
+     */
+    public void saveManyList(List<?> list, Long productId, IService service){
+        if (list.isEmpty()) return;
+        try {
+            for (Object obj: list) {
+                Method setProductId = obj.getClass().getMethod("setProductId", Long.class);
+                setProductId.invoke(obj,productId);
+            }
+            service.saveBatch(list);
+        } catch (Exception e) {
+            throw new  RuntimeException(e);
+        }
     }
 }
