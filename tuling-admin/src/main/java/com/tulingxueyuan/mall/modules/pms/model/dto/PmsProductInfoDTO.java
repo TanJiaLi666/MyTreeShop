@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 
@@ -26,5 +28,7 @@ public class PmsProductInfoDTO extends PmsProduct {
     List<PmsProductLadder> productLadderList;
 
     //属性值的详细信息，sku表
+    @Size(min = 1)
+    @Valid
     List<PmsSkuStock> skuStockList;
 }

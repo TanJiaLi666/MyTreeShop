@@ -57,4 +57,11 @@ public interface PmsProductService extends IService<PmsProduct> {
      * @return
      */
     PmsProductFetchInfoDTO getProduct(Long id);
+
+    /**
+     * 编辑商品信息
+     * @param productParam
+     * @return
+     */
+    Boolean updateProduct(PmsProductInfoDTO productParam);
 }

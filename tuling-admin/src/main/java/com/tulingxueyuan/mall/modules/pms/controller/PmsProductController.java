@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -104,15 +105,15 @@ public class PmsProductController {
      *   })
      * }
      */
-/*    @ApiOperation("添加商品详细信息")
+    @ApiOperation("添加商品详细信息")
     @PostMapping("/update/{id}")
-    public CommonResult<Boolean> updateProduct(@RequestBody PmsProductInfoDTO productParam){
-        Boolean is_success = productService.updateProduct(productParam);
-        if(is_success){
+    public CommonResult<Boolean> updateProduct(@RequestBody @Valid PmsProductInfoDTO productParam){
+        Boolean isSuccess = productService.updateProduct(productParam);
+        if(isSuccess){
             return CommonResult.success(true,"保存成功！");
         }
         return CommonResult.failed("保存失败！");
 
-    }*/
+    }
 }
 

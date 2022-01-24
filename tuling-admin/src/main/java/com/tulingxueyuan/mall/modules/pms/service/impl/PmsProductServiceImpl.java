@@ -129,14 +129,59 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             //保存商品属性值
             List<PmsProductAttributeValue> productAttributeValueList = productInfoDTO.getProductAttributeValueList();
             saveManyList(productAttributeValueList,productId,productAttributeValueService);
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
     public PmsProductFetchInfoDTO getProduct(Long id) {
         PmsProductFetchInfoDTO list = this.baseMapper.getProduct(id);
         return list;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean updateProduct(PmsProductInfoDTO productParam) {
+        //保存商品基本信息
+        PmsProduct product = new PmsProduct();
+        BeanUtil.copyProperties(productParam,product);
+        boolean update = this.updateById(product);
+        Long productId = product.getId();
+        //保存成功才做后续相关联的表操作
+        if (update) {
+            //判断促销类型
+            switch (productParam.getPromotionType()) {
+                case 2:
+                    //保存会员价格表信息
+                    List<PmsMemberPrice> memberPriceList = productParam.getMemberPriceList();
+                    deleteManyList(productId,memberPriceService);
+                    saveManyList(memberPriceList,productId,memberPriceService);
+                    break;
+                case 3:
+                    //保存阶梯价格信息表
+                    List<PmsProductLadder> productLadderList = productParam.getProductLadderList();
+                    deleteManyList(productId,productLadderService);
+                    saveManyList(productLadderList,productId,productLadderService);
+                    break;
+                case 4:
+                    //保存满减价格表信息
+                    List<PmsProductFullReduction> productFullReductionList = productParam.getProductFullReductionList();
+                    deleteManyList(productId,productFullReductionService);
+                    saveManyList(productFullReductionList,productId,productFullReductionService);
+                    break;
+            }
+            //保存sku表
+            List<PmsSkuStock> skuStockList = productParam.getSkuStockList();
+            deleteManyList(productId,skuStockService);
+            saveManyList(skuStockList,productId,skuStockService);
+            //保存商品属性值
+            List<PmsProductAttributeValue> productAttributeValueList = productParam.getProductAttributeValueList();
+            deleteManyList(productId,productAttributeValueService);
+            saveManyList(productAttributeValueList,productId,productAttributeValueService);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -150,11 +195,19 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         try {
             for (Object obj: list) {
                 Method setProductId = obj.getClass().getMethod("setProductId", Long.class);
+                //在修改时需要清除主键id
+                Method setId = obj.getClass().getMethod("setId", Long.class);
+                setId.invoke(obj,(Long)null);
                 setProductId.invoke(obj,productId);
             }
             service.saveBatch(list);
         } catch (Exception e) {
             throw new  RuntimeException(e);
         }
+    }
+    public void deleteManyList(Long productId, IService iService) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("product_id", productId);
+        iService.remove(queryWrapper);
     }
 }

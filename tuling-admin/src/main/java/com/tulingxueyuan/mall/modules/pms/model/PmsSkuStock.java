@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * <p>
  * sku的库存
@@ -32,6 +34,7 @@ public class PmsSkuStock implements Serializable {
     private Long productId;
 
     @ApiModelProperty(value = "sku编码")
+    @NotBlank(message = "sku编码不能为空")
     private String skuCode;
 
     private BigDecimal price;

@@ -49,7 +49,7 @@
     </resultMap>
     <resultMap id="ProductInfo" extends="BaseResultMap" type="com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductFetchInfoDTO">
         <result column="cateParentId" property="cateParentId"></result>
-        <collection column="" property="memberPriceList" columnPrefix="member_" resultMap="com.tulingxueyuan.mall.modules.ums.mapper.UmsMemberLevelMapper.BaseResultMap"></collection>
+        <collection column="" property="memberPriceList" columnPrefix="member_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsMemberPriceMapper.BaseResultMap"></collection>
         <collection property="productFullReductionList" columnPrefix="full_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsProductFullReductionMapper.BaseResultMap"></collection>
         <collection property="productLadderList" columnPrefix="ladder_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsProductLadderMapper.BaseResultMap"></collection>
         <collection property="skuStockList" columnPrefix="sku_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsSkuStockMapper.BaseResultMap"/>
