@@ -8,21 +8,16 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.tulingxueyuan.mall.common.api.CommonPage;
-import com.tulingxueyuan.mall.common.api.CommonResult;
-import com.tulingxueyuan.mall.modules.pms.model.*;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tulingxueyuan.mall.modules.pms.mapper.PmsProductMapper;
+import com.tulingxueyuan.mall.modules.pms.model.*;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductFetchInfoDTO;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductInfoDTO;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductQueryDTO;
 import com.tulingxueyuan.mall.modules.pms.service.*;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -137,6 +132,13 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         }
         return true;
     }
+
+    @Override
+    public PmsProductFetchInfoDTO getProduct(Long id) {
+        PmsProductFetchInfoDTO list = this.baseMapper.getProduct(id);
+        return list;
+    }
+
     /**
      * 商品信息预处理
      * @param list

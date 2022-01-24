@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductFetchInfoDTO;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductInfoDTO;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductQueryDTO;
 
@@ -49,12 +50,11 @@ public interface PmsProductService extends IService<PmsProduct> {
      */
     Boolean createProduct(PmsProductInfoDTO productInfoDTO);
 
+
     /**
      * 加载商品信息
-     * @param parentId
-     * @param pageNum
-     * @param pageSize
+     * @param id 商品ID
      * @return
      */
-
+    PmsProductFetchInfoDTO getProduct(Long id);
 }

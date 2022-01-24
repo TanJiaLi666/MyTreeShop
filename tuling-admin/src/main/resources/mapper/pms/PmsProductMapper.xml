@@ -47,5 +47,52 @@
         <result column="brand_name" property="brandName" />
         <result column="product_category_name" property="productCategoryName" />
     </resultMap>
+    <resultMap id="ProductInfo" extends="BaseResultMap" type="com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductFetchInfoDTO">
+        <result column="cateParentId" property="cateParentId"></result>
+        <collection column="" property="memberPriceList" columnPrefix="member_" resultMap="com.tulingxueyuan.mall.modules.ums.mapper.UmsMemberLevelMapper.BaseResultMap"></collection>
+        <collection property="productFullReductionList" columnPrefix="full_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsProductFullReductionMapper.BaseResultMap"></collection>
+        <collection property="productLadderList" columnPrefix="ladder_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsProductLadderMapper.BaseResultMap"></collection>
+        <collection property="skuStockList" columnPrefix="sku_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsSkuStockMapper.BaseResultMap"/>
+        <collection property="productAttributeValueList" columnPrefix="av_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsProductAttributeValueMapper.BaseResultMap"/>
+    </resultMap>
+    <select id="getProduct" resultMap="ProductInfo">
+        select
+        p.*,
+        pc.`parent_id` cateParentId,
+        pfr.`id` full_id,
+        pfr.`full_price` full_full_price,
+        pfr.`reduce_price` full_reduce_price,
+        pl.`id` ladder_id,
+        pl.`count` ladder_count,
+        pl.`discount` ladder_discount,
+        pl.`price` ladder_price,
+        mp.`id` member_id,
+        mp.`member_level_id` member_member_level_id,
+        mp.`member_level_name` member_member_level_name,
+        mp.`member_price` member_member_price,
+        pss.`id` sku_id,
+        pss.`lock_stock` sku_lock_stock,
+        pss.`low_stock` sku_low_stock,
+        pss.`pic` sku_pic,
+        pss.`price` sku_price,
+        pss.`promotion_price` sku_promotion_price,
+        pss.`sale` sku_sale,
+        pss.`sku_code` sku_sku_code,
+        pss.`sp1` sku_sp1,
+        pss.`sp2` sku_sp2,
+        pss.`sp3` sku_sp3,
+        pss.`stock` sku_stock,
+        pav.`id` av_id,
+        pav.`product_attribute_id` av_product_attribute_id,
+        pav.`value` av_value
+        from `pms_product` p
+        left join `pms_product_category` pc on p.`product_category_id`=pc.`id`
+        left join `pms_product_full_reduction` pfr on p.`id`=pfr.`product_id`
+        left join `pms_product_ladder` pl on p.`id`=pl.`product_id`
+        left join `pms_member_price` mp on mp.`product_id`=p.`id`
+        left join `pms_sku_stock` pss on pss.`product_id`=p.`id`
+        left join `pms_product_attribute_value` pav on pav.`product_id`=p.`id`
+        where p.id = #{value}
+    </select>
 
 </mapper>

@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.modules.pms.model.PmsProduct;
-import com.tulingxueyuan.mall.modules.pms.model.PmsProductCategory;
-import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductCateDTO;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductFetchInfoDTO;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductInfoDTO;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductQueryDTO;
 import com.tulingxueyuan.mall.modules.pms.service.PmsProductService;
@@ -42,7 +41,7 @@ public class PmsProductController {
     public CommonResult<Boolean> updateDeleteStatus(@RequestParam("ids") List<Long> ids){
         Boolean is_success = productService.updateDeleteStatus(ids);
         if (is_success){
-            return CommonResult.success(is_success,"成功删除");
+            return CommonResult.success(true,"成功删除");
         }
         return CommonResult.failed();
     }
@@ -53,7 +52,7 @@ public class PmsProductController {
                                                   @RequestParam(value = "newStatus", defaultValue="0") Integer newStatus){
         Boolean is_success = productService.updateStatus(ids,newStatus,PmsProduct::getNewStatus);
         if(is_success){
-            return CommonResult.success(is_success,"修改成功");
+            return CommonResult.success(true,"修改成功");
         }
         return CommonResult.failed("失败");
     }
@@ -64,7 +63,7 @@ public class PmsProductController {
                                                  @RequestParam(value = "recommandStatus", defaultValue="0") Integer recommandStatus){
         Boolean is_success = productService.updateStatus(ids,recommandStatus,PmsProduct::getRecommandStatus);
         if(is_success){
-            return CommonResult.success(is_success,"修改成功");
+            return CommonResult.success(true,"修改成功");
         }
         return CommonResult.failed("失败");
     }
@@ -75,7 +74,7 @@ public class PmsProductController {
                                                  @RequestParam(value = "publishStatus", defaultValue="0") Integer publishStatus){
         Boolean is_success = productService.updateStatus(ids,publishStatus,PmsProduct::getPublishStatus);
         if(is_success){
-            return CommonResult.success(is_success,"修改成功");
+            return CommonResult.success(true,"修改成功");
         }
         return CommonResult.failed("失败");
     }
@@ -90,11 +89,30 @@ public class PmsProductController {
         return CommonResult.failed("保存失败！");
 
     }
-/*    @ApiOperation("加载商品详细信息")
+    @ApiOperation("加载商品详细信息")
     @GetMapping("/updateInfo/{id}")
-    public CommonResult<List<PmsProductInfoDTO>> getProduct(@PathVariable("id") Long id) {
-        List<PmsProductInfoDTO> pmsProductCategories = productService.getProduct(id);
-        return CommonResult.success(pmsProductCategories) ;
+    public CommonResult<PmsProductFetchInfoDTO> getProduct(@PathVariable("id") Long id) {
+        PmsProductFetchInfoDTO getProductInfo = productService.getProduct(id);
+        return CommonResult.success(getProductInfo) ;
+    }
+    /**
+     * export function updateProduct(id,data) {
+     *   return request({
+     *     url:'/product/update/'+id,
+     *     method:'post',
+     *     data:data
+     *   })
+     * }
+     */
+/*    @ApiOperation("添加商品详细信息")
+    @PostMapping("/update/{id}")
+    public CommonResult<Boolean> updateProduct(@RequestBody PmsProductInfoDTO productParam){
+        Boolean is_success = productService.updateProduct(productParam);
+        if(is_success){
+            return CommonResult.success(true,"保存成功！");
+        }
+        return CommonResult.failed("保存失败！");
+
     }*/
 }
 
