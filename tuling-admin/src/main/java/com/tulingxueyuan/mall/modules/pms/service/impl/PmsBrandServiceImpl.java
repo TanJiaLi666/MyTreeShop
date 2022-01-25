@@ -22,14 +22,14 @@ public class PmsBrandServiceImpl extends ServiceImpl<PmsBrandMapper, PmsBrand> i
 
     @Override
     public Page fetchList(Integer pageNum, Integer pageSize,String keyword) {
-        Page<PmsBrand> mypage = new Page<>(pageNum,pageSize);
+        Page<PmsBrand> myPage = new Page<>(pageNum,pageSize);
         QueryWrapper<PmsBrand> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().orderByAsc(PmsBrand::getSort);
         if (keyword.isEmpty()){
-            return this.page(mypage);
+            return this.page(myPage);
         }else{
             queryWrapper.lambda().like(PmsBrand::getName,keyword);
-            return this.page(mypage,queryWrapper);
+            return this.page(myPage,queryWrapper);
         }
 
 
@@ -38,5 +38,20 @@ public class PmsBrandServiceImpl extends ServiceImpl<PmsBrandMapper, PmsBrand> i
     @Override
     public Boolean createBrand(PmsBrand pmsBrand) {
         return this.save(pmsBrand);
+    }
+
+    @Override
+    public PmsBrand fetchSkuStockList(Long id) {
+        return this.getById(id);
+    }
+
+    @Override
+    public Boolean updateBrand(PmsBrand pmsBrand) {
+        return this.updateById(pmsBrand);
+    }
+
+    @Override
+    public Boolean deleteBrand(Long id) {
+        return this.removeById(id);
     }
 }

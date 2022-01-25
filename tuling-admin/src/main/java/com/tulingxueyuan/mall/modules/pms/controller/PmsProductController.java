@@ -34,7 +34,7 @@ public class PmsProductController {
     @GetMapping("/list")
     public CommonResult<CommonPage<PmsProduct>> fetchList(PmsProductQueryDTO productQueryDTO) {
         Page page = productService.fetchList(productQueryDTO);
-        return CommonResult.success(CommonPage.restPage(page)) ;
+        return CommonResult.success(CommonPage.restPage(page));
     }
 
     @ApiOperation("商品的删除")
@@ -61,8 +61,8 @@ public class PmsProductController {
     @ApiOperation("推荐状态改变按钮")
     @PostMapping("/update/recommendStatus")
     public CommonResult<Boolean> updateRecommendStatus(@RequestParam(value = "ids") List<Long> ids,
-                                                 @RequestParam(value = "recommandStatus", defaultValue="0") Integer recommandStatus){
-        Boolean is_success = productService.updateStatus(ids,recommandStatus,PmsProduct::getRecommandStatus);
+                                                 @RequestParam(value = "recommendStatus", defaultValue="0") Integer recommendStatus){
+        Boolean is_success = productService.updateStatus(ids,recommendStatus,PmsProduct::getRecommandStatus);
         if(is_success){
             return CommonResult.success(true,"修改成功");
         }
@@ -96,15 +96,6 @@ public class PmsProductController {
         PmsProductFetchInfoDTO getProductInfo = productService.getProduct(id);
         return CommonResult.success(getProductInfo) ;
     }
-    /**
-     * export function updateProduct(id,data) {
-     *   return request({
-     *     url:'/product/update/'+id,
-     *     method:'post',
-     *     data:data
-     *   })
-     * }
-     */
     @ApiOperation("添加商品详细信息")
     @PostMapping("/update/{id}")
     public CommonResult<Boolean> updateProduct(@RequestBody @Valid PmsProductInfoDTO productParam){
@@ -113,7 +104,5 @@ public class PmsProductController {
             return CommonResult.success(true,"保存成功！");
         }
         return CommonResult.failed("保存失败！");
-
     }
 }
-

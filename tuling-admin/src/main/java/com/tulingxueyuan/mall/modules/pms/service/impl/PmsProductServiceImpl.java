@@ -205,6 +205,12 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             throw new  RuntimeException(e);
         }
     }
+
+    /**
+     * 更新前的删除操作
+     * @param productId
+     * @param iService
+     */
     public void deleteManyList(Long productId, IService iService) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("product_id", productId);

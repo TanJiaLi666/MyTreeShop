@@ -29,4 +29,25 @@ public interface PmsBrandService extends IService<PmsBrand> {
      * @return
      */
     Boolean createBrand(PmsBrand pmsBrand);
+
+    /**
+     * 加载品牌详细信息
+     * @param id
+     * @return
+     */
+    PmsBrand fetchSkuStockList(Long id);
+
+    /**
+     * 更新品牌
+     * @param pmsBrand
+     * @return
+     */
+    Boolean updateBrand(PmsBrand pmsBrand);
+
+    /**
+     * 删除品牌
+     * @param id
+     * @return
+     */
+    Boolean deleteBrand(Long id);
 }
