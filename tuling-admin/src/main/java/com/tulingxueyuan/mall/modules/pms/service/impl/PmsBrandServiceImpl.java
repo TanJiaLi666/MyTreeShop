@@ -1,13 +1,18 @@
 package com.tulingxueyuan.mall.modules.pms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.modules.pms.model.PmsBrand;
 import com.tulingxueyuan.mall.modules.pms.mapper.PmsBrandMapper;
+import com.tulingxueyuan.mall.modules.pms.model.PmsProduct;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductCateDTO;
 import com.tulingxueyuan.mall.modules.pms.service.PmsBrandService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -53,5 +58,14 @@ public class PmsBrandServiceImpl extends ServiceImpl<PmsBrandMapper, PmsBrand> i
     @Override
     public Boolean deleteBrand(Long id) {
         return this.removeById(id);
+    }
+
+    @Override
+    public Boolean updateStatus(List<Long> ids, Integer updateStatus, SFunction<PmsBrand, ?> getStatus) {
+        UpdateWrapper<PmsBrand> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.lambda()
+                .set(getStatus,updateStatus)
+                .in(PmsBrand::getId,ids);
+        return this.update(updateWrapper);
     }
 }

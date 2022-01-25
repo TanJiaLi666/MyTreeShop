@@ -1,9 +1,13 @@
 package com.tulingxueyuan.mall.modules.pms.service;
 
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.modules.pms.model.PmsBrand;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tulingxueyuan.mall.modules.pms.model.PmsProduct;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductCateDTO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -50,4 +54,13 @@ public interface PmsBrandService extends IService<PmsBrand> {
      * @return
      */
     Boolean deleteBrand(Long id);
+
+    /**
+     * 状态改变
+     * @param ids
+     * @param updateStatus
+     * @param getStatus
+     * @return
+     */
+    Boolean updateStatus(List<Long> ids, Integer updateStatus, SFunction<PmsBrand,?> getStatus);
 }

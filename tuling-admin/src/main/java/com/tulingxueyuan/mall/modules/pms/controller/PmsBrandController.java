@@ -96,17 +96,26 @@ public class PmsBrandController {
      *   })
      * }
      */
-/*    @ApiOperation("推荐状态改变按钮")
+    @ApiOperation("显示状态改变按钮")
     @PostMapping("/update/showStatus")
-    public CommonResult<Boolean> updateRecommendStatus(@RequestParam(value = "ids") List<Long> ids,
+    public CommonResult<Boolean> updateShowStatus(@RequestParam(value = "ids") List<Long> ids,
                                                        @RequestParam(value = "showStatus", defaultValue="0") Integer showStatus){
         Boolean isSuccess = brandService.updateStatus(ids,showStatus, PmsBrand::getShowStatus);
         if(isSuccess){
             return CommonResult.success(true,"修改成功");
         }
         return CommonResult.failed("修改失败");
-    }*/
-
+    }
+    @ApiOperation("供应商状态改变按钮")
+    @PostMapping("/update/factoryStatus")
+    public CommonResult<Boolean> updateFactoryStatus(@RequestParam(value = "ids") List<Long> ids,
+                                                       @RequestParam(value = "factoryStatus", defaultValue="0") Integer factoryStatus){
+        Boolean isSuccess = brandService.updateStatus(ids,factoryStatus, PmsBrand::getFactoryStatus);
+        if(isSuccess){
+            return CommonResult.success(true,"修改成功");
+        }
+        return CommonResult.failed("修改失败");
+    }
 
 }
 
