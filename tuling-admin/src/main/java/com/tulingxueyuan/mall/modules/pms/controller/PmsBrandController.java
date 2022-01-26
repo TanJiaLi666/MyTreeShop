@@ -79,23 +79,6 @@ public class PmsBrandController {
         return CommonResult.failed("删除失败！");
 
     }
-    /**
-     * export function updateShowStatus(data) {
-     *   return request({
-     *     url:'/brand/update/showStatus',
-     *     method:'post',
-     *     data:data
-     *   })
-     * }
-     *
-     * export function updateFactoryStatus(data) {
-     *   return request({
-     *     url:'/brand/update/factoryStatus',
-     *     method:'post',
-     *     data:data
-     *   })
-     * }
-     */
     @ApiOperation("显示状态改变按钮")
     @PostMapping("/update/showStatus")
     public CommonResult<Boolean> updateShowStatus(@RequestParam(value = "ids") List<Long> ids,
