@@ -11,10 +11,9 @@ import com.tulingxueyuan.mall.modules.oms.model.dto.DefaultListQueryDTO;
 import com.tulingxueyuan.mall.modules.oms.service.OmsOrderReturnApplyService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 /**
  * <p>
@@ -30,21 +29,37 @@ public class OmsOrderReturnApplyController {
     @Autowired
     OmsOrderReturnApplyService applyService;
 
-    /**
-     * export function fetchList(params) {
-     *   return request({
-     *     url:'/returnApply/list',
-     *     method:'get',
-     *     params:params
-     *   })
-     * }
-     */
-    @ApiOperation("加载退货申请")
+    @ApiOperation("加载退货申请,查询和筛选")
     @GetMapping("/list")
     public CommonResult<CommonPage<OmsOrderReturnApply>> fetchList(ApplyDefaultListQueryDTO applyDefaultListQueryDTO) {
         Page<OmsOrderReturnApply> page = applyService.fetchList(applyDefaultListQueryDTO);
         return CommonResult.success(CommonPage.restPage(page)) ;
     }
 
+    @ApiOperation("批量删除操作")
+    @PostMapping("/delete")
+    public CommonResult<Boolean> deleteApply(@RequestParam("ids") List<Long> ids) {
+        boolean removeByIds = applyService.removeByIds(ids);
+        return CommonResult.success(removeByIds) ;
+    }
+
+    @ApiOperation("退货商品详细信息")
+    @GetMapping("/{id}")
+    public CommonResult<OmsOrderReturnApply> getApplyDetail(@PathVariable("id") Long id) {
+        OmsOrderReturnApply omsOrderReturnApply = applyService.getById(id);
+        return CommonResult.success(omsOrderReturnApply) ;
+    }
+
+    @ApiOperation("处理退货商品")
+    @PostMapping("/update/status/{id}")
+    public CommonResult<Boolean> updateApplyStatus(@PathVariable("id") Long id,
+                                                   @RequestBody OmsOrderReturnApply orderReturnApply) {
+        orderReturnApply.setId(id);
+        boolean update = applyService.updateById(orderReturnApply);
+        if (update) {
+            return CommonResult.success(true,"成功") ;
+        }
+        return CommonResult.failed("失败");
+    }
 }
 
