@@ -1,5 +1,7 @@
 package com.tulingxueyuan.mall.modules.sms.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tulingxueyuan.mall.modules.sms.model.SmsFlashPromotion;
 import com.tulingxueyuan.mall.modules.sms.model.SmsHomeAdvertise;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SmsHomeAdvertiseService extends IService<SmsHomeAdvertise> {
 
+    Page<SmsHomeAdvertise> fetchList(Integer pageNum, Integer pageSize);
 }

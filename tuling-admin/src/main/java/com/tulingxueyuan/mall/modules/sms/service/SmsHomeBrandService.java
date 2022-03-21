@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.modules.sms.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.modules.sms.model.SmsHomeBrand;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SmsHomeBrandService extends IService<SmsHomeBrand> {
 
+    Page<SmsHomeBrand> fetchList(Integer pageNum, Integer pageSize);
 }

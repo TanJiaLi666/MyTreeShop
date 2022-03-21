@@ -30,11 +30,13 @@ public class SmsFlashPromotionProductRelation implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty(value = "活动时间段编号")
     private Long flashPromotionId;
 
-    @ApiModelProperty(value = "编号")
+    @ApiModelProperty(value = "活动具体时间编号")
     private Long flashPromotionSessionId;
 
+    @ApiModelProperty(value = "商品编号")
     private Long productId;
 
     @ApiModelProperty(value = "限时购价格")

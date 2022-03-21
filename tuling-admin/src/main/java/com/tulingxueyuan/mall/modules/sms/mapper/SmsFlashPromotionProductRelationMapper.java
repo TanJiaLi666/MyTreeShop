@@ -1,7 +1,13 @@
 package com.tulingxueyuan.mall.modules.sms.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.modules.sms.model.SmsFlashPromotionProductRelation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tulingxueyuan.mall.modules.sms.model.dto.FlashPromotionProductRelationDTO;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +19,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SmsFlashPromotionProductRelationMapper extends BaseMapper<SmsFlashPromotionProductRelation> {
 
+    List<FlashPromotionProductRelationDTO> fetchSelectList(FlashPromotionProductRelationDTO flashPromotionProductRelationDTO);
+
+    Page<FlashPromotionProductRelationDTO> fetchList(IPage<?> page, @Param("relationDTO") FlashPromotionProductRelationDTO relationDTO);
 }
