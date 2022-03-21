@@ -25,8 +25,8 @@ public class MyBatisPlusGenerator {
 
     public static void main(String[] args) {
         String projectPath = System.getProperty("user.dir")+"/tuling-mpbg";
-        String moduleName = scanner("模块名");
-        String[] tableNames = scanner("表名，多个英文逗号分割").split(",");
+        String moduleName = scanner("ModleName:");
+        String[] tableNames = scanner("TableName，多个英文逗号分割").split(",");
         // 代码生成器
         AutoGenerator autoGenerator = new AutoGenerator();
         autoGenerator.setGlobalConfig(initGlobalConfig(projectPath));

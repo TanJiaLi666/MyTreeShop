@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/myshop?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: root
+    url: jdbc:mysql://localhost:3306/z_treeshop?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: bes
     password: 1234
   redis:
     host: 127.0.0.1 #192.168.65.66 # Redis服务器地址
