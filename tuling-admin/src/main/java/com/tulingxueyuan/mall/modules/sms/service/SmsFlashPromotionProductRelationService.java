@@ -23,4 +23,6 @@ public interface SmsFlashPromotionProductRelationService extends IService<SmsFla
     List<FlashPromotionProductRelationDTO> fetchSelectList(FlashPromotionProductRelationDTO flashPromotionProductRelationDTO);
 
     Page<FlashPromotionProductRelationDTO> fetchList(FlashPromotionProductRelationDTO relationDTO);
+
+    boolean createFlashProductRelation(List<SmsFlashPromotionProductRelation> list);
 }

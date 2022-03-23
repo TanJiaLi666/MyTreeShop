@@ -30,7 +30,7 @@
             parameterType="com.tulingxueyuan.mall.modules.sms.model.dto.FlashPromotionProductRelationDTO"
             resultType="com.tulingxueyuan.mall.modules.sms.model.dto.FlashPromotionProductRelationDTO">
         SELECT
-            re.`id` as id,
+            re.`flash_promotion_session_id` as id,
             se.`name` as name,
             se.`start_time` as startTime,
             se.`end_time` as endTime,
@@ -38,10 +38,10 @@
         FROM
             `sms_flash_promotion_product_relation` re
         LEFT JOIN
-            `sms_flash_promotion_session` se ON  se.`id`=re.`flash_promotion_id`
+            `sms_flash_promotion_session` se ON  se.`id`=re.`flash_promotion_session_id`
         WHERE
             re.`flash_promotion_id`=#{flashPromotionId}
-        GROUP BY re.`product_id`
+        GROUP BY re.`flash_promotion_session_id`
     </select>
     <select id="fetchList"
             resultMap="List">
@@ -57,9 +57,10 @@
             re.`sort`
         FROM
             `sms_flash_promotion_product_relation` re
-        LEFT JOIN
+        JOIN
             `pms_product` pr ON re.`product_id`=pr.`id`
         WHERE
             re.`flash_promotion_id`=#{relationDTO.flashPromotionId} AND re.`flash_promotion_session_id`=#{relationDTO.flashPromotionSessionId}
+        order by re.`sort`
     </select>
 </mapper>
