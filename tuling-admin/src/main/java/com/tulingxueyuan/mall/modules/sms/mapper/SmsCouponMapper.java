@@ -2,6 +2,8 @@ package com.tulingxueyuan.mall.modules.sms.mapper;
 
 import com.tulingxueyuan.mall.modules.sms.model.SmsCoupon;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tulingxueyuan.mall.modules.sms.model.dto.CouponDTO;
+import org.springframework.data.repository.query.Param;
 
 /**
  * <p>

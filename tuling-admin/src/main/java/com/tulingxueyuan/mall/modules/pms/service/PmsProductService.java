@@ -64,4 +64,6 @@ public interface PmsProductService extends IService<PmsProduct> {
      * @return
      */
     Boolean updateProduct(PmsProductInfoDTO productParam);
+
+    List<PmsProduct> fetchSimpleList(PmsProductQueryDTO productQueryDTO);
 }

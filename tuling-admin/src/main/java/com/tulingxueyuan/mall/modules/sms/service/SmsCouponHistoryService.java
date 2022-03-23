@@ -1,7 +1,10 @@
 package com.tulingxueyuan.mall.modules.sms.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tulingxueyuan.mall.modules.sms.model.SmsCoupon;
 import com.tulingxueyuan.mall.modules.sms.model.SmsCouponHistory;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tulingxueyuan.mall.modules.sms.model.dto.CouponHistoryDTO;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SmsCouponHistoryService extends IService<SmsCouponHistory> {
 
+    Page<SmsCouponHistory> fetchList(CouponHistoryDTO historyDTO);
 }

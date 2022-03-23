@@ -184,6 +184,20 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         return false;
     }
 
+    @Override
+    public List<PmsProduct> fetchSimpleList(PmsProductQueryDTO productQueryDTO) {
+        QueryWrapper<PmsProduct> queryWrapper = new QueryWrapper<>();
+        queryWrapper
+                .select("id,name,product_sn")
+                .lambda()
+                .like(StrUtil.isNotBlank(productQueryDTO.getKeyword()),PmsProduct::getName,productQueryDTO.getKeyword())
+                .or()
+                .like(StrUtil.isNotBlank(productQueryDTO.getKeyword()),PmsProduct::getKeywords,productQueryDTO.getKeyword())
+                .or()
+                .like(StrUtil.isNotBlank(productQueryDTO.getKeyword()),PmsProduct::getProductSn,productQueryDTO.getKeyword());
+        return this.list(queryWrapper);
+    }
+
     /**
      * 商品信息预处理
      * @param list
