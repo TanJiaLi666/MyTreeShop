@@ -5,6 +5,8 @@ import com.tulingxueyuan.mall.modules.sms.model.SmsFlashPromotion;
 import com.tulingxueyuan.mall.modules.sms.model.SmsHomeAdvertise;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 首页轮播广告表 服务类
@@ -15,5 +17,17 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SmsHomeAdvertiseService extends IService<SmsHomeAdvertise> {
 
-    Page<SmsHomeAdvertise> fetchList(Integer pageNum, Integer pageSize);
+    Page<SmsHomeAdvertise> fetchList(SmsHomeAdvertise advertise);
+
+    boolean updateStatus(Long id, Integer status);
+
+    SmsHomeAdvertise getHomeAdvertise(Long id);
+
+    Boolean deleteHomeAdvertise(List<Long> ids);
+
+    Boolean updateHomeAdvertise(SmsHomeAdvertise advertise);
+
+    boolean createHomeAdvertise(SmsHomeAdvertise advertise);
 }
+
+

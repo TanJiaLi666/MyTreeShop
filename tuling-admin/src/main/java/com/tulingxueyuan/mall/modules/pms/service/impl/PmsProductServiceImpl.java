@@ -77,7 +77,9 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         if (productQueryDTO.getVerifyStatus() != null && productQueryDTO.getVerifyStatus() >= 0) {
             lambda.eq(PmsProduct::getVerifyStatus, productQueryDTO.getVerifyStatus());
         }
-        lambda.orderByAsc(PmsProduct::getSort);
+        lambda.eq(productQueryDTO.getNewStatus()!=null, PmsProduct::getNewStatus, productQueryDTO.getNewStatus())
+                .eq(productQueryDTO.getRecommandStatus()!=null, PmsProduct::getRecommandStatus, productQueryDTO.getRecommandStatus() )
+                .orderByAsc(PmsProduct::getSort);
         return this.page(mypage, queryWrapper);
     }
 

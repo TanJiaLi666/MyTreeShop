@@ -1,8 +1,10 @@
 package com.tulingxueyuan.mall.modules.sms.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tulingxueyuan.mall.modules.sms.model.SmsHomeRecommendProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tulingxueyuan.mall.modules.sms.model.SmsHomeRecommendProduct;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,6 +16,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SmsHomeRecommendProductService extends IService<SmsHomeRecommendProduct> {
 
-    Page<SmsHomeRecommendProduct> fetchList(Integer pageNum, Integer pageSize);
+    Page<SmsHomeRecommendProduct> fetchList(SmsHomeRecommendProduct recommendProduct);
 
+    boolean updateRecommendStatus(List<Long> ids, Integer recommendStatus);
+
+    Boolean deleteHotProduct(List<Long> ids);
+
+    boolean createHotProduct(List<SmsHomeRecommendProduct> newProduct);
+
+    boolean updateHotProductSort(Long id, Integer sort);
 }

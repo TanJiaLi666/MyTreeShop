@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.modules.sms.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
@@ -57,6 +58,13 @@ public class SmsHomeAdvertise implements Serializable {
 
     @ApiModelProperty(value = "排序")
     private Integer sort;
+
+    @TableField(exist = false)
+    private Integer pageNum;
+    @TableField(exist = false)
+    private Integer pageSize;
+    @TableField(exist = false)
+    private String endsTime;
 
 
 }
