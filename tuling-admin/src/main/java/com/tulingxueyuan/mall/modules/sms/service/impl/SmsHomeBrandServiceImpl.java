@@ -3,15 +3,15 @@ package com.tulingxueyuan.mall.modules.sms.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tulingxueyuan.mall.modules.sms.model.SmsCouponProductCategoryRelation;
-import com.tulingxueyuan.mall.modules.sms.model.SmsHomeAdvertise;
-import com.tulingxueyuan.mall.modules.sms.model.SmsHomeBrand;
+import com.tulingxueyuan.mall.modules.sms.model.*;
 import com.tulingxueyuan.mall.modules.sms.mapper.SmsHomeBrandMapper;
 import com.tulingxueyuan.mall.modules.sms.service.SmsHomeBrandService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +39,22 @@ public class SmsHomeBrandServiceImpl extends ServiceImpl<SmsHomeBrandMapper, Sms
 
     @Override
     public boolean createHomeBrand(List<SmsHomeBrand> brands) {
+        List<Long> list = brands.stream().map(o -> o.getBrandId()).collect(Collectors.toList());
+        QueryWrapper<SmsHomeBrand> queryWrapper = new QueryWrapper<>();
+        List<Long> ignoreById = new ArrayList<>();
+        for (Long brandId : list) {
+            queryWrapper.lambda()
+                    .select(SmsHomeBrand::getId)
+                    .eq(SmsHomeBrand::getBrandId, brandId);
+            if (list(queryWrapper)!=null) {
+                for (SmsHomeBrand brand : list(queryWrapper)) {
+                    ignoreById.add(brand.getId());
+                }
+            }
+        }
+        if (!CollectionUtils.isEmpty(ignoreById)) {
+            deleteHomeBrand(ignoreById);
+        }
         brands = brands.stream().map(o->{
             o.setSort(0);
             o.setRecommendStatus(0);

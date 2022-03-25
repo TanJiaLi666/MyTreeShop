@@ -5,12 +5,15 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tulingxueyuan.mall.modules.sms.mapper.SmsHomeRecommendProductMapper;
+import com.tulingxueyuan.mall.modules.sms.model.SmsHomeBrand;
 import com.tulingxueyuan.mall.modules.sms.model.SmsHomeRecommendProduct;
+import com.tulingxueyuan.mall.modules.sms.model.SmsHomeRecommendSubject;
 import com.tulingxueyuan.mall.modules.sms.service.SmsHomeRecommendProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,9 +56,20 @@ public class SmsHomeRecommendProductServiceImpl extends ServiceImpl<SmsHomeRecom
     @Override
     public boolean createHotProduct(List<SmsHomeRecommendProduct> recommendProducts) {
         List<Long> list = recommendProducts.stream().map(o -> o.getProductId()).collect(Collectors.toList());
-        List<SmsHomeRecommendProduct> smsHomeNewProducts = this.listByIds(list);
-        if (!CollectionUtils.isEmpty(smsHomeNewProducts)) {
-            return true;
+        QueryWrapper<SmsHomeRecommendProduct> queryWrapper = new QueryWrapper<>();
+        List<Long> ignoreById = new ArrayList<>();
+        for (Long productId : list) {
+            queryWrapper.lambda()
+                    .select(SmsHomeRecommendProduct::getId)
+                    .eq(SmsHomeRecommendProduct::getProductId, productId);
+            if (list(queryWrapper)!=null) {
+                for (SmsHomeRecommendProduct recommendProduct : list(queryWrapper)) {
+                    ignoreById.add(recommendProduct.getId());
+                }
+            }
+        }
+        if (!CollectionUtils.isEmpty(ignoreById)) {
+            deleteHotProduct(ignoreById);
         }
         recommendProducts = recommendProducts.stream().map(o->{
             o.setRecommendStatus(0);

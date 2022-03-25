@@ -1,6 +1,5 @@
-package com.tulingxueyuan.mall.modules.sms.model;
+package com.tulingxueyuan.mall.modules.cms.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -12,17 +11,17 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 首页推荐专题表
+ * 专题商品关系表
  * </p>
  *
  * @author TanJiaLi
- * @since 2022-03-21
+ * @since 2022-03-25
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("sms_home_recommend_subject")
-@ApiModel(value="SmsHomeRecommendSubject对象", description="首页推荐专题表")
-public class SmsHomeRecommendSubject implements Serializable {
+@TableName("cms_subject_product_relation")
+@ApiModel(value="CmsSubjectProductRelation对象", description="专题商品关系表")
+public class CmsSubjectProductRelation implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -31,16 +30,7 @@ public class SmsHomeRecommendSubject implements Serializable {
 
     private Long subjectId;
 
-    private String subjectName;
-
-    private Integer recommendStatus;
-
-    private Integer sort;
-
-    @TableField(exist = false)
-    private Integer pageNum;
-    @TableField(exist = false)
-    private Integer pageSize;
+    private Long productId;
 
 
 }

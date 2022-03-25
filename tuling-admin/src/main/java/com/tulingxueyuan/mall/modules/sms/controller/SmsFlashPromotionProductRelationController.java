@@ -42,7 +42,7 @@ public class SmsFlashPromotionProductRelationController {
         if (save) {
             return CommonResult.success(true) ;
         }
-        return CommonResult.failed("添加失败，数据错误或商品可能已经存在！");
+        return CommonResult.failed("添加失败，数据错误或选择的商品中可能已经存在！");
     }
     @ApiOperation("修改商品折扣信息")
     @PostMapping("/update/{id}")

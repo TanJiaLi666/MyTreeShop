@@ -1,8 +1,8 @@
-package com.tulingxueyuan.mall.modules.sms.model;
+package com.tulingxueyuan.mall.modules.cms.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
+import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -12,17 +12,17 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 首页推荐专题表
+ * 专题评论表
  * </p>
  *
  * @author TanJiaLi
- * @since 2022-03-21
+ * @since 2022-03-25
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("sms_home_recommend_subject")
-@ApiModel(value="SmsHomeRecommendSubject对象", description="首页推荐专题表")
-public class SmsHomeRecommendSubject implements Serializable {
+@TableName("cms_subject_comment")
+@ApiModel(value="CmsSubjectComment对象", description="专题评论表")
+public class CmsSubjectComment implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -31,16 +31,15 @@ public class SmsHomeRecommendSubject implements Serializable {
 
     private Long subjectId;
 
-    private String subjectName;
+    private String memberNickName;
 
-    private Integer recommendStatus;
+    private String memberIcon;
 
-    private Integer sort;
+    private String content;
 
-    @TableField(exist = false)
-    private Integer pageNum;
-    @TableField(exist = false)
-    private Integer pageSize;
+    private Date createTime;
+
+    private Integer showStatus;
 
 
 }
