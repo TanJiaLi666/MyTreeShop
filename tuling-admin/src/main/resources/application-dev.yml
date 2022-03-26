@@ -17,13 +17,13 @@ logging:
 
 aliyun:
   oss:
-    endpoint: oss-cn-chengdu.aliyuncs.com # oss对外服务的访问域名
-    accessKeyId: LTAI4GHWCM5LdNoiLy35mBog # 访问身份验证中用到用户标识
-    accessKeySecret: Vytl0LAIKGmiWATIuuwevN3LjzQs9S # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
-    bucketName: tulingmall-xushu # oss的存储空间
+    endpoint: oss-cn-beijing.aliyuncs.com # oss对外服务的访问域名oss-cn-chengdu.aliyuncs.com
+    accessKeyId: LTAI5tG5ZKVxjF4f8NpdGR9h # 访问身份验证中用到用户标识
+    accessKeySecret: 2scKowIpLb1NoSVv0o3tXGk77qo3mR # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
+    bucketName: tjl-my-file # oss的存储空间
     policy:
       expire: 300 # 签名有效期(S)
     maxSize: 10 # 上传文件大小(M)
     #callback:  # 文件上传成功后的回调地址
     dir:
-      prefix: tulingmall/images/ # 上传文件夹路径前缀
+      prefix: picture/ # 上传文件夹路径前缀
