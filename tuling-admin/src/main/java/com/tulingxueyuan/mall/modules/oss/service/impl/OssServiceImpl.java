@@ -31,7 +31,7 @@ public class OssServiceImpl implements OssService {
     @Override
     public OssResultDTO policy() {
         String host = "https://"+bucketName+"."+endpoint;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHH");
         String dir_date = dir + sdf.format(new Date());
         OSS ossClient = ossConfig.buildOssClient();
         try {
