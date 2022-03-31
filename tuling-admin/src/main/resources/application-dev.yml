@@ -18,8 +18,8 @@ logging:
 aliyun:
   oss:
     endpoint: oss-cn-beijing.aliyuncs.com # oss对外服务的访问域名oss-cn-chengdu.aliyuncs.com
-    accessKeyId:  # 访问身份验证中用到用户标识
-    accessKeySecret:  # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
+    accessKeyId: LTAI5tAkwgJF1EQeixJKTsMy # 访问身份验证中用到用户标识
+    accessKeySecret: uotU2tmKJm86wABBq8KOIdA8YrR5LC # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
     bucketName: tjl-my-file # oss的存储空间
     policy:
       expire: 300 # 签名有效期(S)

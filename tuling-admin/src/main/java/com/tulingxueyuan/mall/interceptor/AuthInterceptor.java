@@ -6,11 +6,11 @@ import com.tulingxueyuan.mall.common.util.ComConstants;
 import com.tulingxueyuan.mall.modules.ums.model.UmsAdmin;
 import com.tulingxueyuan.mall.modules.ums.model.UmsResource;
 import com.tulingxueyuan.mall.modules.ums.service.UmsAdminService;
-import lombok.Getter;
+import com.tulingxueyuan.mall.modules.ums.service.UmsMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,6 @@ import java.util.List;
 
 /**
  * 作用： 验证 用户是否登录、菜单资源权限
- * 作者：徐庶
  */
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
@@ -41,7 +40,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                 return  true;
             }
         }
-
+     /*   String username = request.getHeader("Authorization");
+        if (StringUtils.isEmpty(username)) {
+            UmsAdmin adminByUsername = umsAdminService.getAdminByUsername(username);
+            request.getSession().setAttribute(ComConstants.FLAG_CURRENT_USER,adminByUsername);
+            return true;
+        }*/
         //2、未登录用户，直接拒绝访问
         if (null == request.getSession().getAttribute(ComConstants.FLAG_CURRENT_USER)) {
             throw new ApiException(ResultCode.UNAUTHORIZED);
