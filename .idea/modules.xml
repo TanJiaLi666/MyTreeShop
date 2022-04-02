@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/tuling-admin/tuling-admin.iml" filepath="$PROJECT_DIR$/tuling-admin/tuling-admin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tuling-common/tuling-common.iml" filepath="$PROJECT_DIR$/tuling-common/tuling-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tuling-mpbg/tuling-mpbg.iml" filepath="$PROJECT_DIR$/tuling-mpbg/tuling-mpbg.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tuling-protal/tuling-protal.iml" filepath="$PROJECT_DIR$/tuling-protal/tuling-protal.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/tuling-single-mall.iml" filepath="$PROJECT_DIR$/.idea/tuling-single-mall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/MyShopServer.iml" filepath="$PROJECT_DIR$/.idea/MyShopServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tree-adminView/tree-adminView.iml" filepath="$PROJECT_DIR$/tree-adminView/tree-adminView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tree-common/tree-common.iml" filepath="$PROJECT_DIR$/tree-common/tree-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tree-mpbg/tree-mpbg.iml" filepath="$PROJECT_DIR$/tree-mpbg/tree-mpbg.iml" />
     </modules>
   </component>
 </project>
