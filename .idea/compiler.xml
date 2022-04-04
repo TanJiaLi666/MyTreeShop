@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="tree-portal" />
+        <module name="tuling-portal" />
         <module name="tree-common" />
         <module name="tree-mpbg" />
-        <module name="tuling-portal" />
         <module name="tree-adminView" />
       </profile>
     </annotationProcessing>
@@ -18,6 +19,7 @@
       <module name="tree-adminView" target="1.8" />
       <module name="tree-common" target="1.8" />
       <module name="tree-mpbg" target="1.8" />
+      <module name="tree-portal" target="1.8" />
       <module name="tuling-portal" target="1.8" />
       <module name="tuling-protal" target="1.8" />
       <module name="tuling-test" target="1.8" />
@@ -29,6 +31,7 @@
       <module name="tree-adminView" options="-parameters" />
       <module name="tree-common" options="-parameters" />
       <module name="tree-mpbg" options="-parameters" />
+      <module name="tree-portal" options="-parameters" />
       <module name="tuling-portal" options="-parameters" />
       <module name="tuling-protal" options="-parameters" />
       <module name="tuling-test" options="-parameters" />

@@ -79,6 +79,7 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         }
         lambda.eq(productQueryDTO.getNewStatus()!=null, PmsProduct::getNewStatus, productQueryDTO.getNewStatus())
                 .eq(productQueryDTO.getRecommandStatus()!=null, PmsProduct::getRecommandStatus, productQueryDTO.getRecommandStatus() )
+                .eq(PmsProduct::getDeleteStatus,0)
                 .orderByAsc(PmsProduct::getSort);
         return this.page(mypage, queryWrapper);
     }

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.tulingxueyuan.mall.treeportal.TreePortalApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 22.825 s - in com.tulingxueyuan.mall.treeportal.TreePortalApplicationTests
