@@ -3,7 +3,9 @@ package com.tulingxueyuan.mall.common.exception;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
 import com.tulingxueyuan.mall.common.api.CommonResult;
+import com.tulingxueyuan.mall.common.api.ResultCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * 全局异常处理
  */
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -28,6 +31,18 @@ public class GlobalExceptionHandler {
         return CommonResult.failed(e.getMessage());
     }
 
+    @ResponseBody
+    @ExceptionHandler(value = RuntimeException.class)
+    public CommonResult RuntimeException(RuntimeException e) {
+        log.error("产生未知异常待处理！");
+        return CommonResult.failed(ResultCode.UNKNOWN);
+    }
+    @ResponseBody
+    @ExceptionHandler(value = RedisConnectionFailureException.class)
+    public CommonResult RedisConnectionFailureException(RedisConnectionFailureException e) {
+        log.error("redis服务器未打开或连接失效！！");
+        return CommonResult.failed(ResultCode.UNKNOWN);
+    }
 
     @ResponseBody
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

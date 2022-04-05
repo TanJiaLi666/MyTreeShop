@@ -1,19 +1,19 @@
 package com.tulingxueyuan.mall.modules.pms.controller;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
-import com.tulingxueyuan.mall.modules.pms.model.PmsProduct;
+import com.tulingxueyuan.mall.modules.pms.model.dto.HomeCateAndBannerDTO;
 import com.tulingxueyuan.mall.modules.pms.model.dto.HomeCateDTO;
+import com.tulingxueyuan.mall.modules.pms.model.dto.HomeGoodsSaleDTO;
 import com.tulingxueyuan.mall.modules.pms.service.PmsProductCategoryService;
-import com.tulingxueyuan.mall.modules.pms.service.PmsProductService;
+import com.tulingxueyuan.mall.modules.sms.model.SmsHomeAdvertise;
+import com.tulingxueyuan.mall.modules.sms.service.SmsHomeAdvertiseService;
+import com.tulingxueyuan.mall.modules.sms.service.SmsHomeCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,11 +34,30 @@ public class HomeController {
     @Autowired
     PmsProductCategoryService categoryService;
 
-    @ApiOperation("获取首页分类列表")
-    @GetMapping("/productCateList")
-    public CommonResult<List<HomeCateDTO>> getCateList() {
+    @Autowired
+    SmsHomeAdvertiseService advertiseService;
+
+    @Autowired
+    SmsHomeCategoryService homeCategoryService;
+
+    @ApiOperation("获取首页分类列表和广告横幅")
+    @GetMapping("/productCateAndBannerList")
+    public CommonResult getCateList() {
+        //todo 查询分类及分类下的推荐商品
         List<HomeCateDTO> cateList  = categoryService.getCateList();
-        return CommonResult.success(cateList,"加载成功！");
+        //todo 查询广告横幅列表
+        List<SmsHomeAdvertise> advertises = advertiseService.getBannerList();
+        HomeCateAndBannerDTO homeCateAndBannerDTO = new HomeCateAndBannerDTO();
+        homeCateAndBannerDTO.setHomeCateDTO(cateList);
+        homeCateAndBannerDTO.setAdvertisesList(advertises);
+        return CommonResult.success(homeCateAndBannerDTO,"加载成功！");
+    }
+    @ApiOperation("获取推荐分类及商品列表")
+    @GetMapping("/goods_sale")
+    public CommonResult getGoodsSaleList() {
+        //todo 查询分类及分类下的推荐商品
+        List<HomeGoodsSaleDTO> list  = homeCategoryService.getGoodsSaleList();
+        return CommonResult.success(list,"加载成功！");
     }
 }
 

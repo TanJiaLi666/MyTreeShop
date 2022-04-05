@@ -21,5 +21,6 @@ public class ProductDTO {
     private BigDecimal originalPrice;
     @ApiModelProperty(value = "副标题")
     private String subTitle;
+    private Integer sub;
 
 }

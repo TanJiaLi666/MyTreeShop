@@ -47,5 +47,34 @@
         <result column="brand_name" property="brandName" />
         <result column="product_category_name" property="productCategoryName" />
     </resultMap>
+    <resultMap id="ProductInfo" extends="BaseResultMap" type="com.tulingxueyuan.mall.modules.pms.model.dto.ProductDetailDTO">
+        <collection property="skuStockList" columnPrefix="sku_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsSkuStockMapper.BaseResultMap"/>
+        <collection property="attributeList" columnPrefix="av_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsProductAttributeValueMapper.BaseResultMap"/>
+    </resultMap>
+    <select id="fetchList" resultMap="ProductInfo">
+        select
+        p.*,
+        pc.`parent_id` cateParentId,
+        pss.`id` sku_id,
+        pss.`lock_stock` sku_lock_stock,
+        pss.`low_stock` sku_low_stock,
+        pss.`pic` sku_pic,
+        pss.`price` sku_price,
+        pss.`promotion_price` sku_promotion_price,
+        pss.`sale` sku_sale,
+        pss.`sku_code` sku_sku_code,
+        pss.`sp1` sku_sp1,
+        pss.`sp2` sku_sp2,
+        pss.`sp3` sku_sp3,
+        pss.`stock` sku_stock,
+        pav.`id` av_id,
+        pav.`product_attribute_id` av_product_attribute_id,
+        pav.`value` av_value
+        from `pms_product` p
+        left join `pms_product_category` pc on p.`product_category_id`=pc.`id`
+        left join `pms_sku_stock` pss on pss.`product_id`=p.`id`
+        left join `pms_product_attribute_value` pav on pav.`product_id`=p.`id`
+        where p.id = #{value}
+    </select>
 
 </mapper>
