@@ -49,6 +49,7 @@ com\tulingxueyuan\mall\modules\pms\mapper\PmsProductLadderMapper.class
 com\tulingxueyuan\mall\modules\pms\service\impl\PmsProductOperateLogServiceImpl.class
 com\tulingxueyuan\mall\modules\pms\service\impl\PmsBrandServiceImpl.class
 com\tulingxueyuan\mall\modules\pms\model\PmsProductVertifyRecord.class
+com\tulingxueyuan\mall\modules\pms\model\dto\AttrDTO.class
 com\tulingxueyuan\mall\modules\pms\service\PmsProductFullReductionService.class
 com\tulingxueyuan\mall\modules\pms\mapper\PmsCommentMapper.class
 com\tulingxueyuan\mall\modules\pms\model\dto\HomeCateDTO.class

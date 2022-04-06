@@ -49,7 +49,13 @@
     </resultMap>
     <resultMap id="ProductInfo" extends="BaseResultMap" type="com.tulingxueyuan.mall.modules.pms.model.dto.ProductDetailDTO">
         <collection property="skuStockList" columnPrefix="sku_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsSkuStockMapper.BaseResultMap"/>
-        <collection property="attributeList" columnPrefix="av_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsProductAttributeValueMapper.BaseResultMap"/>
+        <collection property="attributeList" columnPrefix="av_" ofType="com.tulingxueyuan.mall.modules.pms.model.dto.AttrDTO">
+            <id column="id" property="id" />
+            <result column="product_id" property="productId" />
+            <result column="product_attribute_id" property="productAttributeId" />
+            <result column="value" property="value" />
+            <result column="attrname" property="attrName"/>
+        </collection>
     </resultMap>
     <select id="fetchList" resultMap="ProductInfo">
         select
@@ -69,7 +75,8 @@
         pss.`stock` sku_stock,
         pav.`id` av_id,
         pav.`product_attribute_id` av_product_attribute_id,
-        pav.`value` av_value
+        pav.`value` av_value,
+        (SELECT pa.name FROM `pms_product_attribute` pa WHERE pa.id = pav.`product_attribute_id`) av_attrname
         from `pms_product` p
         left join `pms_product_category` pc on p.`product_category_id`=pc.`id`
         left join `pms_sku_stock` pss on pss.`product_id`=p.`id`

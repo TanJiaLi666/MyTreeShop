@@ -31,6 +31,7 @@ D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modul
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\mapper\PmsProductFullReductionMapper.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\service\PmsMemberPriceService.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\model\PmsSkuStock.java
+D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\model\dto\ProductDetailDTO.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\model\PmsProductOperateLog.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\service\impl\PmsMemberPriceServiceImpl.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\mapper\PmsProductAttributeValueMapper.java
@@ -45,6 +46,7 @@ D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modul
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\model\PmsAlbumPic.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\model\PmsProductCategory.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\model\dto\ProductDTO.java
+D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\model\dto\AttrDTO.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\sms\mapper\SmsHomeAdvertiseMapper.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\mapper\PmsMemberPriceMapper.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\service\PmsCommentReplayService.java
@@ -53,6 +55,7 @@ D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modul
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\mapper\PmsProductOperateLogMapper.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\model\PmsFeightTemplate.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\service\PmsProductAttributeService.java
+D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\controller\ProductController.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\service\impl\PmsBrandServiceImpl.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\config\SwaggerConfig.java
 D:\workStudy\MyShopServer\tree-portal\src\main\java\com\tulingxueyuan\mall\modules\pms\service\impl\PmsProductOperateLogServiceImpl.java
