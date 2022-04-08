@@ -62,8 +62,8 @@
             <!--工具类和通用类-->
             <dependency>
                 <groupId>com.tulingxueyuan</groupId>
-                <artifactId>tuling-common</artifactId>
-                <version>${mall.common.version}</version>
+                <artifactId>tree-common</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <!--集成druid连接池-->
             <dependency>

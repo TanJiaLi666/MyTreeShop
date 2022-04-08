@@ -2,9 +2,9 @@ package com.tulingxueyuan.mall.controller;
 
 
 import com.tulingxueyuan.mall.common.api.CommonResult;
-import com.tulingxueyuan.mall.modules.pms.model.dto.HomeCateAndBannerDTO;
-import com.tulingxueyuan.mall.modules.pms.model.dto.HomeCateDTO;
-import com.tulingxueyuan.mall.modules.pms.model.dto.HomeGoodsSaleDTO;
+import com.tulingxueyuan.mall.dto.HomeCateAndBannerDTO;
+import com.tulingxueyuan.mall.dto.HomeCateDTO;
+import com.tulingxueyuan.mall.dto.HomeGoodsSaleDTO;
 import com.tulingxueyuan.mall.modules.pms.service.PmsProductCategoryService;
 import com.tulingxueyuan.mall.modules.sms.model.SmsHomeAdvertise;
 import com.tulingxueyuan.mall.modules.sms.service.SmsHomeAdvertiseService;

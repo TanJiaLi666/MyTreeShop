@@ -13,11 +13,11 @@
         <result column="url" property="url" />
         <result column="sort" property="sort" />
     </resultMap>
-    <resultMap id="Goods" type="com.tulingxueyuan.mall.modules.pms.model.dto.HomeGoodsSaleDTO">
+    <resultMap id="Goods" type="com.tulingxueyuan.mall.dto.HomeGoodsSaleDTO">
         <result property="categoryName" column="category_name"/>
         <result property="pic" column="pic"/>
         <result property="url" column="url"/>
-        <collection property="productList" columnPrefix="product_"  ofType="com.tulingxueyuan.mall.modules.pms.model.dto.ProductDTO">
+        <collection property="productList" columnPrefix="product_"  ofType="com.tulingxueyuan.mall.dto.ProductDTO">
             <result property="id" column="id"/>
             <result property="name" column="name"/>
             <result property="pic" column="pic"/>

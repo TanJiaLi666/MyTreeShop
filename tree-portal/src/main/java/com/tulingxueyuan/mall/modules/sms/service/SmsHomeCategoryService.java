@@ -1,6 +1,6 @@
 package com.tulingxueyuan.mall.modules.sms.service;
 
-import com.tulingxueyuan.mall.modules.pms.model.dto.HomeGoodsSaleDTO;
+import com.tulingxueyuan.mall.dto.HomeGoodsSaleDTO;
 import com.tulingxueyuan.mall.modules.sms.model.SmsHomeCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
 

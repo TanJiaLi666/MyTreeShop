@@ -2,7 +2,7 @@ package com.tulingxueyuan.mall.modules.pms.service.impl;
 
 import com.tulingxueyuan.mall.modules.pms.model.PmsProduct;
 import com.tulingxueyuan.mall.modules.pms.mapper.PmsProductMapper;
-import com.tulingxueyuan.mall.modules.pms.model.dto.ProductDetailDTO;
+import com.tulingxueyuan.mall.dto.ProductDetailDTO;
 import com.tulingxueyuan.mall.modules.pms.service.PmsProductService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

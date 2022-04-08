@@ -34,12 +34,14 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = RuntimeException.class)
     public CommonResult RuntimeException(RuntimeException e) {
+        log.info(e.getMessage());
         log.error("产生未知异常待处理！");
         return CommonResult.failed(ResultCode.UNKNOWN);
     }
     @ResponseBody
     @ExceptionHandler(value = RedisConnectionFailureException.class)
     public CommonResult RedisConnectionFailureException(RedisConnectionFailureException e) {
+        log.info(e.getMessage());
         log.error("redis服务器未打开或连接失效！！");
         return CommonResult.failed(ResultCode.UNKNOWN);
     }

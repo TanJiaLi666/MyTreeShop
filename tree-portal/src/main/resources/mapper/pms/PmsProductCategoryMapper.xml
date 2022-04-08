@@ -18,10 +18,10 @@
         <result column="description" property="description" />
         <result column="enable" property="enable" />
     </resultMap>
-    <resultMap id="productDTO" type="com.tulingxueyuan.mall.modules.pms.model.dto.HomeCateDTO">
+    <resultMap id="productDTO" type="com.tulingxueyuan.mall.dto.HomeCateDTO">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
-        <collection property="productList" columnPrefix="product_" ofType="com.tulingxueyuan.mall.modules.pms.model.dto.ProductDTO">
+        <collection property="productList" columnPrefix="product_" ofType="com.tulingxueyuan.mall.dto.ProductDTO">
             <result property="id" column="id"/>
             <result property="name" column="name"/>
             <result property="pic" column="pic"/>
