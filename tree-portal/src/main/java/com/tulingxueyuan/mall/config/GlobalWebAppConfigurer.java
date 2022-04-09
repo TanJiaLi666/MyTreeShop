@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.config;
 
+import com.tulingxueyuan.mall.common.util.JwtTokenUtil;
 import com.tulingxueyuan.mall.interceptor.AuthInterceptor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -21,10 +22,15 @@ public class GlobalWebAppConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor()).addPathPatterns("/**");
     }
-
+    /**用户验证拦截器*/
     @Bean
     @ConfigurationProperties(prefix = "secure.ignored")
     public AuthInterceptor authInterceptor(){
         return new AuthInterceptor();
+    }
+
+    @Bean
+    public JwtTokenUtil jwtTokenUtil() {
+        return new JwtTokenUtil();
     }
 }

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tulingxueyuan.mall.common.exception.ApiException;
 import com.tulingxueyuan.mall.common.exception.Asserts;
 import com.tulingxueyuan.mall.common.util.ComConstants;
+import com.tulingxueyuan.mall.common.util.JwtTokenUtil;
 import com.tulingxueyuan.mall.modules.ums.mapper.UmsMemberLoginLogMapper;
 import com.tulingxueyuan.mall.modules.ums.mapper.UmsMemberMapper;
 import com.tulingxueyuan.mall.modules.ums.model.UmsMember;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -107,8 +109,8 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
 
     @Override
     public UmsMember getMemberId() {
-        UmsMember umsMember = (UmsMember)session.getAttribute(ComConstants.FLAG_MEMBER_USER);
-        return umsMember;
+        Map<String, Object> map = JwtTokenUtil.menberName.get();
+        return (UmsMember) map.get(ComConstants.FLAG_MEMBER_USER);
     }
 
 

@@ -24,6 +24,13 @@ redis:
   expire:
     common: 86400 # 24小时
 
+jwt:
+  secret: tanjiali%fe_rryer_111 #私钥
+  expiration: 86400 #过期时间
+  tokenHead: Bearer
+  tokenHeader: Authorization
+
+
 secure:
   ignored:
     urls: #安全路径白名单
