@@ -48,7 +48,6 @@ public class UserController {
             return CommonResult.validateFailed("用户名或密码错误");
         }
         String token = tokenUtil.generateUserNameStr(login.getUsername(), login.getPassword(), login.getNickname());
-        tokenUtil.generateUserNameStr(null,login.getPassword(),null);
         HashMap<String, Object> map = new HashMap<>();
         map.put(ComConstants.FLAG_MEMBER_USER, login);
         JwtTokenUtil.menberName.set(map);

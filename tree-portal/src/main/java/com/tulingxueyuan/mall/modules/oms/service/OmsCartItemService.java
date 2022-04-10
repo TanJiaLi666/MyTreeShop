@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.tulingxueyuan.mall.dto.CartDTO;
 import com.tulingxueyuan.mall.modules.oms.model.OmsCartItem;
 
+import java.util.List;
+
 /**
  * <p>
  * 购物车表 服务类
@@ -17,4 +19,10 @@ public interface OmsCartItemService extends IService<OmsCartItem> {
     Boolean addCar(CartDTO cartDTO);
 
     Integer sum();
+
+    List<OmsCartItem> fetchList();
+
+    Boolean updateQuantity(Long id, Integer quantity);
+
+    Boolean deleteCar(List<Integer> ids);
 }

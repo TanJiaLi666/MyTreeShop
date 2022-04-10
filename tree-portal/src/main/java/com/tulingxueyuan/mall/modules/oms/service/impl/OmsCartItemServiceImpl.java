@@ -1,6 +1,7 @@
 package com.tulingxueyuan.mall.modules.oms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tulingxueyuan.mall.common.api.ResultCode;
 import com.tulingxueyuan.mall.common.exception.Asserts;
@@ -97,6 +98,26 @@ public class OmsCartItemServiceImpl extends ServiceImpl<OmsCartItemMapper, OmsCa
             }
         }
         return 0;
+    }
+
+    @Override
+    public List<OmsCartItem> fetchList() {
+        UmsMember member = memberService.getMemberId();
+        return this.baseMapper.fetchList(member.getId());
+    }
+
+    @Override
+    public Boolean updateQuantity(Long id, Integer quantity) {
+        UpdateWrapper<OmsCartItem> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.lambda()
+                .set(OmsCartItem::getQuantity, quantity)
+                .eq(OmsCartItem::getId, id);
+        return update(updateWrapper);
+    }
+
+    @Override
+    public Boolean deleteCar(List<Integer> ids) {
+        return this.removeByIds(ids);
     }
 
     /**
