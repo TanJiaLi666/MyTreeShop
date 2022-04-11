@@ -34,7 +34,7 @@
             price,
             quantity,
             product_sub_title,
-            (SELECT sku.`stock` FROM `pms_sku_stock` sku WHERE sku.`id` = oci.`product_sku_id` ) stock
+            (SELECT sku.`stock`-sku.`lock_stock`  FROM `pms_sku_stock` sku WHERE sku.`id` = oci.`product_sku_id` ) stock
         FROM
             oms_cart_item oci
         WHERE
