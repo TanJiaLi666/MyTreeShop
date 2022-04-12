@@ -22,7 +22,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +41,6 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
     private UmsMemberLoginLogMapper loginLogMapper;
     @Autowired
     private UmsAdminCacheService adminCacheService;
-    @Autowired
-    HttpSession session;
     @Override
     public UmsMember login(String username, String password) {
         //密码需要客户端加密后传递

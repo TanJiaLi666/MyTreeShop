@@ -1,6 +1,7 @@
 package com.tulingxueyuan.mall.modules.oms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tulingxueyuan.mall.dto.OrderItemDTO;
 import com.tulingxueyuan.mall.modules.oms.model.OmsOrder;
 
 /**
@@ -13,4 +14,5 @@ import com.tulingxueyuan.mall.modules.oms.model.OmsOrder;
  */
 public interface OmsOrderMapper extends BaseMapper<OmsOrder> {
 
+    OrderItemDTO orderDetail(Long orderId);
 }

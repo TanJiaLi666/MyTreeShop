@@ -57,7 +57,7 @@ public class CartController {
 
     @ApiOperation(value = "删除购物车内容")
     @PostMapping("/delete")
-    public CommonResult deleteCar(@RequestParam(value = "ids") List<Integer> ids) {
+    public CommonResult deleteCar(@RequestParam(value = "ids") List<Long> ids) {
         Boolean success = cartItemService.deleteCar(ids);
         if (success) {
             return CommonResult.success(true, "更新成功！");

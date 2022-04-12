@@ -49,5 +49,36 @@
         <result column="comment_time" property="commentTime" />
         <result column="modify_time" property="modifyTime" />
     </resultMap>
+    <resultMap id="Detail" type="com.tulingxueyuan.mall.dto.OrderItemDTO">
+        <result property="receiverProvince" column="receiver_province"/>
+        <result property="receiverCity" column="receiver_city"/>
+        <result property="receiverRegion" column="receiver_region"/>
+        <result property="receiverDetailAddress" column="receiver_detail_address"/>
+        <result property="normalOrderOvertime" column="overtime"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="payAmount" column="pay_amount"/>
+        <collection property="orderItemList" ofType="com.tulingxueyuan.mall.modules.oms.model.OmsOrderItem" >
+            <result property="productName" column="product_name"/>
+            <result property="productPic" column="product_pic"/>
+        </collection>
+    </resultMap>
 
+    <select id="orderDetail" resultMap="Detail">
+        SELECT
+            odit.`product_name`,
+            odit.`product_pic`,
+            od.`receiver_province`,
+            od.`receiver_city`,
+            od.`receiver_region`,
+            od.`receiver_detail_address`,
+            od.`pay_amount`,
+            od.`order_sn`,
+            (SELECT MAX(ost.`normal_order_overtime`) overtime FROM `oms_order_setting` ost) AS overtime
+        FROM
+            `oms_order` od
+         LEFT JOIN
+            `oms_order_item` odit ON odit.`order_id` = od.`id`
+        WHERE
+            od.`id` = #{orderId}
+    </select>
 </mapper>

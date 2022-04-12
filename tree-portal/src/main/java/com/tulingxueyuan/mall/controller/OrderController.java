@@ -2,6 +2,8 @@ package com.tulingxueyuan.mall.controller;
 
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.dto.ConfirmOrderDTO;
+import com.tulingxueyuan.mall.dto.OrderDTO;
+import com.tulingxueyuan.mall.dto.OrderItemDTO;
 import com.tulingxueyuan.mall.modules.oms.model.OmsCartItem;
 import com.tulingxueyuan.mall.modules.oms.service.OmsOrderService;
 import io.swagger.annotations.Api;
@@ -22,6 +24,39 @@ public class OrderController {
     @PostMapping("/generateConfirmOrder")
     public CommonResult fetchList(@RequestParam(value = "itemIds") List<Long> ids) {
         ConfirmOrderDTO list = orderService.fetchList(ids);
-        return CommonResult.success(list, "加载成功！");
+        if (list != null) {
+            return CommonResult.success(list, "加载成功！");
+        }else {
+            return CommonResult.failed("加载失败");
+        }
     }
+    @ApiOperation(value = "生成订单")
+    @PostMapping("/generateOrder")
+    public CommonResult generateOrder(@RequestBody OrderDTO orderDTO) {
+        Long save = orderService.generateOrder(orderDTO);
+        if (save != null) {
+            return CommonResult.success(save, "成功！");
+        }
+        return CommonResult.failed("提交失败");
+    }
+
+    @ApiOperation(value = "生成订单")
+    @GetMapping("/orderDetail")
+    public CommonResult orderDetail(@RequestParam("orderId") Long orderId) {
+        OrderItemDTO dto = orderService.orderDetail(orderId);
+        if (dto != null) {
+            return CommonResult.success(dto, "成功！");
+        }
+        return CommonResult.failed("失败");
+    }
+    /*@ApiOperation(value = "订单支付二维码")
+    @PostMapping("/tradeQrCode")
+    public CommonResult tradeQrCode(@RequestParam("orderId") Long orderId,
+                                    @RequestParam("payType") Integer payType) {
+        OrderItemDTO dto = orderService.orderDetail(orderId);
+        if (dto != null) {
+            return CommonResult.success(dto, "成功！");
+        }
+        return CommonResult.failed("失败");
+    }*/
 }

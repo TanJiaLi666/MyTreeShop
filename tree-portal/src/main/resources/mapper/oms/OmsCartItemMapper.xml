@@ -40,8 +40,19 @@
         WHERE
             delete_status=0
             AND (
-                member_id = 12
+                member_id = #{id}
             )
     </select>
-
+    <select id="getStock" resultType="com.tulingxueyuan.mall.modules.oms.model.OmsCartItem">
+        SELECT
+        id,
+        product_name,
+        product_sku_id,
+        (SELECT sku.`stock`-sku.`lock_stock`  FROM `pms_sku_stock` sku WHERE sku.`id` = oci.`product_sku_id` ) stock
+        FROM
+            oms_cart_item oci
+        WHERE
+            delete_status=0
+            AND  id = #{id}
+    </select>
 </mapper>

@@ -2,8 +2,11 @@ package com.tulingxueyuan.mall.modules.oms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tulingxueyuan.mall.dto.ConfirmOrderDTO;
+import com.tulingxueyuan.mall.dto.OrderDTO;
+import com.tulingxueyuan.mall.dto.OrderItemDTO;
 import com.tulingxueyuan.mall.modules.oms.model.OmsOrder;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -22,4 +25,13 @@ public interface OmsOrderService extends IService<OmsOrder> {
      * @return
      */
     ConfirmOrderDTO fetchList(List<Long> ids);
+
+    /**
+     * 生成订单
+     * @param orderDTO
+     * @return
+     */
+    Long generateOrder(OrderDTO orderDTO);
+
+    OrderItemDTO orderDetail(Long orderId);
 }

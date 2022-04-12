@@ -2,6 +2,7 @@ package com.tulingxueyuan.mall.modules.oms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.tulingxueyuan.mall.modules.oms.model.OmsCartItem;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ import java.util.List;
 public interface OmsCartItemMapper extends BaseMapper<OmsCartItem> {
 
     List<OmsCartItem> fetchList(Long id);
+
+    OmsCartItem getStock(@Param("id") Long id);
 }

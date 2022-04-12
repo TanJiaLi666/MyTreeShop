@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = RuntimeException.class)
     public CommonResult RuntimeException(RuntimeException e) {
-        log.info(e.getMessage());
+        log.info(e.toString());
         log.error("产生未知异常待处理！");
         return CommonResult.failed(ResultCode.UNKNOWN);
     }

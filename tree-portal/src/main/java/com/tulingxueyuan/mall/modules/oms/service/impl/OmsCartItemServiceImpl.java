@@ -116,8 +116,22 @@ public class OmsCartItemServiceImpl extends ServiceImpl<OmsCartItemMapper, OmsCa
     }
 
     @Override
-    public Boolean deleteCar(List<Integer> ids) {
+    public Boolean deleteCar(List<Long> ids) {
         return this.removeByIds(ids);
+    }
+
+    @Override
+    public String handleStock(Long id) {
+        OmsCartItem cartItem = this.baseMapper.getStock(id);
+        PmsSkuStock skuStock = skuStockService.getById(cartItem.getProductSkuId());
+        //购物车库存
+        Integer cartStock = cartItem.getStock();
+        //真实库存
+        Integer productStock = skuStock.getStock()-skuStock.getLockStock();
+        if (cartStock > productStock) {
+            return cartItem.getProductName();
+        }
+        return null;
     }
 
     /**
