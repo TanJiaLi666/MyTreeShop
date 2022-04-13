@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,4 +21,12 @@ public class OrderItemDTO {
     private BigDecimal payAmount;
     private String orderSn;
     private Integer normalOrderOvertime;
+
+    //订单列表冗余使用->
+    private String createTime;
+    private String receiverName;
+    private Integer status;
+    private Long id;
+    private BigDecimal totalAmount;
+
 }

@@ -1,9 +1,12 @@
 package com.tulingxueyuan.mall.modules.oms.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ArrayUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tulingxueyuan.mall.common.exception.ApiException;
 import com.tulingxueyuan.mall.common.service.RedisService;
@@ -27,7 +30,6 @@ import com.tulingxueyuan.mall.modules.ums.model.UmsMember;
 import com.tulingxueyuan.mall.modules.ums.model.UmsMemberReceiveAddress;
 import com.tulingxueyuan.mall.modules.ums.service.UmsMemberReceiveAddressService;
 import com.tulingxueyuan.mall.modules.ums.service.UmsMemberService;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -65,6 +68,8 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
     OmsOrderItemService orderItemService;
     @Autowired
     PmsSkuStockService skuStockService;
+    @Autowired
+    OmsOrderService orderService;
 
     @Override
     public ConfirmOrderDTO fetchList(List<Long> ids) {
@@ -128,6 +133,52 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
     @Override
     public OrderItemDTO orderDetail(Long orderId) {
         return this.baseMapper.orderDetail(orderId);
+    }
+
+    /**
+     * 订单超时处理
+     */
+    @Override
+    public void orderOverTimeHandle() {
+        //todo 获取规定的超时时间
+        OrderItemDTO orderItemDTO = this.baseMapper.getOverTime();
+        Integer overTime = orderItemDTO.getNormalOrderOvertime();
+        //查询超时的订单表
+        QueryWrapper<OmsOrder> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(OmsOrder::getStatus, ComConstants.ORDER_STATUS)
+                .le(OmsOrder::getCreateTime, DateUtil.offset(new Date(), DateField.MINUTE, -overTime));
+        List<OmsOrder> orderList = orderService.list(queryWrapper);
+        //todo 关闭订单
+        if (CollectionUtil.isEmpty(orderList)) {
+            log.info("无超时订单！！");
+            return;
+        }
+        for (OmsOrder order : orderList) {
+            order.setStatus(ComConstants.ORDER_STATUS_SHUT);
+            order.setModifyTime(new Date());
+        }
+        this.updateBatchById(orderList);
+        //todo 获取订单详情
+        List<Long> orderIds = orderList.stream().map(o -> o.getId()).collect(Collectors.toList());
+        QueryWrapper<OmsOrderItem> itemQueryWrapper = new QueryWrapper<>();
+        itemQueryWrapper.lambda().in(OmsOrderItem::getId, orderIds);
+        List<OmsOrderItem> orderItemList = orderItemService.list(itemQueryWrapper);
+        //todo 归还锁定库存
+        orderItemList = orderItemList.stream().map(o->{
+            Integer quantity = o.getProductQuantity();
+            Long skuId = o.getProductSkuId();
+            UpdateWrapper<PmsSkuStock> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.setSql("`lock_stock` = `lock_stock` - "+quantity).lambda().eq(PmsSkuStock::getId, skuId);
+            skuStockService.update(updateWrapper);
+            return o;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<OrderItemDTO> userOrderList(Integer pageNum, Integer pageSize) {
+        Page<OrderItemDTO> page = new Page<>(pageNum, pageSize);
+        UmsMember member = memberService.getMemberId();
+        return this.baseMapper.userOrderList(page, member.getId());
     }
 
     /**

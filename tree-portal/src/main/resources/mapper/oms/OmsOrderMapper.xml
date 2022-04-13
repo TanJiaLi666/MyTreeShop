@@ -62,7 +62,26 @@
             <result property="productPic" column="product_pic"/>
         </collection>
     </resultMap>
-
+    <resultMap id="orderList" type="com.tulingxueyuan.mall.dto.OrderItemDTO">
+        <id property="id" column="id"/>
+        <result property="receiverProvince" column="receiver_province"/>
+        <result property="receiverCity" column="receiver_city"/>
+        <result property="receiverRegion" column="receiver_region"/>
+        <result property="receiverDetailAddress" column="receiver_detail_address"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="payAmount" column="pay_amount"/>
+        <result property="receiverName" column="receiver_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="status" column="status"/>
+        <result property="totalAmount" column="total_amount"/>
+        <collection property="orderItemList" column="id" select="com.tulingxueyuan.mall.modules.oms.mapper.OmsOrderMapper.orderItem" />
+        <!--<collection property="orderItemList" ofType="com.tulingxueyuan.mall.modules.oms.model.OmsOrderItem" >
+            <result property="productName" column="product_name"/>
+            <result property="productPic" column="product_pic"/>
+            <result property="productPrice" column="product_price"/>
+            <result property="productQuantity" column="product_quantity"/>
+        </collection>-->
+    </resultMap>
     <select id="orderDetail" resultMap="Detail">
         SELECT
             odit.`product_name`,
@@ -79,6 +98,38 @@
          LEFT JOIN
             `oms_order_item` odit ON odit.`order_id` = od.`id`
         WHERE
-            od.`id` = #{orderId}
+            od.`id` = #{orderId} AND od.`delete_status`= 0
+    </select>
+    <select id="getOverTime" resultMap="Detail">
+        SELECT MAX(ost.`normal_order_overtime`) overtime FROM `oms_order_setting` ost
+    </select>
+    <select id="userOrderList" resultMap="orderList">
+       SELECT
+            od.`id`,
+            od.`receiver_province`,
+            od.`receiver_city`,
+            od.`receiver_region`,
+            od.`receiver_detail_address`,
+            od.`pay_amount`,
+            od.`order_sn`,
+            od.`create_time`,
+	        od.`receiver_name`,
+	        od.`total_amount`,
+	        od.`status`
+        FROM
+            `oms_order` od
+        WHERE
+            od.`member_id` = #{id} AND od.`delete_status`= 0
+    </select>
+    <select id="orderItem" resultMap="com.tulingxueyuan.mall.modules.oms.mapper.OmsOrderItemMapper.BaseResultMap">
+        select
+            odit.`product_name`,
+            odit.`product_pic`,
+            odit.`product_price`,
+            odit.`product_quantity`
+        from
+            `oms_order_item` odit
+        where
+            odit.`order_id` = #{id}
     </select>
 </mapper>

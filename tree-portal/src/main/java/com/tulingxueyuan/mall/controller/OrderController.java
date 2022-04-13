@@ -1,10 +1,11 @@
 package com.tulingxueyuan.mall.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.dto.ConfirmOrderDTO;
 import com.tulingxueyuan.mall.dto.OrderDTO;
 import com.tulingxueyuan.mall.dto.OrderItemDTO;
-import com.tulingxueyuan.mall.modules.oms.model.OmsCartItem;
 import com.tulingxueyuan.mall.modules.oms.service.OmsOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,7 +41,7 @@ public class OrderController {
         return CommonResult.failed("提交失败");
     }
 
-    @ApiOperation(value = "生成订单")
+    @ApiOperation(value = "生成订单信息")
     @GetMapping("/orderDetail")
     public CommonResult orderDetail(@RequestParam("orderId") Long orderId) {
         OrderItemDTO dto = orderService.orderDetail(orderId);
@@ -49,6 +50,18 @@ public class OrderController {
         }
         return CommonResult.failed("失败");
     }
+    @ApiOperation(value = "订单列表")
+    @PostMapping("/list/userOrder")
+    public CommonResult<CommonPage> userOrderList(@RequestParam("pageNum") Integer pageNum,
+                                                  @RequestParam("pageSize") Integer pageSize) {
+        Page<OrderItemDTO> dto = orderService.userOrderList(pageNum, pageSize);
+        if (dto != null) {
+            return CommonResult.success(CommonPage.restPage(dto), "成功！");
+        }
+        return CommonResult.failed("失败");
+    }
+
+
     /*@ApiOperation(value = "订单支付二维码")
     @PostMapping("/tradeQrCode")
     public CommonResult tradeQrCode(@RequestParam("orderId") Long orderId,

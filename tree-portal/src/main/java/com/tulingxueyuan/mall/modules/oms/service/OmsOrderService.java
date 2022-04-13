@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.modules.oms.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tulingxueyuan.mall.dto.ConfirmOrderDTO;
 import com.tulingxueyuan.mall.dto.OrderDTO;
@@ -34,4 +35,8 @@ public interface OmsOrderService extends IService<OmsOrder> {
     Long generateOrder(OrderDTO orderDTO);
 
     OrderItemDTO orderDetail(Long orderId);
+
+    void orderOverTimeHandle();
+
+    Page<OrderItemDTO> userOrderList(Integer pageNum, Integer pageSize);
 }
