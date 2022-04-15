@@ -31,13 +31,13 @@ public class GlobalExceptionHandler {
         return CommonResult.failed(e.getMessage());
     }
 
-    @ResponseBody
+ /*   @ResponseBody
     @ExceptionHandler(value = RuntimeException.class)
     public CommonResult RuntimeException(RuntimeException e) {
         log.info(e.toString());
         log.error("产生未知异常待处理！");
         return CommonResult.failed(ResultCode.UNKNOWN);
-    }
+    }*/
     @ResponseBody
     @ExceptionHandler(value = RedisConnectionFailureException.class)
     public CommonResult RedisConnectionFailureException(RedisConnectionFailureException e) {

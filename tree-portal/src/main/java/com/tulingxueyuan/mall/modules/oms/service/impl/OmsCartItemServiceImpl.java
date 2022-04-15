@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.modules.oms.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -23,6 +24,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -90,12 +93,13 @@ public class OmsCartItemServiceImpl extends ServiceImpl<OmsCartItemMapper, OmsCa
                 .lambda()
                 .eq(OmsCartItem::getMemberId, memberId);
         List<Map<String, Object>> list = this.baseMapper.selectMaps(queryWrapper);
-        if (list != null && list.size() == 1) {
+        if (CollectionUtil.isNotEmpty(list) && list.size() == 1) {
             Map<String, Object> map = list.get(0);
-            if (map.get("sum") != null) {
-                int sum = Integer.parseInt(map.get("sum").toString());
-                return sum;
+            if (map == null) {
+                return 0;
             }
+            int sum = Integer.parseInt(map.get("sum").toString());
+            return sum;
         }
         return 0;
     }

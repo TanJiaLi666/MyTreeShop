@@ -62,14 +62,15 @@ public class OrderController {
     }
 
 
-    /*@ApiOperation(value = "订单支付二维码")
-    @PostMapping("/tradeQrCode")
-    public CommonResult tradeQrCode(@RequestParam("orderId") Long orderId,
+    @ApiOperation(value = "订单支付成功")
+    @PostMapping("/paySuccess")
+    public CommonResult paySuccess(@RequestParam("orderId") Long orderId,
                                     @RequestParam("payType") Integer payType) {
-        OrderItemDTO dto = orderService.orderDetail(orderId);
-        if (dto != null) {
-            return CommonResult.success(dto, "成功！");
+        Boolean success = orderService.paySuccess(orderId, payType);
+        if (success) {
+            return CommonResult.success(success, "成功！");
         }
         return CommonResult.failed("失败");
-    }*/
+
+    }
 }

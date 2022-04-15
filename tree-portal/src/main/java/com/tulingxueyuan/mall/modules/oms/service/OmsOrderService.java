@@ -39,4 +39,6 @@ public interface OmsOrderService extends IService<OmsOrder> {
     void orderOverTimeHandle();
 
     Page<OrderItemDTO> userOrderList(Integer pageNum, Integer pageSize);
+
+    Boolean paySuccess(Long orderId, Integer payType);
 }

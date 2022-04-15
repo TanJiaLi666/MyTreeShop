@@ -181,6 +181,33 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         return this.baseMapper.userOrderList(page, member.getId());
     }
 
+    @Override
+    @Transactional
+    public Boolean paySuccess(Long orderId, Integer payType) {
+        //todo 修改订单状态
+        OmsOrder order = new OmsOrder();
+        order.setPaymentTime(new Date());
+        order.setStatus(1);//代发货状态
+        order.setPayType(payType);
+        order.setId(orderId);
+        boolean update = updateById(order);
+        QueryWrapper<OmsOrderItem> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(OmsOrderItem::getOrderId, orderId);
+        List<OmsOrderItem> orderItemList = orderItemService.list(queryWrapper);
+        //todo 修改库存
+        UpdateWrapper<PmsSkuStock> updateWrapper = new UpdateWrapper<>();
+        orderItemList.stream().map(o -> {
+            Long skuId = o.getProductSkuId();
+            updateWrapper.setSql("`stock` = `stock`-"+ o.getProductQuantity())
+                    .setSql("`lock_stock` = `lock_stock`-"+ o.getProductQuantity())
+                    .lambda()
+                    .eq(PmsSkuStock::getId, skuId);
+            boolean update1 = skuStockService.update(updateWrapper);
+            return o;
+        }).collect(Collectors.toList());
+        return true;
+    }
+
     /**
      * 锁定库存数目
      * @param list
