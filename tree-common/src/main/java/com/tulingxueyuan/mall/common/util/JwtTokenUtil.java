@@ -26,7 +26,6 @@ import java.util.Map;
  * Created on 2018/4/26.
  */
 public class JwtTokenUtil {
-    public static ThreadLocal<Map<String, Object>> menberName = new ThreadLocal<>();
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
     private static final String CLAIM_KEY_USERNAME = "user_name";
     private static final String PASS_WORD = "pass_word";

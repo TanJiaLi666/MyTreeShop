@@ -11,6 +11,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +38,8 @@ public class UserController {
     @Autowired
     JwtTokenUtil tokenUtil;
 
+
+
     @Value("${jwt.tokenHead}")
     private String tokenHead;
     @Value("${jwt.tokenHeader}")
@@ -48,11 +54,6 @@ public class UserController {
             return CommonResult.validateFailed("用户名或密码错误");
         }
         String token = tokenUtil.generateUserNameStr(login.getUsername(), login.getPassword(), login.getNickname());
-        HashMap<String, Object> map = new HashMap<>();
-        map.put(ComConstants.FLAG_MEMBER_USER, login);
-        JwtTokenUtil.menberName.set(map);
-
-        System.out.println(session.getId());
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);

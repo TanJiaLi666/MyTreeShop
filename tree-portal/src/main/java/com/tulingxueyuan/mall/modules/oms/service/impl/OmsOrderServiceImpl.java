@@ -32,6 +32,7 @@ import com.tulingxueyuan.mall.modules.ums.service.UmsMemberReceiveAddressService
 import com.tulingxueyuan.mall.modules.ums.service.UmsMemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,6 +72,7 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
     @Autowired
     OmsOrderService orderService;
 
+
     @Override
     public ConfirmOrderDTO fetchList(List<Long> ids) {
         ConfirmOrderDTO confirmOrderDTO =  new ConfirmOrderDTO();
@@ -95,8 +97,7 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         //支付类别
         Integer payType = orderDTO.getPayType();
         //用户信息
-        Map<String, Object> memberMap = JwtTokenUtil.menberName.get();
-        UmsMember umsMember = (UmsMember)memberMap.get(ComConstants.FLAG_MEMBER_USER);
+        UmsMember umsMember =memberService.getMemberId();
         //todo 判断库存
         List<String> proNameList = new ArrayList<>();
         List<Long> cartIds = new ArrayList<>();

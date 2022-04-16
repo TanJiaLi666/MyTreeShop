@@ -1,13 +1,11 @@
 package com.tulingxueyuan.mall.modules.ums.service.impl;
 
 
-import cn.hutool.crypto.digest.BCrypt;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tulingxueyuan.mall.common.exception.ApiException;
 import com.tulingxueyuan.mall.common.exception.Asserts;
-import com.tulingxueyuan.mall.common.util.ComConstants;
-import com.tulingxueyuan.mall.common.util.JwtTokenUtil;
+import com.tulingxueyuan.mall.dto.domain.UserDetailsProperties;
 import com.tulingxueyuan.mall.modules.ums.mapper.UmsMemberLoginLogMapper;
 import com.tulingxueyuan.mall.modules.ums.mapper.UmsMemberMapper;
 import com.tulingxueyuan.mall.modules.ums.model.UmsMember;
@@ -15,8 +13,15 @@ import com.tulingxueyuan.mall.modules.ums.model.UmsMemberLoginLog;
 import com.tulingxueyuan.mall.modules.ums.model.dto.UserLoginDTO;
 import com.tulingxueyuan.mall.modules.ums.service.UmsAdminCacheService;
 import com.tulingxueyuan.mall.modules.ums.service.UmsMemberService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -24,7 +29,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -35,20 +39,32 @@ import java.util.Map;
  * @since 2022-04-07
  */
 @Service
+@Slf4j
 public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember> implements UmsMemberService {
 
     @Autowired
     private UmsMemberLoginLogMapper loginLogMapper;
     @Autowired
     private UmsAdminCacheService adminCacheService;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
     @Override
     public UmsMember login(String username, String password) {
         //密码需要客户端加密后传递
         UmsMember umsMember=null;
         try {
-            umsMember = loadUserByUsername(username);
-            if(!BCrypt.checkpw(password,umsMember.getPassword())){
+            UserDetails details = userDetailsService.loadUserByUsername(username);
+            umsMember = ((UserDetailsProperties) details).getMember();
+            log.debug(umsMember.getUsername()+umsMember.getPassword());
+            if(!passwordEncoder.matches(password, umsMember.getPassword())){
                 Asserts.fail("密码不正确");
+            }
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(details, null, details.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            if (!details.isEnabled()) {
+                Asserts.fail("账号禁用");
             }
             insertLoginLog(username);
         } catch (Exception e) {
@@ -98,7 +114,8 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
             return null;
         }
         //将密码进行加密操作
-        String encodePassword = BCrypt.hashpw(umsAdmin.getPassword());
+        String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
+        //String encodePassword = BCrypt.hashpw(umsAdmin.getPassword());
         umsAdmin.setPassword(encodePassword);
         baseMapper.insert(umsAdmin);
         return umsAdmin;
@@ -106,8 +123,18 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
 
     @Override
     public UmsMember getMemberId() {
-        Map<String, Object> map = JwtTokenUtil.menberName.get();
-        return (UmsMember) map.get(ComConstants.FLAG_MEMBER_USER);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsProperties properties = (UserDetailsProperties)authentication.getPrincipal();
+        return properties.getMember();
+    }
+
+    @Override
+    public UserDetails loadMemberByUsername(String name) {
+        UmsMember member = getAdminByUsername(name);
+        if (member != null) {
+            return new UserDetailsProperties(member);
+        }
+        throw new ApiException("用户名密码错误!");
     }
 
 
