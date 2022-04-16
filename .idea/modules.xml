@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/tree-common/tree-common.iml" filepath="$PROJECT_DIR$/tree-common/tree-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/tree-mpbg/tree-mpbg.iml" filepath="$PROJECT_DIR$/tree-mpbg/tree-mpbg.iml" />
       <module fileurl="file://$PROJECT_DIR$/tree-portal/tree-portal.iml" filepath="$PROJECT_DIR$/tree-portal/tree-portal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tree-security/tree-security.iml" filepath="$PROJECT_DIR$/tree-security/tree-security.iml" />
     </modules>
   </component>
 </project>

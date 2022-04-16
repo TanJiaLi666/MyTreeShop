@@ -40,12 +40,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                 return  true;
             }
         }
-     /*   String username = request.getHeader("Authorization");
-        if (StringUtils.isEmpty(username)) {
-            UmsAdmin adminByUsername = umsAdminService.getAdminByUsername(username);
-            request.getSession().setAttribute(ComConstants.FLAG_CURRENT_USER,adminByUsername);
-            return true;
-        }*/
         //2、未登录用户，直接拒绝访问
         if (null == request.getSession().getAttribute(ComConstants.FLAG_CURRENT_USER)) {
             throw new ApiException(ResultCode.UNAUTHORIZED);

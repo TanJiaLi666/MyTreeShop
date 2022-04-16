@@ -13,4 +13,23 @@
         <result column="url" property="url" />
         <result column="sort" property="sort" />
     </resultMap>
+    <resultMap id="getcategory" extends="BaseResultMap" type="com.tulingxueyuan.mall.modules.sms.model.SmsHomeCategory">
+        <result property="categoryParentId" column="parent_id"/>
+    </resultMap>
+    <select id="getHomeCategory" resultMap="getcategory">
+        SELECT
+            id,
+            category_id,
+            category_name,
+            `type`,
+            `status`,
+            pic,
+            url,
+            sort ,
+            (SELECT pc.parent_id FROM`pms_product_category` pc WHERE pc.id = shc.`category_id`) parent_id
+        FROM
+            sms_home_category shc
+        WHERE
+            shc.id=1
+    </select>
 </mapper>

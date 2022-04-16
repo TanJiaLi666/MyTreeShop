@@ -49,7 +49,7 @@ public class SmsHomeCategoryServiceImpl extends ServiceImpl<SmsHomeCategoryMappe
     @Override
     public SmsHomeCategory getHomeCategory(Long id) {
 
-        return this.getById(id);
+        return this.baseMapper.getHomeCategory(id);
     }
     @Override
     public boolean createHomeCategory(SmsHomeCategory category) {

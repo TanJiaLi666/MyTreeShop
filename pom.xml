@@ -8,6 +8,7 @@
         <module>tree-adminView</module>
         <module>tree-mpbg</module>
         <module>tree-portal</module>
+        <module>tree-security</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -63,6 +64,11 @@
             <dependency>
                 <groupId>com.tulingxueyuan</groupId>
                 <artifactId>tree-common</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tulingxueyuan</groupId>
+                <artifactId>tree-security</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <!--集成druid连接池-->

@@ -13,4 +13,5 @@ import com.tulingxueyuan.mall.modules.sms.model.SmsHomeCategory;
  */
 public interface SmsHomeCategoryMapper extends BaseMapper<SmsHomeCategory> {
 
+    SmsHomeCategory getHomeCategory(Long id);
 }
