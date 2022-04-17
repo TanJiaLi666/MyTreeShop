@@ -15,6 +15,11 @@
         <result column="login_time" property="loginTime" />
         <result column="status" property="status" />
     </resultMap>
+    <resultMap id="resource" extends="com.tulingxueyuan.mall.modules.ums.mapper.UmsResourceMapper.BaseResultMap"
+               type="com.tulingxueyuan.mall.modules.ums.dto.domain.ResourceVO">
+        <collection property="roleList" columnPrefix="role_" resultMap="com.tulingxueyuan.mall.modules.ums.mapper.UmsRoleMapper.BaseResultMap" >
+        </collection>
+    </resultMap>
 
     <select id="getAdminIdList" resultType="java.lang.Long">
         SELECT
@@ -23,6 +28,19 @@
             ums_role_resource_relation rr
                 LEFT JOIN ums_admin_role_relation ar ON rr.role_id = ar.role_id
         WHERE rr.resource_id=#{resourceId}
+    </select>
+    <select id="getResource" resultMap="resource">
+        SELECT
+        re.`id`,
+        re.`url`,
+        re.`name`,
+        r.`name` role_name
+        FROM
+        `ums_resource` re
+        LEFT JOIN`ums_role_resource_relation` rela ON rela.`resource_id` = re.`id`
+        LEFT JOIN`ums_role` r ON r.id = rela.`role_id`
+        WHERE r.`name` IS NOT NULL
+        ORDER BY re.`id`
     </select>
 
 </mapper>

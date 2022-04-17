@@ -1,6 +1,7 @@
 package com.tulingxueyuan.mall.modules.ums.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tulingxueyuan.mall.modules.ums.dto.domain.ResourceVO;
 import com.tulingxueyuan.mall.modules.ums.model.UmsAdmin;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,4 +22,9 @@ public interface UmsAdminMapper extends BaseMapper<UmsAdmin> {
      */
     List<Long> getAdminIdList(@Param("resourceId") Long resourceId);
 
+    /**
+     * 获取资源对应的角色，security授权所用
+     * @return
+     */
+    List<ResourceVO> getResource();
 }

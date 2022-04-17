@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@Component
 public class RestFullAuthHandler implements AuthenticationEntryPoint {
 
     @Override
@@ -25,7 +24,5 @@ public class RestFullAuthHandler implements AuthenticationEntryPoint {
         //关闭writer
         response.getWriter().flush();
     }
-    public RestFullAuthHandler getAuthHandler() {
-        return new RestFullAuthHandler();
-    }
+
 }

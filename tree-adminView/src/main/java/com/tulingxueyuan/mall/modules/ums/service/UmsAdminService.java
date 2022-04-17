@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tulingxueyuan.mall.modules.ums.dto.UmsAdminParam;
 import com.tulingxueyuan.mall.modules.ums.dto.UpdateAdminPasswordParam;
+import com.tulingxueyuan.mall.modules.ums.dto.domain.ResourceVO;
 import com.tulingxueyuan.mall.modules.ums.model.UmsAdmin;
 import com.tulingxueyuan.mall.modules.ums.model.UmsResource;
 import com.tulingxueyuan.mall.modules.ums.model.UmsRole;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -76,4 +78,13 @@ public interface UmsAdminService extends IService<UmsAdmin> {
      * 获取用户信息
      */
     UmsAdmin loadUserByUsername(String username);
+
+    UserDetails loadMemberByUsername(String name);
+    UmsAdmin getAdmin();
+
+    /**
+     * 用户资源对应的角色
+     * @return
+     */
+    List<ResourceVO> getResource();
 }

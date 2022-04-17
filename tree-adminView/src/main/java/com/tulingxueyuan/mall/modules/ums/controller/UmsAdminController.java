@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
-import com.tulingxueyuan.mall.common.util.ComConstants;
+import com.tulingxueyuan.mall.common.util.JwtTokenUtil;
 import com.tulingxueyuan.mall.modules.ums.dto.UmsAdminLoginParam;
 import com.tulingxueyuan.mall.modules.ums.dto.UmsAdminParam;
 import com.tulingxueyuan.mall.modules.ums.dto.UpdateAdminPasswordParam;
@@ -15,12 +15,11 @@ import com.tulingxueyuan.mall.modules.ums.service.UmsRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +34,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/admin")
 public class UmsAdminController {
     @Autowired
-    HttpSession session;
+    JwtTokenUtil tokenUtil;
+
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
+
     @Autowired
     private UmsAdminService adminService;
     @Autowired
@@ -60,19 +65,19 @@ public class UmsAdminController {
         if (login == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }
-        session.setAttribute(ComConstants.FLAG_CURRENT_USER,login);
-        System.out.println(session.getId());
+        String token = tokenUtil.generateUserNameStr(login.getUsername(), login.getPassword(), null);
         Map<String, String> tokenMap = new HashMap<>();
-        // jwt
-        return CommonResult.success(login);
+        tokenMap.put("token", token);
+        tokenMap.put("tokenHead", tokenHead);
+        tokenMap.put("tokenHeader", tokenHeader);
+        return CommonResult.success(tokenMap, "登录成功");
     }
 
     @ApiOperation(value = "获取当前登录用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult getAdminInfo() {
-        UmsAdmin umsAdmin= (UmsAdmin) session.getAttribute(ComConstants.FLAG_CURRENT_USER);
-        System.out.println(session.getId());
+        UmsAdmin umsAdmin = adminService.getAdmin();
         Map<String, Object> data = new HashMap<>();
         data.put("username", umsAdmin.getUsername());
         data.put("menus", roleService.getMenuList(umsAdmin.getId()));
@@ -89,7 +94,6 @@ public class UmsAdminController {
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult logout() {
-        session.setAttribute(ComConstants.FLAG_CURRENT_USER,null);
         return CommonResult.success(null);
     }
 

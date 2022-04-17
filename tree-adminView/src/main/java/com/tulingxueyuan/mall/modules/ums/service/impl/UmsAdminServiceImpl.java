@@ -2,7 +2,6 @@ package com.tulingxueyuan.mall.modules.ums.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -12,6 +11,8 @@ import com.tulingxueyuan.mall.common.exception.ApiException;
 import com.tulingxueyuan.mall.common.exception.Asserts;
 import com.tulingxueyuan.mall.modules.ums.dto.UmsAdminParam;
 import com.tulingxueyuan.mall.modules.ums.dto.UpdateAdminPasswordParam;
+import com.tulingxueyuan.mall.modules.ums.dto.domain.ResourceVO;
+import com.tulingxueyuan.mall.modules.ums.dto.domain.UserDetailsProperties;
 import com.tulingxueyuan.mall.modules.ums.mapper.UmsAdminLoginLogMapper;
 import com.tulingxueyuan.mall.modules.ums.mapper.UmsAdminMapper;
 import com.tulingxueyuan.mall.modules.ums.mapper.UmsResourceMapper;
@@ -20,11 +21,16 @@ import com.tulingxueyuan.mall.modules.ums.model.*;
 import com.tulingxueyuan.mall.modules.ums.service.UmsAdminCacheService;
 import com.tulingxueyuan.mall.modules.ums.service.UmsAdminRoleRelationService;
 import com.tulingxueyuan.mall.modules.ums.service.UmsAdminService;
-
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -40,6 +46,7 @@ import java.util.List;
  * Created by macro on 2018/4/26.
  */
 @Service
+@Slf4j
 public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> implements UmsAdminService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UmsAdminServiceImpl.class);
 
@@ -53,6 +60,10 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
     private UmsRoleMapper roleMapper;
     @Autowired
     private UmsResourceMapper resourceMapper;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public UmsAdmin getAdminByUsername(String username) {
@@ -95,13 +106,15 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         //密码需要客户端加密后传递
         UmsAdmin umsAdmin=null;
         try {
-             umsAdmin = loadUserByUsername(username);
-            if(!BCrypt.checkpw(password,umsAdmin.getPassword())){
+            UserDetails details = userDetailsService.loadUserByUsername(username);
+             umsAdmin = ((UserDetailsProperties) details).getMember();
+            log.info(umsAdmin.getUsername()+umsAdmin.getPassword());
+            if(!passwordEncoder.matches(password, umsAdmin.getPassword())){
                 Asserts.fail("密码不正确");
             }
-            /*if(!userDetails.isEnabled()){
+            if(!details.isEnabled()){
                 Asserts.fail("帐号已被禁用");
-            }*/
+            }
             insertLoginLog(username);
         } catch (Exception e) {
             Asserts.fail("登录异常:"+e.getMessage());
@@ -250,5 +263,31 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
             return admin;
         }
         throw new ApiException("用户不存在");
+    }
+
+    /**
+     * 根据用户名查询用户信息
+     * @param name
+     * @return UserDetails
+     */
+    @Override
+    public UserDetails loadMemberByUsername(String name) {
+        UmsAdmin admin = getAdminByUsername(name);
+        List<UmsRole> roleList = getRoleList(admin.getId());
+        if (admin != null) {
+            return new UserDetailsProperties(admin, roleList);
+        }
+        throw new ApiException("用户名密码错误!");
+    }
+    @Override
+    public UmsAdmin getAdmin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsProperties properties = (UserDetailsProperties)authentication.getPrincipal();
+        return properties.getMember();
+    }
+
+    @Override
+    public List<ResourceVO> getResource() {
+        return baseMapper.getResource();
     }
 }
