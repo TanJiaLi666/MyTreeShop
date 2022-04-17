@@ -1,8 +1,6 @@
 package com.tulingxueyuan.mall.controller;
 
 import com.tulingxueyuan.mall.common.api.CommonResult;
-
-import com.tulingxueyuan.mall.common.util.ComConstants;
 import com.tulingxueyuan.mall.common.util.JwtTokenUtil;
 import com.tulingxueyuan.mall.modules.ums.model.UmsMember;
 import com.tulingxueyuan.mall.modules.ums.model.dto.UserLoginDTO;
@@ -11,10 +9,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;

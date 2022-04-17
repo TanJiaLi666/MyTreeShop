@@ -10,9 +10,4 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class GlobalWebAppConfigurer implements WebMvcConfigurer {
-
-    @Bean
-    public JwtTokenUtil jwtTokenUtil() {
-        return new JwtTokenUtil();
-    }
 }

@@ -16,6 +16,12 @@ mybatis-plus:
     auto-mapping-behavior: partial
     map-underscore-to-camel-case: true
 
+jwt:
+  secret: tanjiali%fe_rryer_111 #私钥
+  expiration: 86400 #过期时间
+  tokenHead: Bearer
+  tokenHeader: Authorization
+
 redis:
   database: mall
   key:

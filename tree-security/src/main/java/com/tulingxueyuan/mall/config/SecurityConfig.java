@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.config;
 
+import com.tulingxueyuan.mall.common.util.JwtTokenUtil;
 import com.tulingxueyuan.mall.filter.JwtAuthenticationFilter;
 import com.tulingxueyuan.mall.handler.RestFullAccessHandler;
 import com.tulingxueyuan.mall.handler.RestFullAuthHandler;
@@ -66,5 +67,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
+    }
+    @Bean
+    public JwtTokenUtil jwtTokenUtil() {
+        return new JwtTokenUtil();
     }
 }
