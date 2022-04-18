@@ -11,6 +11,9 @@
         <result column="description" property="description" />
         <result column="category_id" property="categoryId" />
     </resultMap>
+    <resultMap id="AllResourceRoleMap" extends="BaseResultMap" type="com.tulingxueyuan.mall.modules.ums.dto.domain.ResourceVO">
+        <collection property="roleList" columnPrefix="rl_" resultMap="com.tulingxueyuan.mall.modules.ums.mapper.UmsRoleMapper.BaseResultMap"></collection>
+    </resultMap>
 
     <select id="getResourceList" resultType="com.tulingxueyuan.mall.modules.ums.model.UmsResource">
         SELECT
@@ -48,6 +51,18 @@
           AND r.id IS NOT NULL
         GROUP BY
             r.id
+    </select>
+    <select id="getAllResourceRole" resultMap="AllResourceRoleMap">
+        SELECT
+        r.id,
+        r.`name`,
+        r.url,
+        rl.`name` rl_name
+        FROM ums_resource r
+        LEFT JOIN ums_role_resource_relation rrr on rrr.resource_id=r.id
+        LEFT JOIN ums_role rl on rl.id=rrr.role_id
+        where rl.`name` is not null
+        order by r.id
     </select>
 
 </mapper>
