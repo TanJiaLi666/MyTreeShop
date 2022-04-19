@@ -20,7 +20,7 @@ public class SwaggerConfig extends BaseSwaggerConfig {
                 .description("后台管理接口文档")
                 .contactName("tanjiali")
                 .version("1.0")
-                .enableSecurity(false)
+                .enableSecurity(true)
                 .build();
     }
 }

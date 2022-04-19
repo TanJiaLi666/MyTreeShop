@@ -284,6 +284,7 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         omsOrder.setFreightAmount(confirmOrderDTO.getFreightAmount());
         omsOrder.setPayType(payType);
         omsOrder.setStatus(0);
+        omsOrder.setSourceType(0);
         omsOrder.setReceiverName(address.getName());
         omsOrder.setReceiverPhone(address.getPhoneNumber());
         omsOrder.setReceiverPostCode(address.getPostCode());
