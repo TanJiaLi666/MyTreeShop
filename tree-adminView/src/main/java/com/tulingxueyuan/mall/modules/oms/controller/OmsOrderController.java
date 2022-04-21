@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.modules.oms.model.OmsOrder;
+import com.tulingxueyuan.mall.modules.oms.model.UmsMemberReceiveAddress;
 import com.tulingxueyuan.mall.modules.oms.model.dto.DefaultListQueryDTO;
 import com.tulingxueyuan.mall.modules.oms.model.dto.OmsOrderDeliveryDTO;
 import com.tulingxueyuan.mall.modules.oms.model.dto.OmsOrderInfoDTO;
 import com.tulingxueyuan.mall.modules.oms.service.OmsOrderService;
+import com.tulingxueyuan.mall.modules.oms.service.UmsMemberReceiveAddressService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,8 @@ public class OmsOrderController {
 
     @Autowired
     OmsOrderService orderService;
+    @Autowired
+    UmsMemberReceiveAddressService receiveAddressService;
 
     @ApiOperation("加载订单列表")
     @GetMapping("/list")
@@ -71,5 +75,42 @@ public class OmsOrderController {
         }
         return CommonResult.failed("未成功");
     }
-
+    @ApiOperation("关闭订单")
+    @PostMapping("/update/close")
+    public CommonResult<Boolean> closeOrder(@RequestParam("ids") List<Long> ids,
+                                            @RequestParam("note") String note){
+        Boolean isSuccess = orderService.closeOrder(ids, note);
+        if (isSuccess){
+            return CommonResult.success(true,"发货成功");
+        }
+        return CommonResult.failed("未成功");
+    }
+    @ApiOperation("取消订单")
+    @PostMapping("/update/cancel")
+    public CommonResult<Boolean> cancelOrder(@RequestParam("ids") List<Long> ids,
+                                            @RequestParam("note") String note){
+        Boolean isSuccess = orderService.cancelOrder(ids, note);
+        if (isSuccess){
+            return CommonResult.success(true,"发货成功");
+        }
+        return CommonResult.failed("未成功");
+    }
+   @ApiOperation("修改订单收件人信息")
+   @PostMapping("/update/receiverInfo")
+   public CommonResult<Boolean> receiverInfo(@RequestBody OmsOrder order) {
+       Boolean isSuccess = orderService.receiverInfo(order);
+       if (isSuccess) {
+           return CommonResult.success(true,"修改成功");
+       }
+       return CommonResult.failed("修改失败") ;
+   }
+   @ApiOperation("修改订单收件人信息")
+   @PostMapping("/update/moneyInfo")
+   public CommonResult<Boolean> updateMoneyInfo(@RequestBody OmsOrder order) {
+       Boolean isSuccess = orderService.updateMoneyInfo(order);
+       if (isSuccess) {
+           return CommonResult.success(true,"修改成功");
+       }
+       return CommonResult.failed("修改失败") ;
+   }
 }

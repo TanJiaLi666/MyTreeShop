@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.modules.oms.model.OmsOrderSetting;
 import com.tulingxueyuan.mall.modules.oms.service.OmsOrderSettingService;
+import com.tulingxueyuan.mall.modules.ums.model.UmsAdmin;
+import com.tulingxueyuan.mall.modules.ums.service.UmsAdminService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +27,14 @@ import org.springframework.web.bind.annotation.*;
 public class OmsOrderSettingController {
     @Autowired
     OmsOrderSettingService orderSettingService;
-
+    @Autowired
+    UmsAdminService adminService;
     @ApiOperation("获取商品配置")
-    @GetMapping("/{id}")
-    public CommonResult<OmsOrderSetting> getOrderSetting(@PathVariable("id") Integer id) {
+    @GetMapping("/")
+    public CommonResult<OmsOrderSetting> getOrderSetting() {
+        UmsAdmin admin = adminService.getAdmin();
         QueryWrapper<OmsOrderSetting> queryWrapper =  new QueryWrapper<>();
-        queryWrapper.lambda().eq(OmsOrderSetting::getUid, id);
+        queryWrapper.lambda().eq(OmsOrderSetting::getUid, admin.getId());
         OmsOrderSetting orderSetting = orderSettingService.getOne(queryWrapper);
         if (orderSetting == null) {
             return CommonResult.failed("配置获取失败！");
@@ -38,18 +42,19 @@ public class OmsOrderSettingController {
         return CommonResult.success(orderSetting);
     }
     @ApiOperation("更新商品配置")
-    @PostMapping("/update/{id}")
-    public CommonResult<Boolean> updateOrderSetting(@PathVariable("id") Long id,@RequestBody OmsOrderSetting orderSetting) {
+    @PostMapping("/update/")
+    public CommonResult<Boolean> updateOrderSetting(@RequestBody OmsOrderSetting orderSetting) {
+        UmsAdmin admin = adminService.getAdmin();
         boolean update = false;
         QueryWrapper<OmsOrderSetting> queryWrapper =  new QueryWrapper<>();
-        queryWrapper.lambda().eq(OmsOrderSetting::getUid, id);
+        queryWrapper.lambda().eq(OmsOrderSetting::getUid, admin.getId());
         OmsOrderSetting setId = orderSettingService.getOne(queryWrapper);
         UpdateWrapper<OmsOrderSetting> updateWrapper = new UpdateWrapper<>();
         if (setId!=null) {
-            updateWrapper.lambda().eq(OmsOrderSetting::getUid, id);
+            updateWrapper.lambda().eq(OmsOrderSetting::getUid, admin.getId());
             update = orderSettingService.update(orderSetting,updateWrapper);
         } else {
-            orderSetting.setUid(id);
+            orderSetting.setUid(admin.getId());
             orderSettingService.save(orderSetting);
             update = true;
         }

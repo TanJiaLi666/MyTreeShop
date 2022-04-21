@@ -5,6 +5,8 @@ import com.tulingxueyuan.mall.modules.home.dto.OrderListDTO;
 import com.tulingxueyuan.mall.modules.home.dto.ProductDTO;
 import com.tulingxueyuan.mall.modules.home.dto.ReturnOrderDTO;
 
+import java.util.Date;
+
 public interface HomeOrderService {
 
     /**
@@ -30,4 +32,6 @@ public interface HomeOrderService {
      * @return
      */
     AdminDTO adminStatistics();
+
+    OrderListDTO mapStatistics(String start, String end);
 }

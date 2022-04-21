@@ -56,4 +56,12 @@ public interface OmsOrderService extends IService<OmsOrder> {
      * @return
      */
     Boolean deliveryOrder(List<OmsOrderDeliveryDTO> orderDeliveryDTOS);
+
+    Boolean closeOrder(List<Long> ids, String note);
+
+    Boolean cancelOrder(List<Long> ids, String note);
+
+    Boolean receiverInfo(OmsOrder order);
+
+    Boolean updateMoneyInfo(OmsOrder order);
 }

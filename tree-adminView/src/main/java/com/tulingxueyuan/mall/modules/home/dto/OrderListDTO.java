@@ -1,6 +1,5 @@
 package com.tulingxueyuan.mall.modules.home.dto;
 
-import com.tulingxueyuan.mall.modules.oms.model.OmsOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,7 +12,7 @@ import java.util.List;
 @ApiModel(value="订单统计结果DTO", description="订单信息")
 public class OrderListDTO {
     @ApiModelProperty("订单表")
-    private List<OmsOrder> orderList;
+    private List<OrderVO> orderList;
     @ApiModelProperty("订单总数")
     private Integer sum;
     @ApiModelProperty("今日订单总数")
@@ -32,6 +31,18 @@ public class OrderListDTO {
     private Integer d;
     private Integer e;
     private Integer f;
+
+    @ApiModelProperty("订单曲线图统计")
+    //周信息
+    private Integer weekOrderSum;
+    private Integer lastWeekOrderSum;
+    private BigDecimal weekOrderSale;
+    private BigDecimal lastWeekOrderSale;
+    //月信息
+    private Integer monthOrderSum;
+    private Integer lastMonthOrderSum;
+    private BigDecimal monthOrderSale;
+    private BigDecimal lastMonthOrderSale;
 
 
 }

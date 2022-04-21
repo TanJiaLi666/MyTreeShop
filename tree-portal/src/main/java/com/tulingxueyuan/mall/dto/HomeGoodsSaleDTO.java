@@ -13,7 +13,7 @@ import java.util.List;
 public class HomeGoodsSaleDTO {
 
     private String categoryName;
-
+    private String categoryId;
     private String pic;
 
     @ApiModelProperty(value = "链接地址")

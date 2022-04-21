@@ -83,5 +83,4 @@
         left join `pms_product_attribute_value` pav on pav.`product_id`=p.`id`
         where p.id = #{value}
     </select>
-
 </mapper>

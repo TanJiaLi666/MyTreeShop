@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
+
 @RestController
 @Api("首页订单数据API")
 @RequestMapping("/home/order")
@@ -55,6 +58,17 @@ public class HomeOrderController {
             return CommonResult.success(list,"成功");
         }
         return CommonResult.failed("用户统计失败");
+    }
+    @ApiOperation("统计图")
+    @GetMapping("/map_statistics")
+    public CommonResult mapStatistics(String start, String end) {
+      /*  Date a = new Date(start);
+        Date b = new Date(end);*/
+        OrderListDTO list = orderService.mapStatistics(start, end);
+        if (list != null) {
+            return CommonResult.success(list,"成功");
+        }
+        return CommonResult.failed("统计失败");
     }
 
 }

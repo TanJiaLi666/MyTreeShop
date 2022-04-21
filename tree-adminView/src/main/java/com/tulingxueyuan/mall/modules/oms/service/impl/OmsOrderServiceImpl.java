@@ -135,4 +135,35 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         });
         return true;
     }
+
+    @Override
+    public Boolean closeOrder(List<Long> ids, String note) {
+        UpdateWrapper<OmsOrder> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.lambda()
+                .set(OmsOrder::getStatus, 4)
+                .set(OmsOrder::getNote, note)
+                .in(OmsOrder::getId, ids);
+        return this.update(updateWrapper);
+    }
+
+    @Override
+    public Boolean cancelOrder(List<Long> ids, String note) {
+        UpdateWrapper<OmsOrder> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.lambda()
+                .set(OmsOrder::getStatus, 5)
+                .set(OmsOrder::getNote, note)
+                .in(OmsOrder::getId, ids);
+        return this.update(updateWrapper);
+    }
+
+    @Override
+    public Boolean receiverInfo(OmsOrder order) {
+
+        return this.updateById(order);
+    }
+
+    @Override
+    public Boolean updateMoneyInfo(OmsOrder order) {
+        return this.updateById(order);
+    }
 }

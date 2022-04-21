@@ -1,10 +1,11 @@
 package com.tulingxueyuan.mall.modules.home.service.impl;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.tulingxueyuan.mall.modules.home.dto.AdminDTO;
-import com.tulingxueyuan.mall.modules.home.dto.OrderListDTO;
-import com.tulingxueyuan.mall.modules.home.dto.ProductDTO;
-import com.tulingxueyuan.mall.modules.home.dto.ReturnOrderDTO;
+import com.tulingxueyuan.mall.modules.home.dto.*;
 import com.tulingxueyuan.mall.modules.home.model.UmsMember;
 import com.tulingxueyuan.mall.modules.home.service.HomeOrderService;
 import com.tulingxueyuan.mall.modules.home.service.UmsMemberService;
@@ -19,10 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,22 +34,20 @@ public class HomeOrderServiceImpl implements HomeOrderService {
     private PmsProductService productService;
     @Autowired
     private UmsMemberService memberService;
+    private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public OrderListDTO orderStatistics() {
         OrderListDTO dto = new OrderListDTO();
         //todo 获取时间，精确得到日期
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 
-        Calendar yesterdayCalendar = Calendar.getInstance();
-        yesterdayCalendar.add(Calendar.DAY_OF_MONTH, -1);
-        Date yesterday = yesterdayCalendar.getTime();//昨天
-
-        Calendar recentCalendar = Calendar.getInstance();
-        recentCalendar.add(Calendar.DAY_OF_MONTH, -7);
-        Date recentDay = recentCalendar.getTime();//七天前
-
+        DateTime date = DateUtil.date();//当前时间
+        DateTime yesterday = DateUtil.yesterday();//昨天
+        DateTime recentDay = DateUtil.lastWeek();//七天前
+        DateTime weekBegin = DateUtil.beginOfWeek(date);
+        DateTime monthBegin = DateUtil.beginOfMonth(date);
+        DateTime lastMonthBegin = DateUtil.beginOfMonth(DateUtil.lastMonth());
+        DateTime lastWeekBegin = DateUtil.beginOfWeek(DateUtil.lastWeek());
         //todo 计算统计订单数据
         //查询订单全表
         List<OmsOrder> orderList = orderService.list();
@@ -63,14 +59,48 @@ public class HomeOrderServiceImpl implements HomeOrderService {
         BigDecimal yesterdaySaleSum = countOrder(orderList, yesterday, yesterdayOrderList, format);
         //查询七天内的订单
         List<OmsOrder> recentOrderList = orderList.stream().map(o -> {
-            if ((format.format(recentDay).compareTo(format.format(o.getCreateTime())) == -1)) {
+            if ((format.format(recentDay).compareTo(format.format(o.getCreateTime())) <= 0)) {
                 return o;
             }
             return null;
         }).filter(o -> o != null).collect(Collectors.toList());
         BigDecimal recentSaleSum = recentOrderList.stream().map(OmsOrder::getTotalAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        //查询周信息
+        List<OmsOrder> weekOrderList = orderList.stream().map(o -> {
+            if ((format.format(weekBegin).compareTo(format.format(o.getCreateTime())) <= 0)) {
+                return o;
+            }
+            return null;
+        }).filter(o -> o != null).collect(Collectors.toList());
+        BigDecimal weekSaleSum = weekOrderList.stream().map(OmsOrder::getTotalAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        List<OmsOrder> lastWeekOrderList = orderList.stream().map(o -> {
+            if (StrUtil.compare(format.format(o.getCreateTime()),format.format(weekBegin), true) <= 0
+                   /* (format.format(o.getCreateTime()).compareTo(format.format(weekBegin)) >= 0)*/) {
+                if ((format.format(lastWeekBegin).compareTo(format.format(o.getCreateTime())) <= 0)) {
+                    return o;
+                }
+            }
+            return null;
+        }).filter(o -> o != null).collect(Collectors.toList());
+        BigDecimal lastWeekSaleSum = lastWeekOrderList.stream().map(OmsOrder::getTotalAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        //查询月信息
+        List<OmsOrder> monthOrderList = orderList.stream().map(o -> {
+            if ((format.format(monthBegin).compareTo(format.format(o.getCreateTime())) <= 0)) {
+                return o;
+            }
+            return null;
+        }).filter(o -> o != null).collect(Collectors.toList());
+        BigDecimal monthSaleSum = monthOrderList.stream().map(OmsOrder::getTotalAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        List<OmsOrder> lastMonthOrderList = orderList.stream().map(o -> {
+            if ((format.format(monthBegin).compareTo(format.format(o.getCreateTime())) >= 0)) {
+                if ((format.format(lastMonthBegin).compareTo(format.format(o.getCreateTime())) <= 0)) {
+                    return o;
+                }
+            }
+            return null;
+        }).filter(o -> o != null).collect(Collectors.toList());
+        BigDecimal lastMonthSaleSum = lastMonthOrderList.stream().map(OmsOrder::getTotalAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
         //组装统计结果
-        dto.setOrderList(orderList);
         dto.setSum(orderList.size());
         dto.setTodaySum(todayOrderList.size());
         dto.setTodaySaleSum(todaySaleSum);
@@ -82,6 +112,14 @@ public class HomeOrderServiceImpl implements HomeOrderService {
         dto.setD(statusAmount(3,orderList));
         dto.setE(statusAmount(4,orderList));
         dto.setF(statusAmount(5,orderList));
+        dto.setWeekOrderSum(weekOrderList.size());
+        dto.setWeekOrderSale(weekSaleSum);
+        dto.setLastWeekOrderSum(lastWeekOrderList.size());
+        dto.setLastWeekOrderSale(lastWeekSaleSum);
+        dto.setMonthOrderSum(monthOrderList.size());
+        dto.setMonthOrderSale(monthSaleSum);
+        dto.setLastMonthOrderSum(lastMonthOrderList.size());
+        dto.setLastMonthOrderSale(lastMonthSaleSum);
         return dto;
     }
 
@@ -138,8 +176,8 @@ public class HomeOrderServiceImpl implements HomeOrderService {
         yesterdayCalendar.add(Calendar.DAY_OF_MONTH, -1);
         Date yesterday = yesterdayCalendar.getTime();//昨天
         List<UmsMember> list = memberService.list();
-        int year = date.getYear();
-        int month = date.getMonth();
+        int year = DateUtil.year(date);
+        int month = DateUtil.month(date);
         Long yesterdayMemberSum = list.stream().map(o -> {
             if ((format.format(yesterday).compareTo(format.format(o.getCreateTime())) == -1)) {
                 return o;
@@ -153,8 +191,8 @@ public class HomeOrderServiceImpl implements HomeOrderService {
             return null;
         }).filter(o -> o != null).count();
         Long monthMemberSum = list.stream().map(o -> {
-            if (o.getCreateTime().getYear() == year) {
-                if (o.getCreateTime().getMonth() == month) {
+            if (DateUtil.year(o.getCreateTime())== year) {
+                if (DateUtil.month(o.getCreateTime()) == month) {
                     return o;
                 }
             }
@@ -164,6 +202,32 @@ public class HomeOrderServiceImpl implements HomeOrderService {
         dto.setYesterdayMemberSum(yesterdayMemberSum.intValue());
         dto.setTodayMemberSum(todayMemberSum.intValue());
         dto.setMonthMemberSum(monthMemberSum.intValue());
+        return dto;
+    }
+
+    @Override
+    public OrderListDTO mapStatistics(String start, String end) {
+        OrderListDTO dto = new OrderListDTO();
+        List<OrderVO> orderVOList = new ArrayList<>();
+        QueryWrapper<OmsOrder> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().between(OmsOrder::getCreateTime,start,end);
+        List<OmsOrder> orderList = orderService.list(queryWrapper);
+        List<OmsOrder> list = orderList.stream()
+                .map(o -> {
+                    o.setCreateTime(DateUtil.parse(format.format(o.getCreateTime())));
+                    return o;
+                }).collect(Collectors.toList());
+        LinkedHashMap<Date, List<OmsOrder>> map = list.stream()
+                .sorted(Comparator.comparing(OmsOrder::getCreateTime, Comparator.nullsLast(Comparator.naturalOrder())))
+                .collect(Collectors.groupingBy(OmsOrder::getCreateTime, LinkedHashMap::new, Collectors.toList()));
+        map.forEach((k, v)->{
+            OrderVO vo = new OrderVO();
+            vo.setDate(format.format(k));
+            vo.setOrderCount(v.size());
+            vo.setOrderAmount(v.stream().map(OmsOrder::getTotalAmount).reduce(BigDecimal.ZERO, BigDecimal::add));
+            orderVOList.add(vo);
+        });
+        dto.setOrderList(orderVOList);
         return dto;
     }
 
@@ -202,4 +266,5 @@ public class HomeOrderServiceImpl implements HomeOrderService {
         }).filter(o->o!=null).collect(Collectors.toList());
         return list.size();
     }
+
 }

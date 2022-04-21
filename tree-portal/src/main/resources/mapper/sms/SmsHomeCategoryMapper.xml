@@ -15,6 +15,7 @@
     </resultMap>
     <resultMap id="Goods" type="com.tulingxueyuan.mall.dto.HomeGoodsSaleDTO">
         <result property="categoryName" column="category_name"/>
+        <result property="categoryId" column="category_id"/>
         <result property="pic" column="pic"/>
         <result property="url" column="url"/>
         <collection property="productList" columnPrefix="product_"  ofType="com.tulingxueyuan.mall.dto.ProductDTO">
@@ -34,6 +35,7 @@
             hc.category_name,
             hc.pic,
             hc.url,
+            hc.category_id,
             p.`id` product_id,
             p.`name` product_name,
             p.`pic` product_pic,
