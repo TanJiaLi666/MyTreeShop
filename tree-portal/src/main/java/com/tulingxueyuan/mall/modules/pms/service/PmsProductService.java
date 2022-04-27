@@ -19,4 +19,7 @@ public interface PmsProductService extends IService<PmsProduct> {
     ProductDetailDTO fetchList(Long id);
 
     List<PmsProduct> search(String keyword);
+
+
+    String getProductName(Long productId);
 }

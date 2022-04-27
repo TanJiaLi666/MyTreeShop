@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.common.util.JwtTokenUtil;
 import com.tulingxueyuan.mall.modules.ums.model.UmsMember;
@@ -11,14 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -67,23 +67,16 @@ public class UserController {
     }
 
 
-/*    @ApiOperation(value = "获取当前登录用户信息")
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @ApiOperation(value = "获取当前登录用户信息")
+    @GetMapping(value = "/info")
     @ResponseBody
     public CommonResult getAdminInfo() {
-        UmsMember UmsMember= (UmsMember) session.getAttribute(ComConstants.FLAG_CURRENT_USER);
-        System.out.println(session.getId());
+        UmsMember member = memberService.getMemberId();
         Map<String, Object> data = new HashMap<>();
-        data.put("username", UmsMember.getUsername());
-        data.put("menus", roleService.getMenuList(UmsMember.getId()));
-        data.put("icon", UmsMember.getIcon());
-        List<UmsRole> roleList = adminService.getRoleList(UmsMember.getId());
-        if(CollUtil.isNotEmpty(roleList)){
-            List<String> roles = roleList.stream().map(UmsRole::getName).collect(Collectors.toList());
-            data.put("roles",roles);
-        }
+        data.put("username", member.getNickname());
+        data.put("myHeader", member.getIcon());
         return CommonResult.success(data);
-    }*/
+    }
 
 /*    @ApiOperation(value = "登出功能")
     @RequestMapping(value = "/logout", method = RequestMethod.POST)

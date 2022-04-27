@@ -1,0 +1,2687 @@
+{
+  "paper": {
+    "name": "A4",
+    "leftMargin": 0.5,
+    "rightMargin": 0.5,
+    "topMargin": 0.5,
+    "bottomMargin": 0.5,
+    "isPortriat": true
+  },
+  "modelVersion": 2.01,
+  "defaultSchema": "default",
+  "server": {
+    "objectType": "Server_LOGICAL",
+    "name": "Default",
+    "schemas": [
+      {
+        "objectType": "Schema_LOGICAL",
+        "name": "default",
+        "tables": [
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "z_treeshop.oms_order",
+            "comment": "订单表",
+            "oldName": "oms_order",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "订单id",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "member_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "member_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "coupon_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "coupon_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "order_sn",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "订单编号",
+                "oldName": "order_sn"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "提交时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "member_username",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "用户帐号",
+                "oldName": "member_username"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "total_amount",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "订单总金额",
+                "oldName": "total_amount"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "pay_amount",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "应付金额（实际支付金额）",
+                "oldName": "pay_amount"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "freight_amount",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "运费金额",
+                "oldName": "freight_amount"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "promotion_amount",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "促销优化金额（促销价、满减、阶梯价）",
+                "oldName": "promotion_amount"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "integration_amount",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "积分抵扣金额",
+                "oldName": "integration_amount"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "coupon_amount",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "优惠券抵扣金额",
+                "oldName": "coupon_amount"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "discount_amount",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "管理员后台调整订单使用的折扣金额",
+                "oldName": "discount_amount"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "pay_type",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "支付方式：0->未支付；1->支付宝；2->微信",
+                "oldName": "pay_type"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "source_type",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "订单来源：0->PC订单；1->app订单",
+                "oldName": "source_type"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单",
+                "oldName": "status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "order_type",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "订单类型：0->正常订单；1->秒杀订单",
+                "oldName": "order_type"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "delivery_company",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "物流公司(配送方式)",
+                "oldName": "delivery_company"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "delivery_sn",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "物流单号",
+                "oldName": "delivery_sn"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "auto_confirm_day",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "自动确认时间（天）",
+                "oldName": "auto_confirm_day"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "integration",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "可以获得的积分",
+                "oldName": "integration"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "growth",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "可以活动的成长值",
+                "oldName": "growth"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "promotion_info",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "活动信息",
+                "oldName": "promotion_info"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "bill_type",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "发票类型：0->不开发票；1->电子发票；2->纸质发票",
+                "oldName": "bill_type"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "bill_header",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "发票抬头",
+                "oldName": "bill_header"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "bill_content",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "发票内容",
+                "oldName": "bill_content"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "bill_receiver_phone",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 32,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "收票人电话",
+                "oldName": "bill_receiver_phone"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "bill_receiver_email",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "收票人邮箱",
+                "oldName": "bill_receiver_email"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "receiver_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "收货人姓名",
+                "oldName": "receiver_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "receiver_phone",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 32,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "收货人电话",
+                "oldName": "receiver_phone"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "receiver_post_code",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 32,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "收货人邮编",
+                "oldName": "receiver_post_code"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "receiver_province",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 32,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "省份/直辖市",
+                "oldName": "receiver_province"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "receiver_city",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 32,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "城市",
+                "oldName": "receiver_city"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "receiver_region",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 32,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "区",
+                "oldName": "receiver_region"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "receiver_detail_address",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "详细地址",
+                "oldName": "receiver_detail_address"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "note",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 500,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "订单备注",
+                "oldName": "note"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "confirm_status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "确认收货状态：0->未确认；1->已确认",
+                "oldName": "confirm_status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "delete_status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "0",
+                "comment": "删除状态：0->未删除；1->已删除",
+                "oldName": "delete_status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "use_integration",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "下单时使用的积分",
+                "oldName": "use_integration"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "payment_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "支付时间",
+                "oldName": "payment_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "delivery_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "发货时间",
+                "oldName": "delivery_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "receive_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "确认收货时间",
+                "oldName": "receive_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "comment_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "评价时间",
+                "oldName": "comment_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "modify_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "修改时间",
+                "oldName": "modify_time"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_z_treeshop.oms_order_z_treeshop.oms_order_item_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "z_treeshop.oms_order_item",
+                "referencedFields": [
+                  "order_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "z_treeshop.pms_product",
+            "comment": "商品信息",
+            "oldName": "pms_product",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "brand_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "brand_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_category_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "product_category_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "feight_template_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "feight_template_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_attribute_category_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "product_attribute_category_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "pic",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "pic"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_sn",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "货号",
+                "oldName": "product_sn"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "delete_status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "删除状态：0->未删除；1->已删除",
+                "oldName": "delete_status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "publish_status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "上架状态：0->下架；1->上架",
+                "oldName": "publish_status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "new_status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "新品状态:0->不是新品；1->新品",
+                "oldName": "new_status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "recommand_status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "推荐状态；0->不推荐；1->推荐",
+                "oldName": "recommand_status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "verify_status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "审核状态：0->未审核；1->审核通过",
+                "oldName": "verify_status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "sort",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "排序",
+                "oldName": "sort"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "sale",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "销量",
+                "oldName": "sale"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "price",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "price"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "promotion_price",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "促销价格",
+                "oldName": "promotion_price"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "gift_growth",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "0",
+                "comment": "赠送的成长值",
+                "oldName": "gift_growth"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "gift_point",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "0",
+                "comment": "赠送的积分",
+                "oldName": "gift_point"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "use_point_limit",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "限制使用的积分数",
+                "oldName": "use_point_limit"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "sub_title",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "副标题",
+                "oldName": "sub_title"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "description",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 4000,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "商品描述",
+                "oldName": "description"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "original_price",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "市场价",
+                "oldName": "original_price"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "stock",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "库存",
+                "oldName": "stock"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "low_stock",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "库存预警值",
+                "oldName": "low_stock"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "unit",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 16,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "单位",
+                "oldName": "unit"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "weight",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "商品重量，默认为克",
+                "oldName": "weight"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "preview_status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "是否为预告商品：0->不是；1->是",
+                "oldName": "preview_status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "service_ids",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "以逗号分割的产品服务：1->无忧退货；2->快速退款；3->免费包邮",
+                "oldName": "service_ids"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "keywords",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "keywords"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "note",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "note"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "album_pics",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "画册图片，连产品图片限制为5张，以逗号分割",
+                "oldName": "album_pics"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "detail_title",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "detail_title"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "detail_desc",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 4000,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "detail_desc"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "detail_html",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 4000,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "产品详情网页内容",
+                "oldName": "detail_html"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "detail_mobile_html",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 4000,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "移动端网页详情",
+                "oldName": "detail_mobile_html"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "promotion_start_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "促销开始时间",
+                "oldName": "promotion_start_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "promotion_end_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "促销结束时间",
+                "oldName": "promotion_end_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "promotion_per_limit",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "活动限购数量",
+                "oldName": "promotion_per_limit"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "promotion_type",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "促销类型：0->没有促销使用原价;1->使用促销价；2->使用会员价；3->使用阶梯价格；4->使用满减价格；5->限时购",
+                "oldName": "promotion_type"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "brand_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "品牌名称",
+                "oldName": "brand_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_category_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "商品分类名称",
+                "oldName": "product_category_name"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_z_treeshop.pms_product_z_treeshop.oms_order_item_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "z_treeshop.oms_order_item",
+                "referencedFields": [
+                  "product_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "z_treeshop.ums_admin",
+            "comment": "后台用户表",
+            "oldName": "ums_admin",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "username",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "username"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "password",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "password"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "icon",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 500,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "头像",
+                "oldName": "icon"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "email",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "邮箱",
+                "oldName": "email"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "nick_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "昵称",
+                "oldName": "nick_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "note",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 500,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "备注信息",
+                "oldName": "note"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "创建时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "login_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "最后登录时间",
+                "oldName": "login_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "1",
+                "comment": "帐号启用状态：0->禁用；1->启用",
+                "oldName": "status"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_z_treeshop.ums_admin_z_treeshop.pms_comment_replay_1",
+                "fields": [
+                  "nick_name"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "z_treeshop.pms_comment_replay",
+                "referencedFields": [
+                  "member_nick_name"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "z_treeshop.ums_member",
+            "comment": "会员表",
+            "oldName": "ums_member",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "member_level_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "member_level_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "username",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "用户名",
+                "oldName": "username"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "password",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "密码",
+                "oldName": "password"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "nickname",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "昵称",
+                "oldName": "nickname"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "phone",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "手机号码",
+                "oldName": "phone"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "帐号启用状态:0->禁用；1->启用",
+                "oldName": "status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "注册时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "icon",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 500,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "头像",
+                "oldName": "icon"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "gender",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "性别：0->未知；1->男；2->女",
+                "oldName": "gender"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "birthday",
+                "type": "DATE",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "生日",
+                "oldName": "birthday"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "city",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "所做城市",
+                "oldName": "city"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "job",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "职业",
+                "oldName": "job"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "personalized_signature",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "个性签名",
+                "oldName": "personalized_signature"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "source_type",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "用户来源",
+                "oldName": "source_type"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "integration",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "积分",
+                "oldName": "integration"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "growth",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "成长值",
+                "oldName": "growth"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "luckey_count",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "剩余抽奖次数",
+                "oldName": "luckey_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "history_integration",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "历史积分数量",
+                "oldName": "history_integration"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_z_treeshop.ums_member_z_treeshop.pms_comment_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "z_treeshop.pms_comment",
+                "referencedFields": [
+                  "member_ip"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [
+              {
+                "objectType": "Index_LOGICAL",
+                "name": "idx_username",
+                "fields": [
+                  "username"
+                ],
+                "type": "Unique",
+                "comment": "",
+                "oldName": "idx_username"
+              },
+              {
+                "objectType": "Index_LOGICAL",
+                "name": "idx_phone",
+                "fields": [
+                  "phone"
+                ],
+                "type": "Unique",
+                "comment": "",
+                "oldName": "idx_phone"
+              }
+            ],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "z_treeshop.oms_order_item",
+            "comment": "订单中所包含的商品",
+            "oldName": "oms_order_item",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "order_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "订单id",
+                "oldName": "order_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "order_sn",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "订单编号",
+                "oldName": "order_sn"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "product_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_pic",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 500,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "product_pic"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "product_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_brand",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "product_brand"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_sn",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "product_sn"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_price",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "销售价格",
+                "oldName": "product_price"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_quantity",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "购买数量",
+                "oldName": "product_quantity"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_sku_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "商品sku编号",
+                "oldName": "product_sku_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_sku_code",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "商品sku条码",
+                "oldName": "product_sku_code"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_category_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "商品分类id",
+                "oldName": "product_category_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "sp1",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "商品的销售属性",
+                "oldName": "sp1"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "sp2",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "sp2"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "sp3",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "sp3"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "promotion_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "商品促销名称",
+                "oldName": "promotion_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "promotion_amount",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "商品促销分解金额",
+                "oldName": "promotion_amount"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "coupon_amount",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "优惠券优惠分解金额",
+                "oldName": "coupon_amount"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "integration_amount",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "积分优惠分解金额",
+                "oldName": "integration_amount"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "real_amount",
+                "type": "DECIMAL",
+                "length": 10,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "该商品经过优惠后的分解金额",
+                "oldName": "real_amount"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "gift_integration",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "0",
+                "comment": "",
+                "oldName": "gift_integration"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "gift_growth",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "0",
+                "comment": "",
+                "oldName": "gift_growth"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_attr",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 500,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "商品销售属性:[{\"key\":\"颜色\",\"value\":\"颜色\"},{\"key\":\"容量\",\"value\":\"4G\"}]",
+                "oldName": "product_attr"
+              }
+            ],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "z_treeshop.pms_comment",
+            "comment": "商品评价表",
+            "oldName": "pms_comment",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "product_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "member_nick_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "member_nick_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "product_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "star",
+                "type": "INTEGER",
+                "length": 3,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "评价星数：0->5",
+                "oldName": "star"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "member_ip",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "评价的ip",
+                "oldName": "member_ip"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "show_status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "show_status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "product_attribute",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "购买时的商品属性",
+                "oldName": "product_attribute"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "collect_couont",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "collect_couont"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "read_count",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "read_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "content",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 4000,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "content"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "pics",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 1000,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "上传图片地址，以逗号隔开",
+                "oldName": "pics"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "member_icon",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "评论用户头像",
+                "oldName": "member_icon"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "replay_count",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "replay_count"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_z_treeshop.pms_comment_z_treeshop.pms_product_1",
+                "fields": [
+                  "product_id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "z_treeshop.pms_product",
+                "referencedFields": [
+                  "id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_z_treeshop.pms_comment_z_treeshop.pms_comment_replay_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "z_treeshop.pms_comment_replay",
+                "referencedFields": [
+                  "comment_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "z_treeshop.pms_comment_replay",
+            "comment": "产品评价回复表",
+            "oldName": "pms_comment_replay",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "comment_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "comment_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "member_nick_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "member_nick_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "member_icon",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "member_icon"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "content",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 1000,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "content"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "type",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "评论人员类型；0->会员；1->管理员",
+                "oldName": "type"
+              }
+            ],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "diagrams": [
+    {
+      "name": "Diagram 1",
+      "paperWidth": 2,
+      "paperHeight": 1,
+      "tableFont": "Arial Unicode MS",
+      "tableFontSize": 14,
+      "isBalckWhite": false,
+      "showDBSchemaName": false,
+      "showViewRelations": true,
+      "notation": "default",
+      "showFieldComment": false,
+      "showTableComment": false,
+      "shapes": [
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "z_treeshop.oms_order",
+          "x": 10,
+          "y": 150,
+          "width": 372,
+          "height": 200,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "z_treeshop.pms_product",
+          "x": 410,
+          "y": 260,
+          "width": 379,
+          "height": 200,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "z_treeshop.ums_admin",
+          "x": 0,
+          "y": 370,
+          "width": 230,
+          "height": 270,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "z_treeshop.ums_member",
+          "x": 40,
+          "y": 660,
+          "width": 230,
+          "height": 160,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "z_treeshop.oms_order_item",
+          "x": 430,
+          "y": 90,
+          "width": 344,
+          "height": 160,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "z_treeshop.pms_comment",
+          "x": 720,
+          "y": 490,
+          "width": 260,
+          "height": 230,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "z_treeshop.pms_comment_replay",
+          "x": 280,
+          "y": 480,
+          "width": 354,
+          "height": 190,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "label",
+          "name": "Label 1",
+          "x": 148,
+          "y": 130,
+          "width": 50,
+          "height": 30,
+          "text": "订单表",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "label",
+          "name": "Label 2",
+          "x": 560,
+          "y": 70,
+          "width": 106,
+          "height": 30,
+          "text": "订单详细信息表",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "label",
+          "name": "Label 3",
+          "x": 793,
+          "y": 308,
+          "width": 50,
+          "height": 30,
+          "text": "商品表",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "label",
+          "name": "Label 4",
+          "x": 916,
+          "y": 472,
+          "width": 78,
+          "height": 30,
+          "text": "商品评论表",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "label",
+          "name": "Label 5",
+          "x": 101,
+          "y": 821,
+          "width": 78,
+          "height": 30,
+          "text": "普通用户表",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "label",
+          "name": "Label 6",
+          "x": 90,
+          "y": 350,
+          "width": 64,
+          "height": 30,
+          "text": "管理员表",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        },
+        {
+          "type": "label",
+          "name": "Label 7",
+          "x": 395,
+          "y": 665,
+          "width": 78,
+          "height": 30,
+          "text": "评论回复表",
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
+        }
+      ],
+      "layers": [],
+      "relations": [
+        {
+          "name": "fk_z_treeshop.oms_order_z_treeshop.oms_order_item_1",
+          "sourceTableName": "z_treeshop.oms_order",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 397,
+              "y": 250
+            },
+            {
+              "x": 411,
+              "y": 250
+            },
+            {
+              "x": 411,
+              "y": 170
+            },
+            {
+              "x": 415,
+              "y": 170
+            }
+          ],
+          "label": {
+            "x": 387,
+            "y": 212,
+            "width": 372,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_z_treeshop.pms_product_z_treeshop.oms_order_item_1",
+          "sourceTableName": "z_treeshop.pms_product",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 600,
+              "y": 245
+            },
+            {
+              "x": 600,
+              "y": 245
+            },
+            {
+              "x": 600,
+              "y": 245
+            },
+            {
+              "x": 600,
+              "y": 265
+            }
+          ],
+          "label": {
+            "x": 608,
+            "y": 225,
+            "width": 389,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_z_treeshop.pms_comment_z_treeshop.pms_product_1",
+          "sourceTableName": "z_treeshop.pms_comment",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 850,
+              "y": 475
+            },
+            {
+              "x": 850,
+              "y": 475
+            },
+            {
+              "x": 600,
+              "y": 475
+            },
+            {
+              "x": 600,
+              "y": 475
+            }
+          ],
+          "label": {
+            "x": 858,
+            "y": 455,
+            "width": 381,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_z_treeshop.pms_comment_z_treeshop.pms_comment_replay_1",
+          "sourceTableName": "z_treeshop.pms_comment",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 705,
+              "y": 670
+            },
+            {
+              "x": 657,
+              "y": 670
+            },
+            {
+              "x": 657,
+              "y": 580
+            },
+            {
+              "x": 649,
+              "y": 580
+            }
+          ],
+          "label": {
+            "x": 276,
+            "y": 632,
+            "width": 439,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_z_treeshop.ums_member_z_treeshop.pms_comment_1",
+          "sourceTableName": "z_treeshop.ums_member",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 285,
+              "y": 750
+            },
+            {
+              "x": 630,
+              "y": 750
+            },
+            {
+              "x": 630,
+              "y": 680
+            },
+            {
+              "x": 705,
+              "y": 680
+            }
+          ],
+          "label": {
+            "x": 275,
+            "y": 712,
+            "width": 384,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_z_treeshop.ums_admin_z_treeshop.pms_comment_replay_1",
+          "sourceTableName": "z_treeshop.ums_admin",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 245,
+              "y": 510
+            },
+            {
+              "x": 255,
+              "y": 510
+            },
+            {
+              "x": 255,
+              "y": 580
+            },
+            {
+              "x": 265,
+              "y": 580
+            }
+          ],
+          "label": {
+            "x": 235,
+            "y": 472,
+            "width": 418,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        }
+      ],
+      "viewRelations": []
+    }
+  ]
+}

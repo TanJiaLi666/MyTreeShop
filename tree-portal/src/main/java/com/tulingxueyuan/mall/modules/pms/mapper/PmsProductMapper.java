@@ -15,4 +15,5 @@ import com.tulingxueyuan.mall.dto.ProductDetailDTO;
 public interface PmsProductMapper extends BaseMapper<PmsProduct> {
 
     ProductDetailDTO fetchList(Long id);
+
 }

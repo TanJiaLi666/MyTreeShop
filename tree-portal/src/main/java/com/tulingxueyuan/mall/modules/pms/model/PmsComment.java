@@ -42,7 +42,7 @@ public class PmsComment implements Serializable {
     private String memberIp;
 
     private Date createTime;
-
+    @ApiModelProperty(value = "评论是否展示：是->0,否->1")
     private Integer showStatus;
 
     @ApiModelProperty(value = "购买时的商品属性")

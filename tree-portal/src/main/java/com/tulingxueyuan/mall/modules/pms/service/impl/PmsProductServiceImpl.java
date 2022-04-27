@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -32,5 +33,14 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         queryWrapper.lambda().like(PmsProduct::getName, keyword).or().like(PmsProduct::getBrandName, keyword)
                 .or().like(PmsProduct::getProductCategoryName, keyword);
         return this.list(queryWrapper);
+    }
+
+    @Override
+    public String getProductName(Long productId) {
+        QueryWrapper<PmsProduct> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().select(PmsProduct::getName).eq(PmsProduct::getId, productId);
+        Map<String, Object> map = this.getMap(queryWrapper);
+        String name = (String)map.get("name");
+        return name;
     }
 }
