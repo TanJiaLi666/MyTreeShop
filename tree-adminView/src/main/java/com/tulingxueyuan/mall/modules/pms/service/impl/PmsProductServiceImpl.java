@@ -2,7 +2,6 @@ package com.tulingxueyuan.mall.modules.pms.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
@@ -14,6 +13,7 @@ import com.tulingxueyuan.mall.modules.pms.model.*;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductFetchInfoDTO;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductInfoDTO;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductQueryDTO;
+import com.tulingxueyuan.mall.modules.pms.model.dto.ProductDTO;
 import com.tulingxueyuan.mall.modules.pms.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,39 +49,9 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     PmsProductAttributeValueService productAttributeValueService;
 
     @Override
-    public Page fetchList(PmsProductQueryDTO productQueryDTO) {
-        Page<PmsProduct> mypage = new Page<>(productQueryDTO.getPageNum(), productQueryDTO.getPageSize());
-        QueryWrapper<PmsProduct> queryWrapper = new QueryWrapper<>();
-        LambdaQueryWrapper<PmsProduct> lambda = queryWrapper.lambda();
-        //关键字
-        if (!StrUtil.isBlank(productQueryDTO.getKeyword())) {
-            lambda.like(PmsProduct::getName, productQueryDTO.getKeyword());
-        }
-        //商品编号
-        if (productQueryDTO.getProductSn() != null) {
-            lambda.eq(PmsProduct::getProductSn, productQueryDTO.getProductSn());
-        }
-        //商品分类id
-        if (productQueryDTO.getProductCategoryId() != null && productQueryDTO.getProductCategoryId() >= 0) {
-            lambda.eq(PmsProduct::getProductCategoryId, productQueryDTO.getProductCategoryId());
-        }
-        //上架状态
-        if (productQueryDTO.getPublishStatus() != null && productQueryDTO.getPublishStatus() >= 0) {
-            lambda.eq(PmsProduct::getPublishStatus, productQueryDTO.getPublishStatus());
-        }
-        //品牌id
-        if (productQueryDTO.getBrandId() != null && productQueryDTO.getBrandId() >= 0) {
-            lambda.eq(PmsProduct::getBrandId, productQueryDTO.getBrandId());
-        }
-        //审核状态
-        if (productQueryDTO.getVerifyStatus() != null && productQueryDTO.getVerifyStatus() >= 0) {
-            lambda.eq(PmsProduct::getVerifyStatus, productQueryDTO.getVerifyStatus());
-        }
-        lambda.eq(productQueryDTO.getNewStatus()!=null, PmsProduct::getNewStatus, productQueryDTO.getNewStatus())
-                .eq(productQueryDTO.getRecommandStatus()!=null, PmsProduct::getRecommandStatus, productQueryDTO.getRecommandStatus() )
-                .eq(PmsProduct::getDeleteStatus,0)
-                .orderByAsc(PmsProduct::getSort);
-        return this.page(mypage, queryWrapper);
+    public Page<ProductDTO> fetchList(PmsProductQueryDTO productQueryDTO) {
+        Page<PmsProduct> myPage = new Page<>(productQueryDTO.getPageNum(), productQueryDTO.getPageSize());
+        return this.baseMapper.fetchList(myPage, productQueryDTO);
     }
 
     @Override
@@ -139,6 +109,8 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
 
     @Override
     public PmsProductFetchInfoDTO getProduct(Long id) {
+        //维护商品销量
+        this.baseMapper.setSale(id);
         PmsProductFetchInfoDTO list = this.baseMapper.getProduct(id);
         return list;
     }

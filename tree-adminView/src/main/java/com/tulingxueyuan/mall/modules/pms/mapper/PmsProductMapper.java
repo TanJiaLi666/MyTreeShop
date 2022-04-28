@@ -1,10 +1,13 @@
 package com.tulingxueyuan.mall.modules.pms.mapper;
 
-import com.tulingxueyuan.mall.modules.pms.model.PmsProduct;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tulingxueyuan.mall.modules.pms.model.PmsProduct;
 import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductFetchInfoDTO;
-
-import java.util.List;
+import com.tulingxueyuan.mall.modules.pms.model.dto.PmsProductQueryDTO;
+import com.tulingxueyuan.mall.modules.pms.model.dto.ProductDTO;
+import org.springframework.data.repository.query.Param;
 
 /**
  * <p>
@@ -17,4 +20,8 @@ import java.util.List;
 public interface PmsProductMapper extends BaseMapper<PmsProduct> {
 
     PmsProductFetchInfoDTO getProduct(Long id);
+
+    void setSale(@Param("id") Long id);
+
+    Page<ProductDTO> fetchList(IPage<PmsProduct> myPage, PmsProductQueryDTO productQueryDTO);
 }

@@ -55,6 +55,25 @@
         <collection property="skuStockList" columnPrefix="sku_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsSkuStockMapper.BaseResultMap"/>
         <collection property="productAttributeValueList" columnPrefix="av_" resultMap="com.tulingxueyuan.mall.modules.pms.mapper.PmsProductAttributeValueMapper.BaseResultMap"/>
     </resultMap>
+    <resultMap id="productList" extends="BaseResultMap" type="com.tulingxueyuan.mall.modules.pms.model.dto.ProductDTO">
+        <result column="commentSum" property="commentSum"/>
+    </resultMap>
+    <update id="setSale">
+        UPDATE `pms_product` pp SET pp.`sale`= (SELECT
+        COUNT(1)
+        FROM
+        `oms_order` oo
+        WHERE
+        oo.`id` IN (SELECT
+        DISTINCT
+        ooi.`order_id`
+        FROM
+        `oms_order_item` ooi
+        WHERE
+        ooi.`product_id`=#{id})
+        AND
+        oo.`status`=3) WHERE `id` = #{id};
+    </update>
     <select id="getProduct" resultMap="ProductInfo">
         select
           p.`id`,
@@ -134,6 +153,81 @@
         left join `pms_sku_stock` pss on pss.`product_id`=p.`id`
         left join `pms_product_attribute_value` pav on pav.`product_id`=p.`id`
         where p.id = #{value}
+    </select>
+    <select id="fetchList" resultMap="productList">
+        SELECT
+        pp.id,
+        pp.brand_id,
+        pp.product_category_id,
+        pp.feight_template_id,
+        pp.product_attribute_category_id,
+        pp.`name`,
+        pp.pic,
+        pp.product_sn,
+        pp.delete_status,
+        pp.publish_status,
+        pp.new_status,
+        pp.recommand_status,
+        pp.verify_status,
+        pp.sort,
+        pp.sale,
+        pp.price,
+        pp.promotion_price,
+        pp.gift_growth,
+        pp.gift_point,
+        pp.use_point_limit,
+        pp.sub_title,
+        pp.description,
+        pp.original_price,
+        pp.stock,
+        pp.low_stock,
+        pp.unit,
+        pp.weight,
+        pp.preview_status,
+        pp.service_ids,
+        pp.keywords,
+        pp.note,
+        pp.album_pics,
+        pp.detail_title,
+        pp.detail_desc,
+        pp.detail_html,
+        pp.detail_mobile_html,
+        pp.promotion_start_time,
+        pp.promotion_end_time,
+        pp.promotion_per_limit,
+        pp.promotion_type,
+        pp.brand_name,
+        pp.product_category_name,
+        (SELECT
+        COUNT(1)
+        FROM
+        `pms_comment` pc
+        WHERE pc.`product_id` = pp.`id`) commentSum
+        FROM
+        pms_product pp
+        WHERE delete_status = 0
+        <if test="productQueryDTO.keyword!=null and productQueryDTO.keyword!=''">
+            AND `name` LIKE CONCAT('%',#{productQueryDTO.keyword},'%')
+        </if>
+        <if test="productQueryDTO.productSn!=null and productQueryDTO.productSn!=''">
+            AND product_sn = #{productQueryDTO.productSn}
+        </if>
+        <if test="productQueryDTO.productCategoryId!=null">
+            AND product_category_id = #{productQueryDTO.productCategoryId}
+        </if>
+        <if test="productQueryDTO.publishStatus!=null">
+            AND publish_status = #{productQueryDTO.publishStatus}
+        </if>
+        <if test="productQueryDTO.brandId!=null">
+            AND brand_id = #{productQueryDTO.brandId}
+        </if>
+        <if test="productQueryDTO.verifyStatus!=null">
+            AND verify_status = #{productQueryDTO.verifyStatus}
+        </if>
+        <if test="productQueryDTO.recommandStatus!=null">
+            AND recommand_status = #{productQueryDTO.recommandStatus}
+        </if>
+        ORDER BY sort ASC
     </select>
 
 </mapper>

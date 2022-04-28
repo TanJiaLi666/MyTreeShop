@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface PmsCommentService extends IService<PmsComment> {
 
+    Boolean sendComment(PmsComment comment);
 }

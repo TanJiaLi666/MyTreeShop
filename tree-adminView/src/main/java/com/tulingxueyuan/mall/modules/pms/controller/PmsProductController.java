@@ -105,15 +105,6 @@ public class PmsProductController {
         }
         return CommonResult.failed("保存失败！");
     }
-    /**
-     * export function fetchSimpleList(params) {
-     *   return request({
-     *     url:'/product/simpleList',
-     *     method:'get',
-     *     params:params
-     *   })
-     * }
-     */
     @ApiOperation("商品查询")
     @GetMapping("/simpleList")
     public CommonResult<List<PmsProduct>> fetchSimpleList(PmsProductQueryDTO productQueryDTO) {
