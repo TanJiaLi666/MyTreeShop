@@ -1,7 +1,11 @@
 package com.tulingxueyuan.mall.modules.pms.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.modules.pms.model.PmsComment;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tulingxueyuan.mall.modules.pms.model.PmsCommentReplay;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +18,18 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface PmsCommentService extends IService<PmsComment> {
 
     Boolean sendComment(PmsComment comment);
+
+    Page<PmsComment> fetchList(PmsComment comment);
+
+    Boolean updateStatus(List<Long> ids, Integer showStatus);
+
+    Boolean deleteReply(List<Long> ids);
+
+    Boolean updateSort(Long id, Integer sort);
+
+    Page<PmsCommentReplay> getCommentReply(Long id, PmsCommentReplay commentReplay);
+
+    Boolean deleteReplyIn(List<Long> ids);
+
+    Boolean sendCommentReply(PmsCommentReplay comment);
 }

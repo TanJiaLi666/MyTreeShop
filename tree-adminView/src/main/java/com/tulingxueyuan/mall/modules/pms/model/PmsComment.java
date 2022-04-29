@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.modules.pms.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
@@ -62,6 +63,11 @@ public class PmsComment implements Serializable {
 
     private Integer replayCount;
     private Integer sort;
+
+    @TableField(exist = false)
+    private Integer pageSize;
+    @TableField(exist = false)
+    private Integer pageNum;
 
 
 }

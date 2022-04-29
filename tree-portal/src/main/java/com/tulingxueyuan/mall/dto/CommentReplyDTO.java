@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="评论回复信息")
 public class CommentReplyDTO {
+    private Long id;
     private Long parentCommentId;
     private Long commentId;
     private String commentUser;

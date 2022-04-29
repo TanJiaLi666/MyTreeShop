@@ -2,6 +2,7 @@ package com.tulingxueyuan.mall.modules.pms.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tulingxueyuan.mall.dto.CommentDTO;
 import com.tulingxueyuan.mall.dto.CommentReplyDTO;
@@ -54,6 +55,7 @@ public class PmsCommentServiceImpl extends ServiceImpl<PmsCommentMapper, PmsComm
             List<PmsCommentReplay> replays = commentReplayService.list(replayQueryWrapper);
             List<CommentReplyDTO> replayList = replays.stream().map(o -> {
                 CommentReplyDTO replyDTO = new CommentReplyDTO();
+                replyDTO.setId(o.getId());
                 replyDTO.setCommentId(o.getId());
                 replyDTO.setParentCommentId(o.getCommentId());
                 replyDTO.setCommentContent(o.getContent());
@@ -89,13 +91,17 @@ public class PmsCommentServiceImpl extends ServiceImpl<PmsCommentMapper, PmsComm
         comment.setProductName(productName);
         UmsMember member = memberService.getMemberId();
         comment.setMemberIp(member.getId().toString());
+        comment.setReplayCount(0);
         return save(comment);
     }
 
     @Override
     public Boolean saveCommentReply(PmsCommentReplay commentReplay) {
         commentReplay.setCreateTime(new Date());
-        commentReplay.setType(0);
+        commentReplay.setType(1);
+        UpdateWrapper<PmsComment> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.setSql("`replay_count` = `replay_count` + 1").lambda().eq(PmsComment::getId, commentReplay.getCommentId());
+        update(updateWrapper);
         return commentReplayService.save(commentReplay);
     }
 
@@ -109,7 +115,13 @@ public class PmsCommentServiceImpl extends ServiceImpl<PmsCommentMapper, PmsComm
     }
 
     @Override
+    @Transactional
     public Boolean deleteReCommentReply(Long id) {
+        UpdateWrapper<PmsComment> updateWrapper = new UpdateWrapper<>();
+        PmsCommentReplay replay = commentReplayService.getById(id);
+        Long commentId = replay.getCommentId();
+        updateWrapper.setSql("`replay_count` = `replay_count` - 1").lambda().eq(PmsComment::getId, commentId);
+        update(updateWrapper);
         return commentReplayService.removeById(id);
     }
 }

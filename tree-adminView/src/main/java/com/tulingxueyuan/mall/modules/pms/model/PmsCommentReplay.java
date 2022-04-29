@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.modules.pms.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
@@ -39,8 +40,12 @@ public class PmsCommentReplay implements Serializable {
 
     private Date createTime;
 
-    @ApiModelProperty(value = "评论人员类型；0->会员；1->管理员")
+    @ApiModelProperty(value = "评论人员类型；1->会员；0->管理员")
     private Integer type;
+    @TableField(exist = false)
+    private Integer pageSize;
+    @TableField(exist = false)
+    private Integer pageNum;
 
 
 }
