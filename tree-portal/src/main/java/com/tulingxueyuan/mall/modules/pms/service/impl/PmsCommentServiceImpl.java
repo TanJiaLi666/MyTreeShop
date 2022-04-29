@@ -44,13 +44,13 @@ public class PmsCommentServiceImpl extends ServiceImpl<PmsCommentMapper, PmsComm
     public List<CommentDTO> fetchList(Long id) {
         List<CommentDTO> list = new ArrayList<>();
         QueryWrapper<PmsComment> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(PmsComment::getProductId, id);
+        queryWrapper.lambda().eq(PmsComment::getProductId, id).orderByDesc(PmsComment::getSort,PmsComment::getCreateTime);
         List<PmsComment> commentList = list(queryWrapper);
         for (PmsComment comment : commentList) {
             CommentDTO dto = new CommentDTO();
             Long commentId = comment.getId();
             QueryWrapper<PmsCommentReplay> replayQueryWrapper = new QueryWrapper<>();
-            replayQueryWrapper.lambda().eq(PmsCommentReplay::getCommentId, commentId);
+            replayQueryWrapper.lambda().eq(PmsCommentReplay::getCommentId, commentId).orderByDesc(PmsCommentReplay::getCreateTime);
             //查询评论下的所有回复
             List<PmsCommentReplay> replays = commentReplayService.list(replayQueryWrapper);
             List<CommentReplyDTO> replayList = replays.stream().map(o -> {

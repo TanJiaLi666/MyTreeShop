@@ -61,6 +61,7 @@ public class PmsComment implements Serializable {
     private String memberIcon;
 
     private Integer replayCount;
+    private Integer sort;
 
 
 }
