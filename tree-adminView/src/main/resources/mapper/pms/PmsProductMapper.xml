@@ -57,6 +57,7 @@
     </resultMap>
     <resultMap id="productList" extends="BaseResultMap" type="com.tulingxueyuan.mall.modules.pms.model.dto.ProductDTO">
         <result column="commentSum" property="commentSum"/>
+        <result column="score" property="score"/>
     </resultMap>
     <update id="setSale">
         UPDATE `pms_product` pp SET pp.`sale`= (SELECT
@@ -202,7 +203,12 @@
         COUNT(1)
         FROM
         `pms_comment` pc
-        WHERE pc.`product_id` = pp.`id`) commentSum
+        WHERE pc.`product_id` = pp.`id`) commentSum,
+        (SELECT
+        AVG(pc.star)
+        FROM
+        `pms_comment` pc
+        WHERE pc.`product_id` = pp.`id` ) score
         FROM
         pms_product pp
         WHERE delete_status = 0

@@ -79,6 +79,16 @@ public class PmsProductController {
         }
         return CommonResult.failed("失败");
     }
+    @ApiOperation("审核状态改变按钮")
+    @PostMapping("/update/verifyStatus")
+    public CommonResult<Boolean> updateVerifyStatus(@RequestParam(value = "ids") List<Long> ids,
+                                                     @RequestParam(value = "verifyStatus", defaultValue="0") Integer publishStatus){
+        Boolean is_success = productService.updateStatus(ids,publishStatus,PmsProduct::getVerifyStatus);
+        if(is_success){
+            return CommonResult.success(true,"修改成功");
+        }
+        return CommonResult.failed("失败");
+    }
 
     @ApiOperation("添加商品详细信息")
     @PostMapping("/create")
