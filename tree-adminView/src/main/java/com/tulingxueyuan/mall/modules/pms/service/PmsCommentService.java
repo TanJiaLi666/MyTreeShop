@@ -5,6 +5,7 @@ import com.tulingxueyuan.mall.modules.pms.model.PmsComment;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tulingxueyuan.mall.modules.pms.model.PmsCommentReplay;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -32,4 +33,6 @@ public interface PmsCommentService extends IService<PmsComment> {
     Boolean deleteReplyIn(List<Long> ids);
 
     Boolean sendCommentReply(PmsCommentReplay comment);
+
+    Double getScore(Long productId);
 }

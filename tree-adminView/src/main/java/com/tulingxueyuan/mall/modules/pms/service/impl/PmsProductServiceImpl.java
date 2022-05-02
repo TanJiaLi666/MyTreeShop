@@ -71,9 +71,12 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean createProduct(PmsProductInfoDTO productInfoDTO) {
+        List<PmsSkuStock> skuStockList = productInfoDTO.getSkuStockList();
+        int sum = skuStockList.stream().mapToInt(PmsSkuStock::getLowStock).sum();
         //保存商品基本信息
         PmsProduct product = new PmsProduct();
         BeanUtil.copyProperties(productInfoDTO,product);
+        product.setLowStock(sum);
         boolean save = this.save(product);
         Long productId = product.getId();
         //保存成功才做后续相关联的表操作
@@ -97,7 +100,6 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
                     break;
             }
             //保存sku表
-            List<PmsSkuStock> skuStockList = productInfoDTO.getSkuStockList();
             saveManyList(skuStockList,productId,skuStockService);
             //保存商品属性值
             List<PmsProductAttributeValue> productAttributeValueList = productInfoDTO.getProductAttributeValueList();

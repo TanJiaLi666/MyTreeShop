@@ -29,5 +29,16 @@
         <result column="gift_growth" property="giftGrowth" />
         <result column="product_attr" property="productAttr" />
     </resultMap>
+    <select id="getOrderProduct" resultType="com.tulingxueyuan.mall.modules.sms.model.dto.DataStatisticsDTO">
+        SELECT
+          DATE_FORMAT(o.`create_time`, '%Y-%m-%d') `time`,
+          SUM(oi.`product_quantity`) `sale`
+        FROM
+          `oms_order_item` oi
+          LEFT JOIN `oms_order` o
+            ON o.`id` = oi.`order_id`
+        WHERE oi.`product_id` = #{productId}
+        GROUP BY DATE_FORMAT(o.`create_time`, '%Y-%m-%d')
+    </select>
 
 </mapper>

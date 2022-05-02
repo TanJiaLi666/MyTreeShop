@@ -2,6 +2,10 @@ package com.tulingxueyuan.mall.modules.oms.mapper;
 
 import com.tulingxueyuan.mall.modules.oms.model.OmsOrderItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tulingxueyuan.mall.modules.sms.model.dto.DataStatisticsDTO;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface OmsOrderItemMapper extends BaseMapper<OmsOrderItem> {
 
+    List<DataStatisticsDTO> getOrderProduct(@Param("productId") Long productId);
 }

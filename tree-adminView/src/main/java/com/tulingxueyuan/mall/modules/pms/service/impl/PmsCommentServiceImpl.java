@@ -1,5 +1,6 @@
 package com.tulingxueyuan.mall.modules.pms.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -18,8 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -126,5 +129,17 @@ public class PmsCommentServiceImpl extends ServiceImpl<PmsCommentMapper, PmsComm
         updateWrapper.setSql("`replay_count` = `replay_count` + 1").lambda().eq(PmsComment::getId, comment.getCommentId());
         update(updateWrapper);
         return commentReplayService.save(comment);
+    }
+
+    @Override
+    public Double getScore(Long productId) {
+        QueryWrapper<PmsComment> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("AVG(`star`) score").lambda().eq(PmsComment::getProductId, productId);
+        Map<String, Object> map = this.getMap(queryWrapper);
+        if (CollUtil.isEmpty(map)){
+            return 0d;
+        }
+        Object score = map.get("score");
+        return Double.parseDouble(score.toString());
     }
 }

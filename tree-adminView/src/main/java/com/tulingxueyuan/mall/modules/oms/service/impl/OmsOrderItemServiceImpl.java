@@ -4,7 +4,10 @@ import com.tulingxueyuan.mall.modules.oms.model.OmsOrderItem;
 import com.tulingxueyuan.mall.modules.oms.mapper.OmsOrderItemMapper;
 import com.tulingxueyuan.mall.modules.oms.service.OmsOrderItemService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tulingxueyuan.mall.modules.sms.model.dto.DataStatisticsDTO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class OmsOrderItemServiceImpl extends ServiceImpl<OmsOrderItemMapper, OmsOrderItem> implements OmsOrderItemService {
 
+    @Override
+    public List<DataStatisticsDTO> getOrderProduct(Long productId) {
+        return this.baseMapper.getOrderProduct(productId);
+    }
 }
