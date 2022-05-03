@@ -3,9 +3,14 @@ package com.tulingxueyuan.mall.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
+import com.tulingxueyuan.mall.common.api.ResultCode;
+import com.tulingxueyuan.mall.dto.CartDTO;
 import com.tulingxueyuan.mall.dto.ConfirmOrderDTO;
 import com.tulingxueyuan.mall.dto.OrderDTO;
 import com.tulingxueyuan.mall.dto.OrderItemDTO;
+import com.tulingxueyuan.mall.modules.oms.model.OmsOrderReturnReason;
+import com.tulingxueyuan.mall.modules.oms.service.OmsCartItemService;
+import com.tulingxueyuan.mall.modules.oms.service.OmsOrderReturnReasonService;
 import com.tulingxueyuan.mall.modules.oms.service.OmsOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +25,10 @@ import java.util.List;
 public class OrderController {
     @Autowired
     OmsOrderService orderService;
+    @Autowired
+    OmsCartItemService cartItemService;
+    @Autowired
+    OmsOrderReturnReasonService reasonService;
 
     @ApiOperation(value = "加载商品列表")
     @PostMapping("/generateConfirmOrder")
@@ -72,5 +81,23 @@ public class OrderController {
         }
         return CommonResult.failed("失败");
 
+    }
+    @ApiOperation(value = "立即购买")
+    @PostMapping("/add")
+    public CommonResult addOrder(@RequestBody CartDTO cartDTO) {
+        Long orderId = cartItemService.addOrder(cartDTO);
+        return CommonResult.success(orderId);
+    }
+    @ApiOperation(value = "获取退货原因")
+    @PostMapping("/getReturnReason")
+    public CommonResult getReturnReason() {
+        List<OmsOrderReturnReason> list = reasonService.getReturnReason();
+        return CommonResult.success(list);
+    }
+    @ApiOperation(value = "获取退货原因")
+    @PostMapping("/addReturnReason")
+    public CommonResult addReturnReason(String text, Long id) {
+        Boolean save = reasonService.addReturnReason(text, id);
+        return CommonResult.success(save);
     }
 }

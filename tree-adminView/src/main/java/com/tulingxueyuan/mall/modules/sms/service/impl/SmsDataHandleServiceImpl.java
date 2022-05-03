@@ -89,13 +89,27 @@ public class SmsDataHandleServiceImpl implements SmsDataHandleService {
         Object shopSumPrice = shopPrice.get("sumPrice");
         Object returnSum = returnSumCount.get("returnSum");
         Object shopReturnSum = shopReturnSumCount.get("returnSum");
+
+        int i = Integer.parseInt(sumCount.toString());
+        int i1 = Integer.parseInt(shopSumCount.toString());
+
+        BigDecimal bigDecimal1 = new BigDecimal(sumPrice.toString());
+        BigDecimal bigDecimal2 = new BigDecimal(shopSumPrice.toString());
+
+        int j = Integer.parseInt(returnSum.toString());
+        int j2 = Integer.parseInt(shopReturnSum.toString());
+
         AnalysisDTO analysisDTO = new AnalysisDTO();
-        analysisDTO.setSumCount(Integer.parseInt(sumCount.toString()));
-        analysisDTO.setShopSumCount(Integer.parseInt(shopSumCount.toString()));
-        analysisDTO.setSumPrice(new BigDecimal(sumPrice.toString()));
-        analysisDTO.setShopSumPrice(new BigDecimal(shopSumPrice.toString()));
-        analysisDTO.setReturnSum(Integer.parseInt(returnSum.toString()));
-        analysisDTO.setShopReturnSum(Integer.parseInt(shopReturnSum.toString()));
+
+        analysisDTO.setSumCount(i);
+        analysisDTO.setShopSumCount(i1);
+
+        analysisDTO.setSumPrice(bigDecimal1);
+        analysisDTO.setShopSumPrice(bigDecimal2);
+
+        analysisDTO.setReturnSum(j);
+        analysisDTO.setShopReturnSum(j2);
+
         return analysisDTO;
     }
     private Map<String, Object> queryOrderReturn(Long id) {

@@ -27,4 +27,6 @@ public interface OmsCartItemService extends IService<OmsCartItem> {
     Boolean deleteCar(List<Long> ids);
 
     String handleStock(Long id);
+
+    Long addOrder(CartDTO cartDTO);
 }

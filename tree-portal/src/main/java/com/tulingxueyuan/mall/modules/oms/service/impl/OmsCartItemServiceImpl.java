@@ -138,6 +138,48 @@ public class OmsCartItemServiceImpl extends ServiceImpl<OmsCartItemMapper, OmsCa
         return null;
     }
 
+    @Override
+    public Long addOrder(CartDTO cartDTO) {
+        OmsCartItem cartItem = new OmsCartItem();
+        BeanUtils.copyProperties(cartDTO, cartItem);
+        //查询用户信息
+        UmsMember member = memberService.getMemberId();
+        cartItem.setMemberId(member.getId());
+        cartItem.setMemberNickname(member.getNickname());
+
+        //根据用户信息及购物车信息，校验购物车是否存在相同规格产品
+        OmsCartItem cart = selectCart(cartDTO.getProductId(), cartDTO.getProductSkuId(), cartItem.getMemberId());
+        if (cart == null) {
+            //查询商品属性信息
+            PmsSkuStock skuStock = skuStockService.getById(cartItem.getProductSkuId());
+            if (skuStock == null) Asserts.fail(ResultCode.VALIDATE_FAILED);
+            cartItem.setPrice(skuStock.getPrice());
+            cartItem.setSp1(skuStock.getSp1());
+            cartItem.setSp2(skuStock.getSp2());
+            cartItem.setSp3(skuStock.getSp3());
+            cartItem.setProductSkuCode(skuStock.getSkuCode());
+            //查询商品信息
+            PmsProduct product = productService.getById(cartItem.getProductId());
+            if (product == null) Asserts.fail(ResultCode.VALIDATE_FAILED);
+            cartItem.setProductPic(product.getPic());
+            cartItem.setProductName(product.getName());
+            cartItem.setProductSubTitle(product.getSubTitle());
+            cartItem.setProductBrand(product.getBrandName());
+            cartItem.setProductSn(product.getProductSn());
+            cartItem.setProductCategoryId(product.getProductCategoryId());
+            //时间处理
+            Date date = new Date();
+            cartItem.setCreateDate(date);
+            cartItem.setModifyDate(date);
+            int insert = this.baseMapper.insert(cartItem);
+            return cartItem.getId();
+        } else {
+            cart.setQuantity(cart.getQuantity()+1);
+            int i = this.baseMapper.updateById(cart);
+            return cart.getId();
+        }
+    }
+
     /**
      * 校验购物车
      * */
