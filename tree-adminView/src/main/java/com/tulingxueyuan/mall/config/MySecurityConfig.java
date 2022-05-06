@@ -5,7 +5,6 @@ import com.tulingxueyuan.mall.modules.ums.dto.domain.ResourceVO;
 import com.tulingxueyuan.mall.modules.ums.service.UmsAdminService;
 import com.tulingxueyuan.mall.modules.ums.service.UmsResourceService;
 import com.tulingxueyuan.mall.securityface.SecurityResourceRoleInterface;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.ConfigAttribute;

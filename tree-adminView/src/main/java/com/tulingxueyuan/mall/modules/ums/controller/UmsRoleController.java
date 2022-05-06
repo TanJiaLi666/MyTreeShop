@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * 后台用户角色管理
- * Created by macro on 2018/9/30.
- */
+
 @Controller
 @Api(tags = "UmsRoleController", description = "后台用户角色管理")
 @RequestMapping("/role")

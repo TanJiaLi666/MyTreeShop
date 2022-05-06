@@ -1,8 +1,6 @@
 package com.tulingxueyuan.mall.modules.oms.service.impl;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tulingxueyuan.mall.modules.home.service.UmsMemberService;
 import com.tulingxueyuan.mall.modules.oms.mapper.UmsMemberReceiveAddressMapper;
@@ -10,8 +8,6 @@ import com.tulingxueyuan.mall.modules.oms.model.UmsMemberReceiveAddress;
 import com.tulingxueyuan.mall.modules.oms.service.UmsMemberReceiveAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>

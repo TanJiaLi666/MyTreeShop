@@ -1,10 +1,8 @@
 package com.tulingxueyuan.mall.modules.oms.controller;
 
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.modules.oms.model.OmsOrderSetting;
 import com.tulingxueyuan.mall.modules.oms.service.OmsOrderSettingService;

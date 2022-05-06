@@ -3,7 +3,6 @@ package com.tulingxueyuan.mall.modules.ums.controller;
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.modules.ums.model.UmsResourceCategory;
 import com.tulingxueyuan.mall.modules.ums.service.UmsResourceCategoryService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

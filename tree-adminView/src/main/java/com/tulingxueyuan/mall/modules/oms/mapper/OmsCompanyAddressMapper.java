@@ -1,7 +1,7 @@
 package com.tulingxueyuan.mall.modules.oms.mapper;
 
-import com.tulingxueyuan.mall.modules.oms.model.OmsCompanyAddress;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tulingxueyuan.mall.modules.oms.model.OmsCompanyAddress;
 
 /**
  * <p>

@@ -6,7 +6,6 @@ import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.modules.ums.dto.UmsMenuNode;
 import com.tulingxueyuan.mall.modules.ums.model.UmsMenu;
 import com.tulingxueyuan.mall.modules.ums.service.UmsMenuService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * 后台菜单管理Controller
- * Created by macro on 2020/2/4.
- */
+
 @Controller
 @Api(tags = "UmsMenuController", description = "后台菜单管理")
 @RequestMapping("/menu")

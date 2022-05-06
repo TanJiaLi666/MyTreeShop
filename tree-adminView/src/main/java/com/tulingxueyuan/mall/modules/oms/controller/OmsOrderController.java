@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
 import com.tulingxueyuan.mall.modules.oms.model.OmsOrder;
-import com.tulingxueyuan.mall.modules.oms.model.UmsMemberReceiveAddress;
 import com.tulingxueyuan.mall.modules.oms.model.dto.DefaultListQueryDTO;
 import com.tulingxueyuan.mall.modules.oms.model.dto.OmsOrderDeliveryDTO;
 import com.tulingxueyuan.mall.modules.oms.model.dto.OmsOrderInfoDTO;
