@@ -11,7 +11,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tulingxueyuan.mall.common.exception.ApiException;
 import com.tulingxueyuan.mall.common.service.RedisService;
 import com.tulingxueyuan.mall.common.util.ComConstants;
-import com.tulingxueyuan.mall.common.util.JwtTokenUtil;
 import com.tulingxueyuan.mall.dto.ConfirmOrderDTO;
 import com.tulingxueyuan.mall.dto.OrderDTO;
 import com.tulingxueyuan.mall.dto.OrderItemDTO;
@@ -32,7 +31,6 @@ import com.tulingxueyuan.mall.modules.ums.service.UmsMemberReceiveAddressService
 import com.tulingxueyuan.mall.modules.ums.service.UmsMemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,7 +39,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**

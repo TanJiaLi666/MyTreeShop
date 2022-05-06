@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tulingxueyuan.mall.common.api.ResultCode;
 import com.tulingxueyuan.mall.common.exception.Asserts;
-import com.tulingxueyuan.mall.common.util.ComConstants;
 import com.tulingxueyuan.mall.dto.CartDTO;
 import com.tulingxueyuan.mall.modules.oms.mapper.OmsCartItemMapper;
 import com.tulingxueyuan.mall.modules.oms.model.OmsCartItem;
@@ -24,8 +23,6 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * <p>

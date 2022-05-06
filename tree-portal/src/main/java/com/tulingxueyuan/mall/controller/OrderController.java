@@ -3,7 +3,6 @@ package com.tulingxueyuan.mall.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tulingxueyuan.mall.common.api.CommonPage;
 import com.tulingxueyuan.mall.common.api.CommonResult;
-import com.tulingxueyuan.mall.common.api.ResultCode;
 import com.tulingxueyuan.mall.dto.CartDTO;
 import com.tulingxueyuan.mall.dto.ConfirmOrderDTO;
 import com.tulingxueyuan.mall.dto.OrderDTO;
