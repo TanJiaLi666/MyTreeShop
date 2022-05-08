@@ -30,6 +30,6 @@
         FROM
             sms_home_category shc
         WHERE
-            shc.id=1
+            shc.id=#{id}
     </select>
 </mapper>

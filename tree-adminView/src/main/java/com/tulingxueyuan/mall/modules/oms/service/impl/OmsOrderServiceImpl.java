@@ -16,12 +16,18 @@ import com.tulingxueyuan.mall.modules.oms.model.dto.OmsOrderInfoDTO;
 import com.tulingxueyuan.mall.modules.oms.service.OmsOrderItemService;
 import com.tulingxueyuan.mall.modules.oms.service.OmsOrderOperateHistoryService;
 import com.tulingxueyuan.mall.modules.oms.service.OmsOrderService;
+import com.tulingxueyuan.mall.modules.ums.model.UmsAdmin;
+import com.tulingxueyuan.mall.modules.ums.service.UmsAdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -38,6 +44,8 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
     OmsOrderItemService orderItemService;
     @Autowired
     OmsOrderOperateHistoryService historyService;
+    @Autowired
+    UmsAdminService adminService;
     @Override
     public Page<OmsOrder> fetchList(DefaultListQueryDTO defaultListQueryDTO) {
         String orderSn = defaultListQueryDTO.getOrderSn();
@@ -99,24 +107,10 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
     }
 
     @Override
+    @Transactional
     public Boolean deliveryOrder(List<OmsOrderDeliveryDTO> orderDeliveryDTOs) {
         orderDeliveryDTOs.forEach(x->{
-            String address = x.getAddress();
-            String[] strings = address.split("省");
-            if (strings.length == 2) {
-                x.setReceiverProvince(strings[0]+"省");
-                String[] s = strings[1].split("市");
-                x.setReceiverCity(s[0]+"市");
-                String[] s1 = s[1].split("区");
-                x.setReceiverRegion(s1[0]+"区");
-                x.setReceiverDetailAddress(s1[1]);
-            }else if (strings.length == 1){
-                String[] s = strings[0].split("市");
-                x.setReceiverProvince(s[0]+"市");
-                String[] s1 = s[1].split("区");
-                x.setReceiverRegion(s1[0]+"区");
-                x.setReceiverDetailAddress(s1[1]);
-            }
+            addressResolution(x);
             UpdateWrapper<OmsOrder> updateWrapper = new UpdateWrapper<>();
             updateWrapper.lambda()
                     .set(OmsOrder::getStatus,2)
@@ -132,6 +126,15 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
                     .set(OmsOrder::getReceiverDetailAddress,x.getReceiverDetailAddress())
                     .eq(OmsOrder::getId,x.getOrderId());
             this.update(updateWrapper);
+            //记录操作历史
+            UmsAdmin admin = adminService.getAdmin();
+            OmsOrderOperateHistory history = new OmsOrderOperateHistory();
+            history.setCreateTime(new Date());
+            history.setOrderStatus(2);
+            history.setOperateMan(admin.getUsername());
+            history.setOrderId(x.getOrderId());
+            history.setNote("完成发货！");
+            historyService.save(history);
         });
         return true;
     }
@@ -165,5 +168,25 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
     @Override
     public Boolean updateMoneyInfo(OmsOrder order) {
         return this.updateById(order);
+    }
+
+    //地址解析
+    public static OmsOrderDeliveryDTO addressResolution(OmsOrderDeliveryDTO dto){
+        String address = dto.getAddress();
+        String regex="((?<province>[^省]+省|.+自治区)|上海|北京|天津|重庆)(?<city>[^市]+市|.+自治州)(?<county>[^县]+县|.+区|.+镇|.+局)?(?<town>[^区]+区|.+镇)?(?<village>.*)";
+        Matcher m= Pattern.compile(regex).matcher(address);
+        String province=null,city=null,county=null,town=null,village=null;
+        while(m.find()){
+            province=m.group("province");//省
+            city=m.group("city");//市
+            county=m.group("county");//县
+            town=m.group("town");//镇
+            village=m.group("village");//村
+            dto.setReceiverProvince(province);
+            dto.setReceiverCity(city);
+            dto.setReceiverRegion(county);
+            dto.setReceiverDetailAddress(town+village);
+        }
+        return dto;
     }
 }
